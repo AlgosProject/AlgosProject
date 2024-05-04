@@ -1,5 +1,4 @@
 from flask import Blueprint, request, render_template, redirect, url_for, current_app
-from utils.mongo_store_broker import mongo
 
 login_form_blueprint = Blueprint('login_form', __name__,
                                  template_folder='templates')
