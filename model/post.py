@@ -14,7 +14,7 @@ class Post:
     text: str
     user_id: ObjectId
     comments: list[ObjectId]
-    _id: Optional[ObjectId] = ObjectId()
+    _id: Optional[ObjectId] = dataclasses.field(default_factory=ObjectId)
 
     def get_id(self):  # in python _ before a field indicates that its protected so a method is used to retrieve it
         return self._id
@@ -58,7 +58,7 @@ class Dao:
         if isinstance(_id, str):
             _id = ObjectId(_id)
         return mongo.db.posts.update_one({"_id": _id},
-                                            {"$set": dict(obj)})
+                                         {"$set": dict(obj)})
 
     @staticmethod
     def delete_one(_id: str | ObjectId):
