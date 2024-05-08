@@ -35,7 +35,7 @@ class Dao:
         """
         if isinstance(_id, str):
             _id = ObjectId(_id)
-        res = mongo.db.messages.find_one({"_id": _id})
+        res = mongo.db.posts.find_one({"_id": _id})
         return Post(**res)
 
     @staticmethod
@@ -45,7 +45,7 @@ class Dao:
         :param obj:
         :return:
         """
-        return mongo.db.messages.insert_one(dict(obj)).inserted_id
+        return mongo.db.posts.insert_one(dict(obj)).inserted_id
 
     @staticmethod
     def update_one(_id: str | ObjectId, obj: Post):
@@ -57,7 +57,7 @@ class Dao:
         """
         if isinstance(_id, str):
             _id = ObjectId(_id)
-        return mongo.db.messages.update_one({"_id": _id},
+        return mongo.db.posts.update_one({"_id": _id},
                                             {"$set": dict(obj)})
 
     @staticmethod
@@ -69,12 +69,12 @@ class Dao:
         """
         if isinstance(_id, str):
             _id = ObjectId(_id)
-        return mongo.db.messages.delete_one({"_id": _id})
+        return mongo.db.posts.delete_one({"_id": _id})
 
     @staticmethod
     def get_all():
         """
         :return: - A list of Post objects
         """
-        res = mongo.db.messages.find({})
+        res = mongo.db.posts.find({})
         return [Post(**r) for r in res]

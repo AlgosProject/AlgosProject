@@ -32,7 +32,7 @@ class Dao:
         """
         if isinstance(_id, str):
             _id = ObjectId(_id)
-        res = mongo.db.messages.find_one({"_id": _id})
+        res = mongo.db.comments.find_one({"_id": _id})
         return Comment(**res)
 
     @staticmethod
@@ -42,7 +42,7 @@ class Dao:
         :param obj:
         :return:
         """
-        return mongo.db.messages.insert_one(dict(obj)).inserted_id
+        return mongo.db.comments.insert_one(dict(obj)).inserted_id
 
     @staticmethod
     def update_one(_id: str | ObjectId, obj: Comment):
@@ -54,7 +54,7 @@ class Dao:
         """
         if isinstance(_id, str):
             _id = ObjectId(_id)
-        return mongo.db.messages.update_one({"_id": _id},
+        return mongo.db.comments.update_one({"_id": _id},
                                             {"$set": dict(obj)})
 
     @staticmethod
@@ -66,12 +66,12 @@ class Dao:
         """
         if isinstance(_id, str):
             _id = ObjectId(_id)
-        return mongo.db.messages.delete_one({"_id": _id})
+        return mongo.db.comments.delete_one({"_id": _id})
 
     @staticmethod
     def get_all():
         """
         :return: - A list of comment objects
         """
-        res = mongo.db.messages.find({})
+        res = mongo.db.comments.find({})
         return [Comment(**r) for r in res]
