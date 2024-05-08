@@ -23,4 +23,10 @@ def insert_one(collection, obj):
     return mongo.db[collection].insert_one(obj).inserted_id
 
 
+def update_one(collection, obj_id, obj):
+    return mongo.db[collection].update_one({"_id": obj_id},
+                                           {"$set": obj})
 
+
+def delete_one(collection, obj_id):
+    return mongo.db[collection].delete_one({"_id": obj_id})
