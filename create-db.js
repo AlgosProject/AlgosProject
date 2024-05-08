@@ -130,11 +130,11 @@ db.messages.insertMany([
     {
         group_id: g1,
         user_id: u1,
-        content: "I made this chat to explain how bad this semester is going"
+        text: "I made this chat to explain how bad this semester is going"
     },
     {
         group_id: g1,
         user_id: u2,
-        content: "Same for me"
+        text: "Same for me"
     }
 ])
