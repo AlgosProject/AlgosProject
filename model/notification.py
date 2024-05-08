@@ -10,7 +10,7 @@ from bson.objectid import ObjectId
 class Notification:
     text: str
     user_id: ObjectId
-    _id: Optional[ObjectId] = ObjectId()
+    _id: Optional[ObjectId] = dataclasses.field(default_factory=ObjectId)
 
     def get_id(self):  # in python _ before a field indicates that its protected so a method is used to retrieve it
         return self._id
