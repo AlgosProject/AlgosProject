@@ -7,6 +7,7 @@ const u2 = ObjectId();
 const u3 = ObjectId();
 const p1 = ObjectId();
 const p2 = ObjectId();
+const p3 = ObjectId();
 const c1 = ObjectId();
 const g1 = ObjectId();
 const t1 = ObjectId();
@@ -15,11 +16,11 @@ const t2 = ObjectId();
 db.tags.insertMany([{
     _id: t1,
     name: "cats",
-    post_ids: []
+    post_ids: [p3]
 }, {
     _id: t2,
     name: "dogs",
-    post_ids: []
+    post_ids: [p2]
 }])
 
 
@@ -30,11 +31,13 @@ db.users.insertMany([
         password: "dat",
         privacy_control: 2,
         name: "Ryan Rick",
-        friends: [],
+        friends: {
+            u2: 8,
+            u3: 1
+        },
         seen: [],
         tags: {
-            tag_id: t1,
-            affinity: 4
+            t1: 4
         }
     },
     {
@@ -43,9 +46,13 @@ db.users.insertMany([
         password: "pat",
         privacy_control: 1,
         name: "Rul vir",
-        friends: [],
+        friends: {
+            u1: 2
+        },
         seen: [],
-        tags: {}
+        tags: {
+            t2: 2
+        }
     },
     {
         _id: u3,
@@ -53,9 +60,14 @@ db.users.insertMany([
         password: "cat",
         privacy_control: 7,
         name: "mocha cat",
-        friends: [],
+        friends: {
+            u1: 4
+        },
         seen: [],
-        tags: {}
+        tags: {
+            t1: 3,
+            t2: 2
+        }
     }
 ])
 
@@ -75,9 +87,18 @@ db.posts.insertMany([
         user_id: u2,
         likes: [],
         photo_url: "",
-        text: "is it though?",
+        text: "Dogs are better than cats",
         comments: [],
         tags: []
+    },
+    {
+        _id: p3,
+        user_id: u3,
+        likes: [],
+        photo_url: "",
+        text: "Cats are great",
+        comments: [],
+        tags: [t1]
     }
 ])
 
@@ -85,7 +106,8 @@ db.comments.insertMany([
     {
         _id: c1,
         user_id: u2,
-        post_id: p2
+        post_id: p1,
+        text: "Is it though?"
     }
 ])
 
