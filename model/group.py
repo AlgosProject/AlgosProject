@@ -30,7 +30,7 @@ class Dao:
         """
         if isinstance(_id, str):
             _id = ObjectId(_id)
-        res = mongo.db.messages.find_one({"_id": _id})
+        res = mongo.db.groups.find_one({"_id": _id})
         return Group(**res)
 
     @staticmethod
@@ -40,7 +40,7 @@ class Dao:
         :param obj:
         :return:
         """
-        return mongo.db.messages.insert_one(dict(obj)).inserted_id
+        return mongo.db.groups.insert_one(dict(obj)).inserted_id
 
     @staticmethod
     def update_one(_id: str | ObjectId, obj: Group):
@@ -52,7 +52,7 @@ class Dao:
         """
         if isinstance(_id, str):
             _id = ObjectId(_id)
-        return mongo.db.messages.update_one({"_id": _id},
+        return mongo.db.groups.update_one({"_id": _id},
                                             {"$set": dict(obj)})
 
     @staticmethod
@@ -64,12 +64,12 @@ class Dao:
         """
         if isinstance(_id, str):
             _id = ObjectId(_id)
-        return mongo.db.messages.delete_one({"_id": _id})
+        return mongo.db.groups.delete_one({"_id": _id})
 
     @staticmethod
     def get_all():
         """
         :return: - A list of group objects
         """
-        res = mongo.db.messages.find({})
+        res = mongo.db.groups.find({})
         return [Group(**r) for r in res]
