@@ -24,57 +24,54 @@ class Post:
             yield field.name, getattr(self, field.name)
 
 
-class Dao:
+def find_one(_id: str | ObjectId):
+    """
+    Returns a Post object from db
+    :param _id:
+    :return:
+    """
+    if isinstance(_id, str):
+        _id = ObjectId(_id)
+    res = mongo.db.posts.find_one({"_id": _id})
+    return Post(**res)
 
-    @staticmethod
-    def find_one(_id: str | ObjectId):
-        """
-        Returns a Post object from db
-        :param _id:
-        :return:
-        """
-        if isinstance(_id, str):
-            _id = ObjectId(_id)
-        res = mongo.db.posts.find_one({"_id": _id})
-        return Post(**res)
 
-    @staticmethod
-    def insert_one(obj: dict | Post):
-        """
-        Inserts one Post object into the db
-        :param obj:
-        :return:
-        """
-        return mongo.db.posts.insert_one(dict(obj)).inserted_id
+def insert_one(obj: dict | Post):
+    """
+    Inserts one Post object into the db
+    :param obj:
+    :return:
+    """
+    return mongo.db.posts.insert_one(dict(obj)).inserted_id
 
-    @staticmethod
-    def update_one(_id: str | ObjectId, obj: Post):
-        """
-        Updates a Post object inside the db
-        :param _id:
-        :param obj:
-        :return:
-        """
-        if isinstance(_id, str):
-            _id = ObjectId(_id)
-        return mongo.db.posts.update_one({"_id": _id},
-                                         {"$set": dict(obj)})
 
-    @staticmethod
-    def delete_one(_id: str | ObjectId):
-        """
-        Deletes a Post object inside the db
-        :param _id:
-        :return:
-        """
-        if isinstance(_id, str):
-            _id = ObjectId(_id)
-        return mongo.db.posts.delete_one({"_id": _id})
+def update_one(_id: str | ObjectId, obj: Post):
+    """
+    Updates a Post object inside the db
+    :param _id:
+    :param obj:
+    :return:
+    """
+    if isinstance(_id, str):
+        _id = ObjectId(_id)
+    return mongo.db.posts.update_one({"_id": _id},
+                                     {"$set": dict(obj)})
 
-    @staticmethod
-    def get_all():
-        """
-        :return: - A list of Post objects
-        """
-        res = mongo.db.posts.find({})
-        return [Post(**r) for r in res]
+
+def delete_one(_id: str | ObjectId):
+    """
+    Deletes a Post object inside the db
+    :param _id:
+    :return:
+    """
+    if isinstance(_id, str):
+        _id = ObjectId(_id)
+    return mongo.db.posts.delete_one({"_id": _id})
+
+
+def get_all():
+    """
+    :return: - A list of Post objects
+    """
+    res = mongo.db.posts.find({})
+    return [Post(**r) for r in res]

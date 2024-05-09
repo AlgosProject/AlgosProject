@@ -20,57 +20,54 @@ class Tag:
             yield field.name, getattr(self, field.name)
 
 
-class Dao:
+def find_one(_id: str | ObjectId):
+    """
+    Returns a tag object from db
+    :param _id:
+    :return:
+    """
+    if isinstance(_id, str):
+        _id = ObjectId(_id)
+    res = mongo.db.tags.find_one({"_id": _id})
+    return Tag(**res)
 
-    @staticmethod
-    def find_one(_id: str | ObjectId):
-        """
-        Returns a tag object from db
-        :param _id:
-        :return:
-        """
-        if isinstance(_id, str):
-            _id = ObjectId(_id)
-        res = mongo.db.tags.find_one({"_id": _id})
-        return Tag(**res)
 
-    @staticmethod
-    def insert_one(obj: dict | Tag):
-        """
-        Inserts one tag object into the db
-        :param obj:
-        :return:
-        """
-        return mongo.db.tags.insert_one(dict(obj)).inserted_id
+def insert_one(obj: dict | Tag):
+    """
+    Inserts one tag object into the db
+    :param obj:
+    :return:
+    """
+    return mongo.db.tags.insert_one(dict(obj)).inserted_id
 
-    @staticmethod
-    def update_one(_id: str | ObjectId, obj: Tag):
-        """
-        Updates a tag object inside the db
-        :param _id:
-        :param obj:
-        :return:
-        """
-        if isinstance(_id, str):
-            _id = ObjectId(_id)
-        return mongo.db.tags.update_one({"_id": _id},
-                                        {"$set": dict(obj)})
 
-    @staticmethod
-    def delete_one(_id: str | ObjectId):
-        """
-        Deletes a tag object inside the db
-        :param _id:
-        :return:
-        """
-        if isinstance(_id, str):
-            _id = ObjectId(_id)
-        return mongo.db.tags.delete_one({"_id": _id})
+def update_one(_id: str | ObjectId, obj: Tag):
+    """
+    Updates a tag object inside the db
+    :param _id:
+    :param obj:
+    :return:
+    """
+    if isinstance(_id, str):
+        _id = ObjectId(_id)
+    return mongo.db.tags.update_one({"_id": _id},
+                                    {"$set": dict(obj)})
 
-    @staticmethod
-    def get_all():
-        """
-        :return: - A list of tag objects
-        """
-        res = mongo.db.tags.find({})
-        return [Tag(**r) for r in res]
+
+def delete_one(_id: str | ObjectId):
+    """
+    Deletes a tag object inside the db
+    :param _id:
+    :return:
+    """
+    if isinstance(_id, str):
+        _id = ObjectId(_id)
+    return mongo.db.tags.delete_one({"_id": _id})
+
+
+def get_all():
+    """
+    :return: - A list of tag objects
+    """
+    res = mongo.db.tags.find({})
+    return [Tag(**r) for r in res]

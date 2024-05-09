@@ -20,57 +20,54 @@ class Notification:
             yield field.name, getattr(self, field.name)
 
 
-class Dao:
+def find_one(_id: str | ObjectId):
+    """
+    Returns a notification object from db
+    :param _id:
+    :return:
+    """
+    if isinstance(_id, str):
+        _id = ObjectId(_id)
+    res = mongo.db.notifications.find_one({"_id": _id})
+    return Notification(**res)
 
-    @staticmethod
-    def find_one(_id: str | ObjectId):
-        """
-        Returns a notification object from db
-        :param _id:
-        :return:
-        """
-        if isinstance(_id, str):
-            _id = ObjectId(_id)
-        res = mongo.db.notifications.find_one({"_id": _id})
-        return Notification(**res)
 
-    @staticmethod
-    def insert_one(obj: dict | Notification):
-        """
-        Inserts one notification object into the db
-        :param obj:
-        :return:
-        """
-        return mongo.db.notifications.insert_one(dict(obj)).inserted_id
+def insert_one(obj: dict | Notification):
+    """
+    Inserts one notification object into the db
+    :param obj:
+    :return:
+    """
+    return mongo.db.notifications.insert_one(dict(obj)).inserted_id
 
-    @staticmethod
-    def update_one(_id: str | ObjectId, obj: Notification):
-        """
-        Updates a notification object inside the db
-        :param _id:
-        :param obj:
-        :return:
-        """
-        if isinstance(_id, str):
-            _id = ObjectId(_id)
-        return mongo.db.notifications.update_one({"_id": _id},
-                                                 {"$set": dict(obj)})
 
-    @staticmethod
-    def delete_one(_id: str | ObjectId):
-        """
-        Deletes a notification object inside the db
-        :param _id:
-        :return:
-        """
-        if isinstance(_id, str):
-            _id = ObjectId(_id)
-        return mongo.db.notifications.delete_one({"_id": _id})
+def update_one(_id: str | ObjectId, obj: Notification):
+    """
+    Updates a notification object inside the db
+    :param _id:
+    :param obj:
+    :return:
+    """
+    if isinstance(_id, str):
+        _id = ObjectId(_id)
+    return mongo.db.notifications.update_one({"_id": _id},
+                                             {"$set": dict(obj)})
 
-    @staticmethod
-    def get_all():
-        """
-        :return: - A list of Notification objects
-        """
-        res = mongo.db.notifications.find({})
-        return [Notification(**r) for r in res]
+
+def delete_one(_id: str | ObjectId):
+    """
+    Deletes a notification object inside the db
+    :param _id:
+    :return:
+    """
+    if isinstance(_id, str):
+        _id = ObjectId(_id)
+    return mongo.db.notifications.delete_one({"_id": _id})
+
+
+def get_all():
+    """
+    :return: - A list of Notification objects
+    """
+    res = mongo.db.notifications.find({})
+    return [Notification(**r) for r in res]

@@ -21,57 +21,54 @@ class Message:
             yield field.name, getattr(self, field.name)
 
 
-class Dao:
+def find_one(_id: str | ObjectId):
+    """
+    Returns a notification object from db
+    :param _id:
+    :return:
+    """
+    if isinstance(_id, str):
+        _id = ObjectId(_id)
+    res = mongo.db.messages.find_one({"_id": _id})
+    return Message(**res)
 
-    @staticmethod
-    def find_one(_id: str | ObjectId):
-        """
-        Returns a notification object from db
-        :param _id:
-        :return:
-        """
-        if isinstance(_id, str):
-            _id = ObjectId(_id)
-        res = mongo.db.messages.find_one({"_id": _id})
-        return Message(**res)
 
-    @staticmethod
-    def insert_one(obj: dict | Message):
-        """
-        Inserts one notification object into the db
-        :param obj:
-        :return:
-        """
-        return mongo.db.messages.insert_one(dict(obj)).inserted_id
+def insert_one(obj: dict | Message):
+    """
+    Inserts one notification object into the db
+    :param obj:
+    :return:
+    """
+    return mongo.db.messages.insert_one(dict(obj)).inserted_id
 
-    @staticmethod
-    def update_one(_id: str | ObjectId, obj: Message):
-        """
-        Updates a notification object inside the db
-        :param _id:
-        :param obj:
-        :return:
-        """
-        if isinstance(_id, str):
-            _id = ObjectId(_id)
-        return mongo.db.messages.update_one({"_id": _id},
-                                            {"$set": dict(obj)})
 
-    @staticmethod
-    def delete_one(_id: str | ObjectId):
-        """
-        Deletes a notification object inside the db
-        :param _id:
-        :return:
-        """
-        if isinstance(_id, str):
-            _id = ObjectId(_id)
-        return mongo.db.messages.delete_one({"_id": _id})
+def update_one(_id: str | ObjectId, obj: Message):
+    """
+    Updates a notification object inside the db
+    :param _id:
+    :param obj:
+    :return:
+    """
+    if isinstance(_id, str):
+        _id = ObjectId(_id)
+    return mongo.db.messages.update_one({"_id": _id},
+                                        {"$set": dict(obj)})
 
-    @staticmethod
-    def get_all():
-        """
-        :return: - A list of Notification objects
-        """
-        res = mongo.db.messages.find({})
-        return [Message(**r) for r in res]
+
+def delete_one(_id: str | ObjectId):
+    """
+    Deletes a notification object inside the db
+    :param _id:
+    :return:
+    """
+    if isinstance(_id, str):
+        _id = ObjectId(_id)
+    return mongo.db.messages.delete_one({"_id": _id})
+
+
+def get_all():
+    """
+    :return: - A list of Notification objects
+    """
+    res = mongo.db.messages.find({})
+    return [Message(**r) for r in res]

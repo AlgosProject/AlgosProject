@@ -21,57 +21,54 @@ class Comment:
             yield field.name, getattr(self, field.name)
 
 
-class Dao:
+def find_one(_id: str | ObjectId):
+    """
+    Returns a comment object from db
+    :param _id:
+    :return:
+    """
+    if isinstance(_id, str):
+        _id = ObjectId(_id)
+    res = mongo.db.comments.find_one({"_id": _id})
+    return Comment(**res)
 
-    @staticmethod
-    def find_one(_id: str | ObjectId):
-        """
-        Returns a comment object from db
-        :param _id:
-        :return:
-        """
-        if isinstance(_id, str):
-            _id = ObjectId(_id)
-        res = mongo.db.comments.find_one({"_id": _id})
-        return Comment(**res)
 
-    @staticmethod
-    def insert_one(obj: dict | Comment):
-        """
-        Inserts one comment object into the db
-        :param obj:
-        :return:
-        """
-        return mongo.db.comments.insert_one(dict(obj)).inserted_id
+def insert_one(obj: dict | Comment):
+    """
+    Inserts one comment object into the db
+    :param obj:
+    :return:
+    """
+    return mongo.db.comments.insert_one(dict(obj)).inserted_id
 
-    @staticmethod
-    def update_one(_id: str | ObjectId, obj: Comment):
-        """
-        Updates a comment object inside the db
-        :param _id:
-        :param obj:
-        :return:
-        """
-        if isinstance(_id, str):
-            _id = ObjectId(_id)
-        return mongo.db.comments.update_one({"_id": _id},
-                                            {"$set": dict(obj)})
 
-    @staticmethod
-    def delete_one(_id: str | ObjectId):
-        """
-        Deletes a comment object inside the db
-        :param _id:
-        :return:
-        """
-        if isinstance(_id, str):
-            _id = ObjectId(_id)
-        return mongo.db.comments.delete_one({"_id": _id})
+def update_one(_id: str | ObjectId, obj: Comment):
+    """
+    Updates a comment object inside the db
+    :param _id:
+    :param obj:
+    :return:
+    """
+    if isinstance(_id, str):
+        _id = ObjectId(_id)
+    return mongo.db.comments.update_one({"_id": _id},
+                                        {"$set": dict(obj)})
 
-    @staticmethod
-    def get_all():
-        """
-        :return: - A list of comment objects
-        """
-        res = mongo.db.comments.find({})
-        return [Comment(**r) for r in res]
+
+def delete_one(_id: str | ObjectId):
+    """
+    Deletes a comment object inside the db
+    :param _id:
+    :return:
+    """
+    if isinstance(_id, str):
+        _id = ObjectId(_id)
+    return mongo.db.comments.delete_one({"_id": _id})
+
+
+def get_all():
+    """
+    :return: - A list of comment objects
+    """
+    res = mongo.db.comments.find({})
+    return [Comment(**r) for r in res]
