@@ -1,0 +1,21 @@
+* {
+    font-family: 'Amaranth';
+    font-size: large;
+}
+
+.navbar {
+    background-color: #FFBD59;
+}
+
+.btn-outline-success {
+    color: black;
+    border-color: black
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    fill: rgba(0, 0, 0, .5);
+    padding-right: 1rem;
+    padding-left: 1rem;
+}
