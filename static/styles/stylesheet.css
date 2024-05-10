@@ -38,20 +38,85 @@
     border-radius: 1rem;
 }
 
-.login_box a{
+.login_box a {
     color: #889EBB;
 }
 
-.login_box form{
+.login_box form {
     width: 100%;
 }
 
-.btn-primary{
+.btn-primary {
     background-color: #889EBB;
     border-color: #889EBB;
 }
-.btn-primary:hover{
+
+.btn-primary:hover {
     background-color: #6CA8F8;
 }
 
+.body_row {
+    display: flex;
+    height: 100%;
+    width: 100%
+}
+
+.side_block {
+    display: block;
+    height: 100%;
+    width: 15%;
+    margin-top: auto;
+}
+
+.side_block img {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.post_window {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 90vh;
+    width:70%;
+    overflow: auto;
+    border-left: .25rem solid #FFBD59;
+    border-right: .25rem solid #FFBD59;
+    margin-top: 1vh;
+}
+
+.card {
+    margin: 2rem;
+    width: 100%;
+    border: 10px solid #FFBD59;
+}
+
+.post_date{
+    font-size: small;
+    font-style: italic;
+    color: #889EBB;
+}
+
+.card_buttons_container {
+    border-top: .1rem solid #889EBB;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding: .5rem;
+}
+
+.card_buttons_container button {
+    margin-left: 1.5rem;
+}
+
+.card_buttons_container a {
+    font-size: small;
+    font-style: italic;
+    margin-left: .5rem;
+}
+
+.badge {
+    background-color: #F15757;
+}
 
