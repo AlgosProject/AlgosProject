@@ -33,7 +33,8 @@ def find_one(_id: str | ObjectId):
     if isinstance(_id, str):
         _id = ObjectId(_id)
     res = mongo.db.posts.find_one({"_id": _id})
-    return Post(**res)
+    if res:
+        return Post(**res)
 
 
 def insert_one(obj: dict | Post):

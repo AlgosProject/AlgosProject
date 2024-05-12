@@ -29,7 +29,8 @@ def find_one(_id: str | ObjectId):
     if isinstance(_id, str):
         _id = ObjectId(_id)
     res = mongo.db.notifications.find_one({"_id": _id})
-    return Notification(**res)
+    if res:
+        return Notification(**res)
 
 
 def insert_one(obj: dict | Notification):

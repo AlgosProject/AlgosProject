@@ -28,7 +28,8 @@ def find_one(_id: str | ObjectId):
     if isinstance(_id, str):
         _id = ObjectId(_id)
     res = mongo.db.groups.find_one({"_id": _id})
-    return Group(**res)
+    if res:
+        return Group(**res)
 
 
 def insert_one(obj: dict | Group):

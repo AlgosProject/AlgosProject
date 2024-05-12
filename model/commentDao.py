@@ -30,7 +30,8 @@ def find_one(_id: str | ObjectId):
     if isinstance(_id, str):
         _id = ObjectId(_id)
     res = mongo.db.comments.find_one({"_id": _id})
-    return Comment(**res)
+    if res:
+        return Comment(**res)
 
 
 def insert_one(obj: dict | Comment):

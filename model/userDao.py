@@ -2,6 +2,8 @@ import dataclasses
 from dataclasses import dataclass
 from typing import Optional
 
+from flask import current_app
+
 from utils.mongo_store_broker import mongo
 from bson.objectid import ObjectId
 
@@ -35,6 +37,8 @@ def find_one(_id: str | ObjectId):
         _id = ObjectId(_id)
     res = mongo.db.users.find_one({"_id": _id})
     return User(**res)
+    if res:
+        return User(**res)
 
 
 def insert_one(obj: dict | User):

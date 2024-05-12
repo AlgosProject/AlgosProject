@@ -30,7 +30,8 @@ def find_one(_id: str | ObjectId):
     if isinstance(_id, str):
         _id = ObjectId(_id)
     res = mongo.db.messages.find_one({"_id": _id})
-    return Message(**res)
+    if res:
+        return Message(**res)
 
 
 def insert_one(obj: dict | Message):

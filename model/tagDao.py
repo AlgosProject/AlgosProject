@@ -29,7 +29,8 @@ def find_one(_id: str | ObjectId):
     if isinstance(_id, str):
         _id = ObjectId(_id)
     res = mongo.db.tags.find_one({"_id": _id})
-    return Tag(**res)
+    if res:
+        return Tag(**res)
 
 
 def insert_one(obj: dict | Tag):
