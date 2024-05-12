@@ -120,3 +120,16 @@
     background-color: #F15757;
 }
 
+.btn {
+    align-self: flex-end;
+}
+
+.comment_container {
+    width: 25rem ;
+}
+
+.post_window .form-group{
+    border-top: .2rem solid #889EBB;
+    overflow: auto;
+}
+

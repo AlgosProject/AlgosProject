@@ -3,6 +3,7 @@ from routes.login_form import login_form_blueprint
 from routes.landing import landing_blueprint
 from routes.welcome import welcome_blueprint
 from routes.home_page import home_blueprint
+from routes.media_popup import popup_blueprint
 from utils.mongo_store_broker import mongo
 
 
@@ -19,6 +20,7 @@ app.register_blueprint(login_form_blueprint)
 app.register_blueprint(landing_blueprint)
 app.register_blueprint(welcome_blueprint)
 app.register_blueprint(home_blueprint)
+app.register_blueprint(popup_blueprint)
 
 
 if __name__ == "__main__":
