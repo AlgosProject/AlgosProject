@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from typing import Optional
 
 from flask import current_app
+from flask_bcrypt import Bcrypt
 
 from utils.mongo_store_broker import mongo
 from bson.objectid import ObjectId
@@ -36,7 +37,12 @@ def find_one(_id: str | ObjectId):
     if isinstance(_id, str):
         _id = ObjectId(_id)
     res = mongo.db.users.find_one({"_id": _id})
-    return User(**res)
+    if res:
+        return User(**res)
+
+
+def find_user_by_username(username: str):
+    res = mongo.db.users.find_one({"username": username})
     if res:
         return User(**res)
 
@@ -80,3 +86,13 @@ def get_all():
     """
     res = mongo.db.users.find({})
     return [User(**r) for r in res]
+
+
+def login(username, psw) -> User:
+    bcrypt: Bcrypt = current_app.bcrypt
+
+    user = find_user_by_username(username)
+
+    if user:
+        if bcrypt.check_password_hash(user.password, psw):
+            return user
