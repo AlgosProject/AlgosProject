@@ -1,0 +1,54 @@
+{% extends "base.jinja2" %}
+{% block title %} Home Page {% endblock %}
+{% block content %}
+    <div class="body_row">
+        <div class="side_block">
+            <img src="../static/img/affinity_logo.png" alt="logo" height="100">
+        </div>
+        <div class="post_window">
+            <button type="button" class="btn btn-light" onclick="returnHome()">X</button>
+            {% include "posts.jinja2" %}
+            <div class="comment_container">
+                <div class="media">
+                    <img src="..." class="mr-3" alt="...">
+                    <div class="media-body">
+                        <h5 class="mt-0">Username</h5>
+                        Comment comment.
+
+                        <div class="media mt-3">
+                            <a class="mr-3" href="#">
+                                <img src="..." class="mr-3" alt="...">
+                            </a>
+                            <div class="media-body">
+                                <h5 class="mt-0">Username</h5>
+                                Comment reply.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="media">
+                    <img src="..." class="mr-3" alt="...">
+                    <div class="media-body">
+                        <h5 class="mt-0">Username</h5>
+                        Comment comment.
+                    </div>
+                </div>
+            <form>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Write comment:</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-info">send.</button>
+            </form>
+            </div>
+        </div>
+        <div class="side_block">
+        </div>
+    </div>
+
+    <script>
+    function returnHome() {
+        window.location.href = "/home_page";
+    }
+    </script>
+{% endblock %}
