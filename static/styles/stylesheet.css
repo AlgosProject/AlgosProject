@@ -133,3 +133,6 @@
     overflow: auto;
 }
 
+.comment_container form{
+    margin-bottom: 2rem;
+}
