@@ -5,8 +5,10 @@ from routes.welcome import welcome_blueprint
 from routes.home_page import home_blueprint
 from routes.media_popup import popup_blueprint
 from routes.friends_list import friendsList_blueprint
-from routes.communities import communities_blueprint
+from routes.communities_list import communitiesList_blueprint
 from routes.chats import chats_blueprint
+from routes.friends_discover import friendsDiscover_blueprint
+from routes.communities_discover import communitiesDiscover_blueprint
 
 from utils.mongo_store_broker import mongo
 
@@ -26,8 +28,10 @@ app.register_blueprint(welcome_blueprint)
 app.register_blueprint(home_blueprint)
 app.register_blueprint(popup_blueprint)
 app.register_blueprint(friendsList_blueprint)
-app.register_blueprint(communities_blueprint)
+app.register_blueprint(communitiesList_blueprint)
 app.register_blueprint(chats_blueprint)
+app.register_blueprint(friendsDiscover_blueprint)
+app.register_blueprint(communitiesDiscover_blueprint)
 
 
 if __name__ == "__main__":
