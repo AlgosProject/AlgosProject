@@ -1,6 +1,6 @@
 Flask~=3.0.3
-pymongo
+pymongo~=4.7.1
 Flask-PyMongo
-Flask-bcrypt
+Flask-Bcrypt
 Flask-Session
-
+cachelib~=0.13.0
