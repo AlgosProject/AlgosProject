@@ -4,7 +4,7 @@ from routes.landing import landing_blueprint
 from routes.welcome import welcome_blueprint
 from routes.home_page import home_blueprint
 from routes.media_popup import popup_blueprint
-from routes.friends import friends_blueprint
+from routes.friends_list import friendsList_blueprint
 from routes.communities import communities_blueprint
 from routes.chats import chats_blueprint
 
@@ -25,7 +25,7 @@ app.register_blueprint(landing_blueprint)
 app.register_blueprint(welcome_blueprint)
 app.register_blueprint(home_blueprint)
 app.register_blueprint(popup_blueprint)
-app.register_blueprint(friends_blueprint)
+app.register_blueprint(friendsList_blueprint)
 app.register_blueprint(communities_blueprint)
 app.register_blueprint(chats_blueprint)
 

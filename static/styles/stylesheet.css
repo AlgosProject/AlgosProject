@@ -12,6 +12,10 @@
     border-color: black
 }
 
+.navbar-collapse{
+    justify-content: space-between;
+}
+
 .nav-item {
     display: flex;
     align-items: center;
@@ -135,4 +139,19 @@
 
 .comment_container form{
     margin-bottom: 2rem;
+}
+
+.grid_container {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 1% 2%;
+    gap: 5%;
+}
+
+.grid_container .card {
+    margin: 0;
+    border: 3px solid #FFBD59;
+    padding: 5px;
+    font-size: small;
 }

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<div class="card">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">Username</h5>
+        <p class="card-text"># mutual friends.</p>
+    </div>
+    {% if request.path == '/friends_list' %}
+        <span>
+            <button type="button" class="btn btn-primary" onsubmit="openChat()">Chat</button>
+            <button type="button" class="btn btn-danger" onsubmit="deleteFriend()">Remove Friend</button>
+        </span>
+    {% endif %}
+    {% if request.path == '/friends_discover' %}
+        <span>
+            <button type="button" class="btn btn-danger" onsubmit="addFriend()">addFriend</button>
+        </span>
+    {% endif %}
+
+    <script>
+    function deleteFriend() {
+        //script to delete a friend
+    }
+    </script>
+
+    <script>
+    function addFriend() {
+        //script to add a friend
+    }
+    </script>
+
+    <script>
+    function openChat() {
+        //script to open chat with a friend or create a chat if not already exists
+    }
+    </script>
+
+</div>
