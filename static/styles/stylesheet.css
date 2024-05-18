@@ -230,4 +230,8 @@
     align-items: center;
 }
 
+.list-group-item {
+    padding: .1rem;
+}
+
 

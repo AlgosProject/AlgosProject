@@ -14,11 +14,7 @@
                 {% endif %}
                 <div style="margin-left: auto;">
                     {% if request.path == '/profile_posts' %}
-                        <span>
                             <button type="button" class="btn btn-primary" onsubmit="logout()">Logout</button>
-                            <button type="button" class="btn btn-danger"
-                                    onsubmit="deleteProfile()">Delete Profile</button>
-                        </span>
                     {% endif %}
 
                     <!-- add if condition if users are friends
@@ -86,12 +82,6 @@
     <script>
     function logout() {
         //script for logging out
-    }
-    </script>
-
-    <script>
-    function deleteProfile() {
-        //script for deleting personal profile
     }
     </script>
 
