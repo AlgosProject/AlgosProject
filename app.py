@@ -13,6 +13,7 @@ from routes.friends_discover import friendsDiscover_blueprint
 from routes.communities_discover import communitiesDiscover_blueprint
 from routes.profile_settings import profileSettings_blueprint
 from routes.profile_posts import profilePosts_blueprint
+from routes.registration_form import registration_form_blueprint
 
 from utils.mongo_store_broker import mongo
 from flask_bcrypt import Bcrypt
@@ -47,6 +48,7 @@ app.register_blueprint(friendsDiscover_blueprint)
 app.register_blueprint(communitiesDiscover_blueprint)
 app.register_blueprint(profileSettings_blueprint)
 app.register_blueprint(profilePosts_blueprint)
+app.register_blueprint(registration_form_blueprint)
 
 if __name__ == "__main__":
     app.run()
