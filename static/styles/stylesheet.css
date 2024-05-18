@@ -1,6 +1,5 @@
 * {
     font-family: 'Amaranth';
-    font-size: large;
 }
 
 .navbar {
@@ -10,6 +9,10 @@
 .btn-outline-success {
     color: black;
     border-color: black
+}
+
+.navbar-collapse{
+    justify-content: space-between;
 }
 
 .nav-item {
@@ -62,16 +65,16 @@
 }
 
 .side_block {
-    display: block;
-    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     width: 15%;
+    height: 100%;
     margin-top: auto;
 }
 
 .side_block img {
-    position: absolute;
-    left: 0;
-    bottom: 0;
+    width: 100px;
 }
 
 .post_window {
@@ -130,6 +133,83 @@
 
 .post_window .form-group{
     border-top: .2rem solid #889EBB;
+}
+
+.comment_container form{
+    margin-bottom: 2rem;
+}
+
+.grid_container {
+    display: grid;
+    align-items: center;
+    width: 100%;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 1% 2%;
+    gap: 5%;
+    margin-bottom: 2rem;
+}
+
+.grid_container .card {
+    width: 30vh;
+    margin: 0;
+    border: 3px solid #FFBD59;
+    padding: 5px;
+    font-size: small;
+}
+
+.section_title {
+    width: 95%;
+    margin: 1% 2%;
+    font-size: larger;
+    border-bottom: 5px solid #FFBD59;
+}
+
+.list-group {
+    width: 100%;
+}
+
+.list-group-item {
+    flex-direction: column;
+}
+
+.ms-2 {
+    display: flex;
+    flex-direction: column;
+}
+
+.side_block_list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     overflow: auto;
+    height: 90vh;
+    width: 25%;
+    margin-top: 1vh;
+}
+
+.chat_window{
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    width: 95%;
+    padding: 2rem;
+}
+
+.chat {
+    padding: .25rem;
+    border:.25rem solid #FFBD59;
+    border-radius: .5rem;
+    max-width: 75%;
+    margin-top: .5rem;
+    margin-left: auto;
+}
+
+.chat2 {
+    border:.25rem solid #889EBB;
+    border-radius: .5rem;
+    max-width: 75%;
+    margin-top: .5rem;
+    padding: .25rem;
+    margin-right: auto;
 }
 
