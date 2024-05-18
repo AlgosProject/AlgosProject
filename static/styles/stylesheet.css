@@ -133,7 +133,6 @@
 
 .post_window .form-group{
     border-top: .2rem solid #889EBB;
-    overflow: auto;
 }
 
 .comment_container form{
@@ -186,5 +185,31 @@
     height: 90vh;
     width: 25%;
     margin-top: 1vh;
+}
+
+.chat_window{
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    width: 95%;
+    padding: 2rem;
+}
+
+.chat {
+    padding: .25rem;
+    border:.25rem solid #FFBD59;
+    border-radius: .5rem;
+    max-width: 75%;
+    margin-top: .5rem;
+    margin-left: auto;
+}
+
+.chat2 {
+    border:.25rem solid #889EBB;
+    border-radius: .5rem;
+    max-width: 75%;
+    margin-top: .5rem;
+    padding: .25rem;
+    margin-right: auto;
 }
 

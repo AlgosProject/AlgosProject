@@ -1,15 +1,25 @@
 {% extends "base.jinja2" %}
-{% block title %} Home Page {% endblock %}
+{% block title %} Chats {% endblock %}
 {% block content %}
     <div class="body_row">
-        <div class="side_block">
-            <img src="../static/img/affinity_logo.png" alt="logo" height="100">
+        <div class="side_block_list">
+            {% include "side_list.jinja2" %}
         </div>
         <div class="post_window">
-            {% include "posts.jinja2" %}
+            <a class="section_title" style="border-color: #889EBB; text-align: center;">Username</a>
+            <div class="chat_window">
+                {% include "chat_box.jinja2" %}
+            </div>
+            <div class="form-group" style="width: 95%; padding: 0.5rem; margin-top: auto;">
+                <label for="exampleFormControlTextarea1">Write a message:</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <button type="submit" class="btn btn-info" style="align-self: flex-end; margin-top: .5rem ">send.</button>
+            </div>
+
+
         </div>
         <div class="side_block">
+            <img src="../static/img/affinity_logo.png" alt="logo">
         </div>
-
     </div>
 {% endblock %}
