@@ -31,14 +31,14 @@ db.users.insertMany([
         password: "dat",
         privacy_control: 2,
         name: "Ryan Rick",
-        friends: {
-            u2: 8,
-            u3: 1
-        },
+        friends: [
+            {friend_id: u2, affinity: 8},
+            {friend_id: u3, affinity: 1}
+        ],
         seen: [],
-        tags: {
-            t1: 4
-        }
+        tags: [
+            {tag_id: t1, affinity: 4}
+        ]
     },
     {
         _id: u2,
@@ -46,13 +46,13 @@ db.users.insertMany([
         password: "pat",
         privacy_control: 1,
         name: "Rul vir",
-        friends: {
-            u1: 2
-        },
+        friends: [
+            {friend_id: u1, affinity: 2}
+        ],
         seen: [],
-        tags: {
-            t2: 2
-        }
+        tags: [
+            {tag_id: t2, affinity: 4}
+        ]
     },
     {
         _id: u3,
@@ -60,14 +60,14 @@ db.users.insertMany([
         password: "cat",
         privacy_control: 7,
         name: "mocha cat",
-        friends: {
-            u1: 4
-        },
+        friends: [
+            {friend_id: u1, affinity: 4}
+        ],
         seen: [],
-        tags: {
-            t1: 3,
-            t2: 2
-        }
+        tags: [
+            {tag_id: t1, affinity: 3},
+            {tag_id: t2, affinity: 2}
+        ]
     }
 ])
 
