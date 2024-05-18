@@ -1,0 +1,15 @@
+{% extends "base.jinja2" %}
+{% block title %} Home Page {% endblock %}
+{% block content %}
+    <div class="body_row">
+        <div class="side_block">
+            <img src="../static/img/affinity_logo.png" alt="logo">
+        </div>
+        <div class="post_window">
+            {% include "posts.jinja2" %}
+        </div>
+        <div class="side_block">
+        </div>
+
+    </div>
+{% endblock %}

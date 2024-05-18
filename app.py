@@ -11,6 +11,8 @@ from routes.communities_list import communitiesList_blueprint
 from routes.chats import chats_blueprint
 from routes.friends_discover import friendsDiscover_blueprint
 from routes.communities_discover import communitiesDiscover_blueprint
+from routes.profile_settings import profileSettings_blueprint
+from routes.profile_posts import profilePosts_blueprint
 
 from utils.mongo_store_broker import mongo
 from flask_bcrypt import Bcrypt
@@ -28,7 +30,7 @@ app.bcrypt = Bcrypt(app)
 
 SESSION_TYPE = 'cachelib'
 SESSION_SERIALIZATION_FORMAT = 'json'
-SESSION_CACHELIB = FileSystemCache(threshold=500, cache_dir="/sessions")
+"""SESSION_CACHELIB = FileSystemCache(threshold=500, cache_dir="/sessions") """
 
 app.config.from_object(__name__)
 app.session = Session(app)
@@ -43,6 +45,8 @@ app.register_blueprint(communitiesList_blueprint)
 app.register_blueprint(chats_blueprint)
 app.register_blueprint(friendsDiscover_blueprint)
 app.register_blueprint(communitiesDiscover_blueprint)
+app.register_blueprint(profileSettings_blueprint)
+app.register_blueprint(profilePosts_blueprint)
 
 if __name__ == "__main__":
     app.run()
