@@ -6,12 +6,16 @@
             <img src="../static/img/affinity_logo.png" alt="logo" height="100">
         </div>
         <div class="post_window">
+            <a class="section_title">Pending Requests</a>
+            <div class="grid_container">
+                {% include "user_card.jinja2" %}
+            </div>
+            <a class="section_title">Suggestions</a>
             <div class="grid_container">
                 {% include "user_card.jinja2" %}
             </div>
         </div>
         <div class="side_block">
         </div>
-
     </div>
 {% endblock %}

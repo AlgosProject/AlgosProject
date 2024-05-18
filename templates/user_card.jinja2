@@ -13,9 +13,18 @@
     {% endif %}
     {% if request.path == '/friends_discover' %}
         <span>
-            <button type="button" class="btn btn-danger" onsubmit="addFriend()">addFriend</button>
+            <button type="button" class="btn btn-success" onsubmit="addFriend()">Add Friend</button>
         </span>
     {% endif %}
+
+    <!-- if user is sending friend request
+    {% if request.path == '/friends_discover' %}
+        <span>
+            <button type="button" class="btn btn-success" onsubmit="acceptFriend()">Accept</button>
+            <button type="button" class="btn btn-danger" onsubmit="acceptFriend()">Decline</button>
+        </span>
+    {% endif %}
+-->
 
     <script>
     function deleteFriend() {
@@ -25,6 +34,18 @@
 
     <script>
     function addFriend() {
+        //script to add a friend
+    }
+    </script>
+
+    <script>
+    function acceptFriend() {
+        //script to add a friend
+    }
+    </script>
+
+    <script>
+    function declineFriend() {
         //script to add a friend
     }
     </script>
