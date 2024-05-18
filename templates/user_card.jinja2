@@ -1,20 +1,32 @@
 <!DOCTYPE html>
 <div class="card">
-    <img src="..." class="card-img-top" alt="...">
+    {% if request.path == '/friends_list' or request.path == '/friends_discover' %}
+        <img src="..." class="card-img-top" alt="...">
+    {% endif %}
     <div class="card-body">
-        <h5 class="card-title">Username</h5>
-        <p class="card-text"># mutual friends.</p>
+        {% if request.path == '/friends_list' or request.path == '/friends_discover' %}
+            <h5 class="card-title">Username</h5>
+            <p class="card-text"># mutual friends.</p>
+        {% endif %}
+        {% if request.path == '/communities_discover' %}
+            <h5 class="card-title">Community Name</h5>
+            <p class="card-text">Number of followers.</p>
+        {% endif %}
     </div>
+
     {% if request.path == '/friends_list' %}
         <span>
             <button type="button" class="btn btn-primary" onsubmit="openChat()">Chat</button>
             <button type="button" class="btn btn-danger" onsubmit="deleteFriend()">Remove Friend</button>
         </span>
     {% endif %}
+
     {% if request.path == '/friends_discover' %}
-        <span>
-            <button type="button" class="btn btn-success" onsubmit="addFriend()">Add Friend</button>
-        </span>
+        <button type="button" class="btn btn-success" onsubmit="addFriend()">Add Friend</button>
+    {% endif %}
+
+    {% if request.path == '/communities_discover' %}
+        <button type="button" class="btn btn-success" onsubmit="followCom()">Follow</button>
     {% endif %}
 
     <!-- if user is sending friend request
@@ -53,6 +65,12 @@
     <script>
     function openChat() {
         //script to open chat with a friend or create a chat if not already exists
+    }
+    </script>
+
+    <script>
+    function followCom() {
+        //script to follow a community (adds thread in your communities)
     }
     </script>
 
