@@ -2,14 +2,15 @@
 {% block title %} Home Page {% endblock %}
 {% block content %}
     <div class="body_row">
-        <div class="side_block">
-            <img src="../static/img/affinity_logo.png" alt="logo" height="100">
+        <div class="side_block_list">
+            {% include "side_list.jinja2" %}
         </div>
         <div class="post_window">
             {% include "posts.jinja2" %}
+
         </div>
         <div class="side_block">
+            <img src="../static/img/affinity_logo.png" alt="logo">
         </div>
-
     </div>
 {% endblock %}

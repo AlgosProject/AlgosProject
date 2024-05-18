@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<ol class="list-group">
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+            <a class="fw-bold" href="/#">Community Name</a>
+            {% if request.path == '/communities_list' %}
+                <a class="post_date">Number of followers</a>
+            {% endif %}
+        </div>
+        {% if request.path == '/communities_list' %}
+            <button type="button" class="btn btn-warning" onsubmit="unfollowCom()">Unfollow</button>
+        {% endif %}
+        {% if request.path == '/chats' %}
+            <button type="button" class="btn btn-warning" onsubmit="deleteChat()">Unfollow</button>
+        {% endif %}
+    </li>
+</ol>
+
+
+<script>
+    function unfollowCom() {
+        //script to unfollow a community
+    }
+</script>
+
+<script>
+    function deleteChat() {
+        //script to delete a chat
+    }
+</script>
+
