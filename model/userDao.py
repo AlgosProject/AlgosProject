@@ -27,6 +27,12 @@ class User:
         for field in dataclasses.fields(self):
             yield field.name, getattr(self, field.name)
 
+    def get_friends_dict(self):
+        friends_dict = dict()
+        for f in self.friends:
+            friends_dict[f['friend_id']] = f['affinity']
+        return friends_dict
+
 
 def find_one(_id: str | ObjectId):
     """

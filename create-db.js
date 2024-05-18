@@ -5,6 +5,7 @@ db = db.getSiblingDB("algos_project")
 const u1 = ObjectId();
 const u2 = ObjectId();
 const u3 = ObjectId();
+const u4 = ObjectId();
 const p1 = ObjectId();
 const p2 = ObjectId();
 const p3 = ObjectId();
@@ -28,12 +29,13 @@ db.users.insertMany([
     {
         _id: u1,
         username: "Ryan",
-        password: "dat",
+        password: "$2b$12$HXHNjc6DGlpfAjz23fqmJOZBVrhoSVjxcU2hXifvSauSwg8ocUVJu",
         privacy_control: 2,
         name: "Ryan Rick",
         friends: [
             {friend_id: u2, affinity: 8},
-            {friend_id: u3, affinity: 1}
+            {friend_id: u3, affinity: 1},
+            {friend_id: u4, affinity: 4}
         ],
         seen: [],
         tags: [
@@ -43,11 +45,12 @@ db.users.insertMany([
     {
         _id: u2,
         username: "Rul",
-        password: "pat",
+        password: "$2b$12$HXHNjc6DGlpfAjz23fqmJOZBVrhoSVjxcU2hXifvSauSwg8ocUVJu",
         privacy_control: 1,
         name: "Rul vir",
         friends: [
-            {friend_id: u1, affinity: 2}
+            {friend_id: u1, affinity: 2},
+            {friend_id: u4, affinity: 4}
         ],
         seen: [],
         tags: [
@@ -57,11 +60,29 @@ db.users.insertMany([
     {
         _id: u3,
         username: "mocha",
-        password: "cat",
+        password: "$2b$12$HXHNjc6DGlpfAjz23fqmJOZBVrhoSVjxcU2hXifvSauSwg8ocUVJu",
         privacy_control: 7,
         name: "mocha cat",
         friends: [
-            {friend_id: u1, affinity: 4}
+            {friend_id: u1, affinity: 4},
+            {friend_id: u4, affinity: 4}
+        ],
+        seen: [],
+        tags: [
+            {tag_id: t1, affinity: 3},
+            {tag_id: t2, affinity: 2}
+        ]
+    },
+    {
+        _id: u4,
+        username: "Marian",
+        password: "$2b$12$HXHNjc6DGlpfAjz23fqmJOZBVrhoSVjxcU2hXifvSauSwg8ocUVJu",
+        privacy_control: 7,
+        name: "Mira cat",
+        friends: [
+            {friend_id: u1, affinity: 4},
+            {friend_id: u2, affinity: 4},
+            {friend_id: u3, affinity: 4}
         ],
         seen: [],
         tags: [
@@ -69,6 +90,7 @@ db.users.insertMany([
             {tag_id: t2, affinity: 2}
         ]
     }
+
 ])
 
 
