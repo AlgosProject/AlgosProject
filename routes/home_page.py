@@ -16,9 +16,6 @@ def home():
     for u_id in visible_user:
         u_posts = postDao.find_posts_by_user(u_id)
         for p in u_posts:
-            p.user = userDao.find_one(p.user_id)
-            p.likes_amount = len(p.likes)
-            p.id = p.get_id()
             posts.append(p)
 
     return render_template("home_page.jinja2", posts=posts)
