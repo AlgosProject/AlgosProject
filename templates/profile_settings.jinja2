@@ -1,0 +1,58 @@
+{% extends "base.jinja2" %}
+{% block title %} Settings {% endblock %}
+{% block content %}
+    <div class="body_row">
+        <div class="side_block">
+            <img src="../static/img/affinity_logo.png" alt="logo">
+        </div>
+        <div class="post_window">
+            <a class="section_title">Security</a>
+            <div class="grid_container">
+                <a>Privacy Level: </a>
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="inputGroupSelect02">Options</label>
+                    <select class="form-select" id="inputGroupSelect02" >
+                        <option selected>Choose...</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                    </select>
+                </div>
+                <ul class="list-group list-group-flush">
+                     <svg xmlns="http://www.w3.org/2000/svg" height="1rem" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+                    <li class="list-group-item">Level 1: Friends</li>
+                    <li class="list-group-item">Level 2: Friends of friends</li>
+                    <li class="list-group-item">Level 3: Friends of friends of friends</li>
+                    <li class="list-group-item">...</li>
+                    <li class="list-group-item">Level 6: Fully public</li>
+                </ul>
+            </div>
+            <a class="section_title">Username & Password</a>
+            <div class="grid_container" style="grid-template-columns: repeat(2, 1fr);">
+                <a> Change Username: </a>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="New username" aria-label="New username" aria-describedby="button-addon2">
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Confirm Change</button>
+                </div>
+                <a> Change Password: </a>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="New password" aria-label="New password" aria-describedby="button-addon2">
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Confirm Change</button>
+                </div>
+            </div>
+            <button type="button" class="btn btn-danger" style="margin-top:auto; align-self: center;" onsubmit="deleteProfile()">Delete Profile</button>
+        </div>
+        <div class="side_block">
+            <a href="" style="margin-top:auto; align-self: center;"> Logout </a>
+        </div>
+    </div>
+
+    <script>
+    function deleteProfile() {
+        //script for deleting personal profile
+    }
+    </script>
+{% endblock %}
