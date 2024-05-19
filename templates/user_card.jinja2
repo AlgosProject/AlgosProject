@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% if friend is defined and common_friends is defined %}
 <div class="card">
 
     {% if request.path == '/friends_list' or request.path == '/friends_discover' %}
@@ -80,3 +81,87 @@
     </script>
 
 </div>
+{% else %}
+<div class="card">
+
+    {% if request.path == '/friends_list' or request.path == '/friends_discover' %}
+        <img src="..." class="card-img-top" alt="...">
+    {% endif %}
+
+    <div class="card-body">
+
+        {% if request.path == '/friends_list' or request.path == '/friends_discover' %}
+            <h5 class="card-title">Name</h5>
+            <p class="card-text"># mutual friends.</p>
+        {% endif %}
+        {% if request.path == '/communities_discover' %}
+            <h5 class="card-title">Community Name</h5>
+            <p class="card-text">Number of followers.</p>
+        {% endif %}
+
+    </div>
+
+    {% if request.path == '/friends_list' %}
+    {#TODO Make the buttons work #}
+        <span>
+            <button type="button" class="btn btn-primary" onsubmit="openChat()">Chat</button>
+            <button type="button" class="btn btn-danger" onsubmit="deleteFriend()">Remove Friend</button>
+        </span>
+    {% endif %}
+
+    {% if request.path == '/friends_discover' %}
+        <button type="button" class="btn btn-success" onsubmit="addFriend()">Add Friend</button>
+    {% endif %}
+
+    {% if request.path == '/communities_discover' %}
+        <button type="button" class="btn btn-success" onsubmit="followCom()">Follow</button>
+    {% endif %}
+
+    <!-- if user is sending friend request
+    {% if request.path == '/friends_discover' %}
+        <span>
+            <button type="button" class="btn btn-success" onsubmit="acceptFriend()">Accept</button>
+            <button type="button" class="btn btn-danger" onsubmit="acceptFriend()">Decline</button>
+        </span>
+    {% endif %}
+-->
+
+    <script>
+        function deleteFriend() {
+            //script to delete a friend
+        }
+    </script>
+
+    <script>
+        function addFriend() {
+            //script to add a friend
+        }
+    </script>
+
+    <script>
+        function acceptFriend() {
+            //script to add a friend
+        }
+    </script>
+
+    <script>
+        function declineFriend() {
+            //script to add a friend
+        }
+    </script>
+
+    <script>
+        function openChat() {
+            //script to open chat with a friend or create a chat if not already exists
+        }
+    </script>
+
+    <script>
+        function followCom() {
+            //script to follow a community (adds thread in your communities)
+        }
+    </script>
+
+</div>
+{% endif %}
+
