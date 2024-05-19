@@ -5,6 +5,11 @@ db = db.getSiblingDB("algos_project")
 const u1 = ObjectId();
 const u2 = ObjectId();
 const u3 = ObjectId();
+const u4 = ObjectId();
+const u5 = ObjectId();
+const u6 = ObjectId();
+const u7 = ObjectId();
+const u8 = ObjectId();
 const p1 = ObjectId();
 const p2 = ObjectId();
 const p3 = ObjectId();
@@ -27,48 +32,129 @@ db.tags.insertMany([{
 db.users.insertMany([
     {
         _id: u1,
-        username: "Ryan",
-        password: "dat",
+        username: "u1",
+        password: "$2b$12$HXHNjc6DGlpfAjz23fqmJOZBVrhoSVjxcU2hXifvSauSwg8ocUVJu",
         privacy_control: 2,
-        name: "Ryan Rick",
-        friends: {
-            u2: 8,
-            u3: 1
-        },
+        name: "u1",
+        friends: [
+            {friend_id: u2, affinity: 8},
+            {friend_id: u3, affinity: 1},
+            {friend_id: u4, affinity: 4}
+        ],
         seen: [],
-        tags: {
-            t1: 4
-        }
+        tags: [
+            {tag_id: t1, affinity: 4}
+        ]
     },
     {
         _id: u2,
         username: "Rul",
-        password: "pat",
+        password: "$2b$12$HXHNjc6DGlpfAjz23fqmJOZBVrhoSVjxcU2hXifvSauSwg8ocUVJu",
         privacy_control: 1,
-        name: "Rul vir",
-        friends: {
-            u1: 2
-        },
+        name: "u2",
+        friends: [
+            {friend_id: u1, affinity: 2},
+            {friend_id: u4, affinity: 4},
+            {friend_id: u5, affinity: 4}
+        ],
         seen: [],
-        tags: {
-            t2: 2
-        }
+        tags: [
+            {tag_id: t2, affinity: 4}
+        ]
     },
     {
         _id: u3,
         username: "mocha",
-        password: "cat",
+        password: "$2b$12$HXHNjc6DGlpfAjz23fqmJOZBVrhoSVjxcU2hXifvSauSwg8ocUVJu",
         privacy_control: 7,
-        name: "mocha cat",
-        friends: {
-            u1: 4
-        },
+        name: "u3",
+        friends: [
+            {friend_id: u1, affinity: 4},
+            {friend_id: u4, affinity: 4}
+        ],
         seen: [],
-        tags: {
-            t1: 3,
-            t2: 2
-        }
-    }
+        tags: [
+            {tag_id: t1, affinity: 3},
+            {tag_id: t2, affinity: 2}
+        ]
+    },
+    {
+        _id: u4,
+        username: "Marian",
+        password: "$2b$12$HXHNjc6DGlpfAjz23fqmJOZBVrhoSVjxcU2hXifvSauSwg8ocUVJu",
+        privacy_control: 7,
+        name: "u4",
+        friends: [
+            {friend_id: u1, affinity: 4},
+            {friend_id: u2, affinity: 4},
+            {friend_id: u3, affinity: 4}
+        ],
+        seen: [],
+        tags: [
+            {tag_id: t1, affinity: 3},
+            {tag_id: t2, affinity: 2}
+        ]
+    },
+    {
+        _id: u5,
+        username: "u5",
+        password: "$2b$12$HXHNjc6DGlpfAjz23fqmJOZBVrhoSVjxcU2hXifvSauSwg8ocUVJu",
+        privacy_control: 2,
+        name: "u5",
+        friends: [
+            {friend_id: u2, affinity: 4},
+            {friend_id: u6, affinity: 4}
+        ],
+        seen: [],
+        tags: [
+            {tag_id: t1, affinity: 4}
+        ]
+    },
+    {
+        _id: u6,
+        username: "u6",
+        password: "$2b$12$HXHNjc6DGlpfAjz23fqmJOZBVrhoSVjxcU2hXifvSauSwg8ocUVJu",
+        privacy_control: 2,
+        name: "u6",
+        friends: [
+            {friend_id: u5, affinity: 4},
+            {friend_id: u7, affinity: 4}
+        ],
+        seen: [],
+        tags: [
+            {tag_id: t1, affinity: 4}
+        ]
+    },
+    {
+        _id: u7,
+        username: "u7",
+        password: "$2b$12$HXHNjc6DGlpfAjz23fqmJOZBVrhoSVjxcU2hXifvSauSwg8ocUVJu",
+        privacy_control: 2,
+        name: "u7",
+        friends: [
+            {friend_id: u6, affinity: 4},
+            {friend_id: u8, affinity: 4}
+        ],
+        seen: [],
+        tags: [
+            {tag_id: t1, affinity: 4}
+        ]
+    },
+    {
+        _id: u8,
+        username: "u8",
+        password: "$2b$12$HXHNjc6DGlpfAjz23fqmJOZBVrhoSVjxcU2hXifvSauSwg8ocUVJu",
+        privacy_control: 2,
+        name: "u8",
+        friends: [
+            {friend_id: u7, affinity: 4}
+        ],
+        seen: [],
+        tags: [
+            {tag_id: t1, affinity: 4}
+        ]
+    },
+
 ])
 
 

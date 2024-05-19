@@ -7,7 +7,9 @@
         </div>
         <div class="post_window">
             <div class="grid_container">
-                {% include "user_card.jinja2" %}
+                {% for friend in friends_ls %}
+                    {% include "user_card.jinja2" %}
+                {% endfor %}
             </div>
         </div>
         <div class="side_block">
