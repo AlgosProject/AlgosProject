@@ -36,7 +36,15 @@
             <button type="button" class="btn btn-danger" onsubmit="acceptFriend()">Decline</button>
         </span>
     {% endif %}
--->
+    -->
+
+    <!-- add if condition if user already sent friend request
+    {% if request.path == '/friends_discover' %}
+        <span>
+            <a style="color: darkorange;"> Friend Request Already Sent. </a>
+        </span>
+    {% endif %}
+     -->
 
     <script>
     function deleteFriend() {
