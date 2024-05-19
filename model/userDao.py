@@ -35,6 +35,10 @@ class User:
         return friends_dict
 
     def bfs_get_visible_user_ids(self):
+        """
+        Gets all the visible user ids of this user given its privacy setting
+        :return:
+        """
         current_lvl = deque()  # Current level
         current_lvl.append(self.get_id())
         next_lvl = deque()  # Next level
