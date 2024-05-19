@@ -6,6 +6,10 @@ const u1 = ObjectId();
 const u2 = ObjectId();
 const u3 = ObjectId();
 const u4 = ObjectId();
+const u5 = ObjectId();
+const u6 = ObjectId();
+const u7 = ObjectId();
+const u8 = ObjectId();
 const p1 = ObjectId();
 const p2 = ObjectId();
 const p3 = ObjectId();
@@ -28,10 +32,10 @@ db.tags.insertMany([{
 db.users.insertMany([
     {
         _id: u1,
-        username: "Ryan",
+        username: "u1",
         password: "$2b$12$HXHNjc6DGlpfAjz23fqmJOZBVrhoSVjxcU2hXifvSauSwg8ocUVJu",
         privacy_control: 2,
-        name: "Ryan Rick",
+        name: "u1",
         friends: [
             {friend_id: u2, affinity: 8},
             {friend_id: u3, affinity: 1},
@@ -47,10 +51,11 @@ db.users.insertMany([
         username: "Rul",
         password: "$2b$12$HXHNjc6DGlpfAjz23fqmJOZBVrhoSVjxcU2hXifvSauSwg8ocUVJu",
         privacy_control: 1,
-        name: "Rul vir",
+        name: "u2",
         friends: [
             {friend_id: u1, affinity: 2},
-            {friend_id: u4, affinity: 4}
+            {friend_id: u4, affinity: 4},
+            {friend_id: u5, affinity: 4}
         ],
         seen: [],
         tags: [
@@ -62,7 +67,7 @@ db.users.insertMany([
         username: "mocha",
         password: "$2b$12$HXHNjc6DGlpfAjz23fqmJOZBVrhoSVjxcU2hXifvSauSwg8ocUVJu",
         privacy_control: 7,
-        name: "mocha cat",
+        name: "u3",
         friends: [
             {friend_id: u1, affinity: 4},
             {friend_id: u4, affinity: 4}
@@ -78,7 +83,7 @@ db.users.insertMany([
         username: "Marian",
         password: "$2b$12$HXHNjc6DGlpfAjz23fqmJOZBVrhoSVjxcU2hXifvSauSwg8ocUVJu",
         privacy_control: 7,
-        name: "Mira cat",
+        name: "u4",
         friends: [
             {friend_id: u1, affinity: 4},
             {friend_id: u2, affinity: 4},
@@ -89,7 +94,66 @@ db.users.insertMany([
             {tag_id: t1, affinity: 3},
             {tag_id: t2, affinity: 2}
         ]
-    }
+    },
+    {
+        _id: u5,
+        username: "u5",
+        password: "$2b$12$HXHNjc6DGlpfAjz23fqmJOZBVrhoSVjxcU2hXifvSauSwg8ocUVJu",
+        privacy_control: 2,
+        name: "u5",
+        friends: [
+            {friend_id: u2, affinity: 4},
+            {friend_id: u6, affinity: 4}
+        ],
+        seen: [],
+        tags: [
+            {tag_id: t1, affinity: 4}
+        ]
+    },
+    {
+        _id: u6,
+        username: "u6",
+        password: "$2b$12$HXHNjc6DGlpfAjz23fqmJOZBVrhoSVjxcU2hXifvSauSwg8ocUVJu",
+        privacy_control: 2,
+        name: "u6",
+        friends: [
+            {friend_id: u5, affinity: 4},
+            {friend_id: u7, affinity: 4}
+        ],
+        seen: [],
+        tags: [
+            {tag_id: t1, affinity: 4}
+        ]
+    },
+    {
+        _id: u7,
+        username: "u7",
+        password: "$2b$12$HXHNjc6DGlpfAjz23fqmJOZBVrhoSVjxcU2hXifvSauSwg8ocUVJu",
+        privacy_control: 2,
+        name: "u7",
+        friends: [
+            {friend_id: u6, affinity: 4},
+            {friend_id: u8, affinity: 4}
+        ],
+        seen: [],
+        tags: [
+            {tag_id: t1, affinity: 4}
+        ]
+    },
+    {
+        _id: u8,
+        username: "u8",
+        password: "$2b$12$HXHNjc6DGlpfAjz23fqmJOZBVrhoSVjxcU2hXifvSauSwg8ocUVJu",
+        privacy_control: 2,
+        name: "u8",
+        friends: [
+            {friend_id: u7, affinity: 4}
+        ],
+        seen: [],
+        tags: [
+            {tag_id: t1, affinity: 4}
+        ]
+    },
 
 ])
 

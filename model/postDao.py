@@ -37,6 +37,16 @@ def find_one(_id: str | ObjectId):
         return Post(**res)
 
 
+def find_posts_by_user(_id: str | ObjectId):
+    """
+        :return: - A list of Post objects from a specific user
+    """
+    if isinstance(_id, str):
+        _id = ObjectId(_id)
+    res = mongo.db.posts.find({"user_id": _id})
+    return [Post(**r) for r in res]
+
+
 def insert_one(obj: dict | Post):
     """
     Inserts one Post object into the db
