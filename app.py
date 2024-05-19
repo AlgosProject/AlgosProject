@@ -31,7 +31,7 @@ app.bcrypt = Bcrypt(app)
 
 SESSION_TYPE = 'cachelib'
 SESSION_SERIALIZATION_FORMAT = 'json'
-"""SESSION_CACHELIB = FileSystemCache(threshold=500, cache_dir="/sessions") """
+SESSION_CACHELIB = FileSystemCache(threshold=500, cache_dir="/sessions")
 
 app.config.from_object(__name__)
 app.session = Session(app)
