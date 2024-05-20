@@ -7,7 +7,6 @@ friendsList_blueprint = Blueprint("friends_list", __name__, template_folder="tem
 
 @friendsList_blueprint.route("/friends_list")
 def friends_list():  # put application's code here
-
     user = session.get("user")
     user = userDao.User(**user)
     friends_dict = user.get_friends_dict()

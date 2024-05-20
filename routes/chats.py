@@ -11,14 +11,14 @@ def chat():  # put application's code here
     user = userDao.User(**session.get("user"))
     chats = groupDao.find_all_chats_by_user(user.id)
     chat_id = request.args.get("id")
-    if chat_id is None:
-        if len(chats) != 0:
-            return redirect(url_for("chats.chat", id=chats.pop().id))
-        else:
-            pass
-        # TODO: What happens if you have no active chats :c
 
     if request.method == "GET":
+        if chat_id is None:
+            if len(chats) != 0:
+                return redirect(url_for("chats.chat", id=chats.pop().id))
+            else:
+                pass
+            # TODO: What happens if you have no active chats :c
         curr_messages = messageDao.find_all_messages_from_group(chat_id)
         chats_dest = []
         for c in chats:
@@ -41,9 +41,17 @@ def chat():  # put application's code here
             messageDao.insert_one(
                 {"user_id": user.id, "group_id": ObjectId(chat_id), "text": request.form["message_text"]})
             return redirect(url_for("chats.chat", id=chat_id))
+
         elif request.form["action"] == "delete_chat":
             chat_id = request.form["to_delete_group"]
-
             messageDao.delete_all_messages_group(chat_id)
             groupDao.delete_one(chat_id)
             return redirect(url_for("chats.chat"))
+
+        elif request.form["action"] == "open_chat":
+            found_chats = groupDao.find_chat_of_two_users(user.id, request.form["friend_id"])
+            if len(found_chats) != 0:
+                return redirect(url_for("chats.chat", id=found_chats[0].id))
+            else:
+                chat_id = groupDao.insert_one({"users": [user.id, request.form["friend_id"]], "type": "chat"})
+                return redirect(url_for("chats.chat", id=chat_id))

@@ -55,6 +55,17 @@ def find_all_chats_by_user(_id: str | ObjectId):
     return [Group(**r) for r in res]
 
 
+def find_chat_of_two_users(_id: str | ObjectId, _id2: str | ObjectId):
+    if isinstance(_id, str):
+        _id = ObjectId(_id)
+
+    if isinstance(_id2, str):
+        _id2 = ObjectId(_id2)
+
+    res = mongo.db.groups.find({"users": [_id, _id2], "type": "chat"})
+    return [Group(**r) for r in res]
+
+
 def find_all_communities_by_user(_id: str | ObjectId):
     if isinstance(_id, str):
         _id = ObjectId(_id)
