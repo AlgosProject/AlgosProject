@@ -2,20 +2,28 @@
 {% block title %} Chats {% endblock %}
 {% block content %}
     <div class="body_row">
+
         <div class="side_block_list">
             {% include "side_list.jinja2" %}
         </div>
+
         <div class="post_window">
-            <a class="section_title" style="border-color: #889EBB; text-align: center;">Username</a>
+
+            <a class="section_title" style="border-color: #889EBB; text-align: center;">
+                Chat with {{ current_chat_dest.name }}
+            </a>
             <div class="chat_window">
-                {% include "chat_box.jinja2" %}
+                {% for message in messages %}
+                    {% include "chat_item.jinja2" %}
+                {% endfor %}
             </div>
+
             <div class="form-group" style="width: 95%; padding: 0.5rem; margin-top: auto;">
                 <label for="exampleFormControlTextarea1">Write a message:</label>
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                <button type="submit" class="btn btn-info" style="align-self: flex-end; margin-top: .5rem ">send.</button>
+                <button type="submit" class="btn btn-info" style="align-self: flex-end; margin-top: .5rem ">send
+                </button>
             </div>
-
 
         </div>
         <div class="side_block">

@@ -217,7 +217,7 @@ db.groups.insertMany([
     {
         _id: g2,
         users: [u1, u2, u3],
-        type: "chat"
+        type: "community"
     },
     {
         _id: g3,
