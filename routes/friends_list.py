@@ -7,7 +7,6 @@ friendsList_blueprint = Blueprint("friends_list", __name__, template_folder="tem
 
 @friendsList_blueprint.route("/friends_list")
 def friends_list():  # put application's code here
-
     user = session.get("user")
     user = userDao.User(**user)
     friends_dict = user.get_friends_dict()
@@ -16,6 +15,6 @@ def friends_list():  # put application's code here
     common_friends = dict()
 
     for fr in friends_ls:
-        common_friends[fr.get_id()] = len(set(fr.get_friends_dict().keys()).intersection(set(friends_dict.keys())))
+        common_friends[fr.id] = len(set(fr.get_friends_dict().keys()).intersection(set(friends_dict.keys())))
 
     return render_template("friends_list.jinja2", friends_ls=friends_ls, common_friends=common_friends)

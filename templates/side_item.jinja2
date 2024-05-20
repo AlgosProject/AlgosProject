@@ -1,0 +1,37 @@
+<li class="list-group-item d-flex justify-content-between align-items-start">
+
+    <div class="ms-2 me-auto">
+        {% if request.path == '/chats' %}
+            <a class="fw-bold" href="/chats?id={{ element[0].id }}">
+                <span class="badge text-bg-secondary">#</span>
+                {{ element[1].name }}
+            </a>
+        {% endif %}
+
+        {% if request.path == '/communities_list' %}
+            <a class="fw-bold" href="/#">Community Name</a>
+            <a class="post_date">Number of followers</a>
+        {% endif %}
+    </div>
+
+    {% if request.path == '/communities_list' %}
+        <button type="button" class="btn btn-warning" onsubmit="unfollowCom()">Unfollow</button>
+    {% endif %}
+
+    {% if request.path == '/chats' %}
+        <div class="btn">
+            <form action="/chats?id={{ element[0].id }}" method="post">
+                <input type="hidden" name="action" value="delete_chat">
+                <input type="hidden" name="to_delete_group" value="{{ element[0].id }}">
+                <button type="submit" class="btn btn-danger">
+                    Delete Chat
+                </button>
+            </form>
+        </div>
+    {% endif %}
+</li>
+<script>
+    function unfollowCom() {
+        //script to unfollow a community
+    }
+</script>

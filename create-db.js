@@ -15,6 +15,9 @@ const p2 = ObjectId();
 const p3 = ObjectId();
 const c1 = ObjectId();
 const g1 = ObjectId();
+const g2 = ObjectId();
+const g3 = ObjectId();
+const g4 = ObjectId();
 const t1 = ObjectId();
 const t2 = ObjectId();
 
@@ -208,19 +211,52 @@ db.notifications.insertMany([
 db.groups.insertMany([
     {
         _id: g1,
-        users: [u1, u2, u3]
+        users: [u1, u2, u3],
+        type: "community"
+    },
+    {
+        _id: g2,
+        users: [u1, u2, u3],
+        type: "community"
+    },
+    {
+        _id: g3,
+        users: [u1, u2],
+        type: "chat"
+    },
+    {
+        _id: g4,
+        users: [u1, u3],
+        type: "chat"
     }
+
 ])
+
 
 db.messages.insertMany([
     {
-        group_id: g1,
+        group_id: g2,
         user_id: u1,
         text: "I made this chat to explain how bad this semester is going"
     },
     {
-        group_id: g1,
+        group_id: g2,
         user_id: u2,
         text: "Same for me"
+    },
+    {
+        group_id: g3,
+        user_id: u2,
+        text: "Hi"
+    },
+    {
+        group_id: g3,
+        user_id: u1,
+        text: "I hate you but not too strongly"
+    },
+    {
+        group_id: g4,
+        user_id: u1,
+        text: "Hello my dear friend of all life"
     }
 ])

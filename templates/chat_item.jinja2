@@ -1,0 +1,36 @@
+{% if message is defined %}
+
+    {% if message.user_id == current_uid %}
+        <div class="chat">
+            <a class="post_date" style="align-self: flex-end;">
+                {{ message.author.name }}
+            </a>
+            <p>
+                {{ message.text }}
+            </p>
+        </div>
+
+    {% else %}
+        <div class="chat2">
+            <a class="post_date" style="align-self: flex-end;">
+                {{ message.author.name }}
+            </a>
+            <p>
+                {{ message.text }}
+            </p>
+        </div>
+    {% endif %}
+
+
+
+{% else %}
+    <div class="chat">
+        <p>message message message message message...</p>
+        <a class="post_date" style="align-self: flex-end;">date</a>
+    </div>
+
+    <div class="chat2">
+        <p>message message message message message...</p>
+        <a class="post_date" style="align-self: flex-end;">date</a>
+    </div>
+{% endif %}

@@ -11,7 +11,7 @@
     border-color: black
 }
 
-.navbar-collapse{
+.navbar-collapse {
     justify-content: space-between;
 }
 
@@ -82,7 +82,7 @@
     flex-direction: column;
     align-items: center;
     height: 90vh;
-    width:70%;
+    width: 70%;
     overflow: auto;
     border-left: .25rem solid #FFBD59;
     border-right: .25rem solid #FFBD59;
@@ -95,7 +95,7 @@
     border: 10px solid #FFBD59;
 }
 
-.post_date{
+.post_date {
     font-size: small;
     font-style: italic;
     color: #889EBB;
@@ -128,14 +128,14 @@
 }
 
 .comment_container {
-    width: 25rem ;
+    width: 25rem;
 }
 
-.post_window .form-group{
+.post_window .form-group {
     border-top: .2rem solid #889EBB;
 }
 
-.comment_container form{
+.comment_container form {
     margin-bottom: 2rem;
 }
 
@@ -187,7 +187,7 @@
     margin-top: 1vh;
 }
 
-.chat_window{
+.chat_window {
     display: flex;
     flex-direction: column;
     overflow: auto;
@@ -197,23 +197,25 @@
 
 .chat {
     padding: .25rem;
-    border:.25rem solid #FFBD59;
+    border: .25rem solid #FFBD59;
     border-radius: .5rem;
     max-width: 75%;
     margin-top: .5rem;
     margin-left: auto;
+    min-width: 100px;
 }
 
 .chat2 {
-    border:.25rem solid #889EBB;
+    border: .25rem solid #889EBB;
     border-radius: .5rem;
     max-width: 75%;
     margin-top: .5rem;
     padding: .25rem;
     margin-right: auto;
+    min-width: 100px;
 }
 
-.profile_header{
+.profile_header {
     width: 95%;
     font-size: larger;
     border-bottom: 5px solid #889EBB;
@@ -222,7 +224,7 @@
     padding: 1rem;
 }
 
-.profile_post_window{
+.profile_post_window {
     overflow: auto;
     width: 100%;
     display: flex;
