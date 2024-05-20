@@ -10,7 +10,7 @@
 
         {% if request.path == '/friends_list' or request.path == '/friends_discover' %}
             <h5 class="card-title">{{ friend.name }}</h5>
-            <p class="card-text">{{ common_friends.get(friend.get_id()) }} # mutual friends.</p>
+            <p class="card-text">{{ common_friends.get(friend.id) }} # mutual friends.</p>
         {% endif %}
         {% if request.path == '/communities_discover' %}
             <h5 class="card-title">Community Name</h5>
