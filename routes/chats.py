@@ -26,15 +26,14 @@ def chat():  # put application's code here
             dest.remove(user)
             chats_dest.append((c, dest.pop()))
 
-        current_chat_dest = [c[1] for c in chats_dest if str(c[0].id) == chat_id].pop()
+        current_recipient = [c[1] for c in chats_dest if str(c[0].id) == chat_id].pop()
 
         return render_template(
             "chats.jinja2",
             side_items=chats_dest,
             messages=curr_messages,
             current_uid=user.id,
-            current_chat_dest=current_chat_dest,
-            current_chat_id=chat_id
+            current_recipient=current_recipient
         )
 
     if request.method == "POST":

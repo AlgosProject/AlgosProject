@@ -10,7 +10,7 @@
         <div class="post_window">
 
             <a class="section_title" style="border-color: #889EBB; text-align: center;">
-                Chat with {{ current_chat_dest.name }}
+                Chat with {{ current_recipient.name }}
             </a>
             <div class="chat_window">
                 {% for message in messages %}
@@ -19,7 +19,7 @@
             </div>
 
             <div class="form-group" style="width: 95%; padding: 0.5rem; margin-top: auto;">
-                <form method="post" action="/chats?id={{ current_chat_id }}">
+                <form method="post" action="/chats?id={{ request.args.get('id') }}">
                     <label for="textArea">
                         Write a message:
                     </label>
