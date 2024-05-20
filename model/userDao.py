@@ -38,9 +38,9 @@ class User:
         :return:
         """
         current_lvl = deque()  # Current level
-        current_lvl.append(self.get_id())
+        current_lvl.append(self.id)
         next_lvl = deque()  # Next level
-        visited = [self.get_id()]  # Visited nodes/users
+        visited = [self.id]  # Visited nodes/users
         distance = 1  # Distance from start level
 
         while len(current_lvl) != 0:
