@@ -19,17 +19,19 @@
     {% endif %}
 
     {% if request.path == '/chats' %}
-        <button type="button" class="btn btn-danger" onsubmit="deleteChat()">Delete Chat</button>
+        <div class="btn">
+            <form action="/chats?id={{ element[0].id }}" method="post">
+                <input type="hidden" name="action" value="delete_chat">
+                <input type="hidden" name="to_delete_group" value="{{ element[0].id }}">
+                <button type="submit" class="btn btn-danger">
+                    Delete Chat
+                </button>
+            </form>
+        </div>
     {% endif %}
 </li>
 <script>
     function unfollowCom() {
         //script to unfollow a community
-    }
-</script>
-
-<script>
-    function deleteChat() {
-        //script to delete a chat
     }
 </script>
