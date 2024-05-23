@@ -7,31 +7,42 @@
             {% include "side_list.jinja2" %}
         </div>
 
+
         <div class="post_window">
+            {% if current_recipient is defined %}
 
-            <a class="section_title" style="border-color: #889EBB; text-align: center;">
-                Chat with {{ current_recipient.name }}
-            </a>
-            <div class="chat_window">
-                {% for message in messages %}
-                    {% include "chat_item.jinja2" %}
-                {% endfor %}
-            </div>
+                <a class="section_title" style="border-color: #889EBB; text-align: center;">
+                    Chat with {{ current_recipient.name }}
+                </a>
+                <div class="chat_window">
+                    {% for message in messages %}
+                        {% include "chat_item.jinja2" %}
+                    {% endfor %}
+                </div>
 
-            <div class="form-group" style="width: 95%; padding: 0.5rem; margin-top: auto;">
-                <form method="post" action="/chats?id={{ request.args.get('id') }}">
-                    <label for="textArea">
-                        Write a message:
-                    </label>
-                    <textarea class="form-control" id="textArea" name="message_text" rows="3"></textarea>
-                    <input type="hidden" name="action" value="send">
-                    <button type="submit" class="btn btn-info" style="align-self: flex-end; margin-top: .5rem ">
-                        Send
-                    </button>
-                </form>
-            </div>
+                <div class="form-group" style="width: 95%; padding: 0.5rem; margin-top: auto;">
+                    <form method="post" action="/chats?id={{ request.args.get('id') }}">
+                        <label for="textArea">
+                            Write a message:
+                        </label>
+                        <textarea class="form-control" id="textArea" name="message_text" rows="3"></textarea>
+                        <input type="hidden" name="action" value="send">
+                        <button type="submit" class="btn btn-info" style="align-self: flex-end; margin-top: .5rem ">
+                            Send
+                        </button>
+                    </form>
+                </div>
 
+            {% else %}
+                <div class="chat_window">
+                    <div class="chat">
+                        <p>Once you open a chat they will appear here</p>
+                    </div>
+                </div>
+            {% endif %}
         </div>
+
+
         <div class="side_block">
             <img src="../static/img/affinity_logo.png" alt="logo">
         </div>

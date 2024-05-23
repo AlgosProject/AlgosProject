@@ -2,12 +2,16 @@
 
 {% if side_items is defined %}
     <ol class="list-group">
-    {% for element in side_items %}
-        {% include "side_item.jinja2" %}
-    {% endfor %}
+        {% for element in side_items %}
+            {% include "side_item.jinja2" %}
+        {% endfor %}
     </ol>
 {% else %}
     <ol class="list-group">
-        {% include "side_item.jinja2" %}
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+            <a class="fw-bold" href="/friends_list">
+                Start a chat in order to see chats here
+            </a>
+        </li>
     </ol>
 {% endif %}

@@ -14,27 +14,26 @@ def chat():  # put application's code here
 
     if request.method == "GET":
         if chat_id is None:
-            if len(chats) != 0:
-                return redirect(url_for("chats.chat", id=chats.pop().id))
-            else:
-                pass
-            # TODO: What happens if you have no active chats :c
-        curr_messages = messageDao.find_all_messages_from_group(chat_id)
-        chats_dest = []
-        for c in chats:
-            dest = c.users_built
-            dest.remove(user)
-            chats_dest.append((c, dest.pop()))
+            return render_template(
+                "chats.jinja2"
+            )
+        else:
+            curr_messages = messageDao.find_all_messages_from_group(chat_id)
+            chats_dest = []
+            for c in chats:
+                dest = c.users_built
+                dest.remove(user)
+                chats_dest.append((c, dest.pop()))
 
-        current_recipient = [c[1] for c in chats_dest if str(c[0].id) == chat_id].pop()
+            current_recipient = [c[1] for c in chats_dest if str(c[0].id) == chat_id].pop()
 
-        return render_template(
-            "chats.jinja2",
-            side_items=chats_dest,
-            messages=curr_messages,
-            current_uid=user.id,
-            current_recipient=current_recipient
-        )
+            return render_template(
+                "chats.jinja2",
+                side_items=chats_dest,
+                messages=curr_messages,
+                current_uid=user.id,
+                current_recipient=current_recipient
+            )
 
     if request.method == "POST":
         if request.form["action"] == "send":
