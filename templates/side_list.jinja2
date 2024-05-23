@@ -7,11 +7,21 @@
         {% endfor %}
     </ol>
 {% else %}
-    <ol class="list-group">
-        <li class="list-group-item d-flex justify-content-between align-items-start">
-            <a class="fw-bold" href="/friends_list">
-                Start a chat in order to see chats here
-            </a>
-        </li>
-    </ol>
+    {% if request.path == '/chats' %}
+        <ol class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <a class="fw-bold" href="/friends_list">
+                    Start a chat in order to see chats here
+                </a>
+            </li>
+        </ol>
+    {% elif request.path == '/communities_list' %}
+        <ol class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <a class="fw-bold" href="/communities_discover">
+                    Communities will appear here once you join one or interacted with enough posts
+                </a>
+            </li>
+        </ol>
+    {% endif %}
 {% endif %}

@@ -2,6 +2,7 @@ import dataclasses
 from dataclasses import dataclass
 from typing import Optional
 
+import model.userDao
 from utils.mongo_store_broker import mongo
 from bson.objectid import ObjectId
 
@@ -19,6 +20,10 @@ class Tag:
     def __iter__(self):  # This method allows us to add support for dict() on an object
         for field in dataclasses.fields(self):
             yield field.name, getattr(self, field.name)
+
+    @property
+    def get_number_of_followers(self):
+        return len(model.userDao.find__positive_affinity_user_by_tag_id(self.id))
 
 
 def find_one(_id: str | ObjectId):
