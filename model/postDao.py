@@ -16,7 +16,6 @@ class Post:
     comments: list[ObjectId]
     _id: Optional[ObjectId] = dataclasses.field(default_factory=ObjectId)
 
-
     def __iter__(self):  # This method allows us to add support for dict() on an object
         for field in dataclasses.fields(self):
             yield field.name, getattr(self, field.name)
@@ -54,6 +53,16 @@ def find_posts_by_user(_id: str | ObjectId):
     if isinstance(_id, str):
         _id = ObjectId(_id)
     res = mongo.db.posts.find({"user_id": _id})
+    return [Post(**r) for r in res]
+
+
+def find_posts_by_tag(_id: str | ObjectId):
+    """
+        :return: - A list of Post objects with a specific user
+    """
+    if isinstance(_id, str):
+        _id = ObjectId(_id)
+    res = mongo.db.posts.find({"tags": _id})
     return [Post(**r) for r in res]
 
 

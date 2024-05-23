@@ -1,9 +1,12 @@
 import dataclasses
+from math import log
 from collections import deque
 from dataclasses import dataclass
-from typing import Optional
+from typing import Optional, List, Dict
 from flask import current_app
 from flask_bcrypt import Bcrypt
+
+import model.tagDao
 from utils.mongo_store_broker import mongo
 from bson.objectid import ObjectId
 
@@ -15,13 +18,23 @@ class User:
     privacy_control: int
     username: str
     password: str
-    tags: dict
-    seen: list[ObjectId]
+    tags: List[Dict[str, int]]
+    seen: List[ObjectId]
     _id: Optional[ObjectId] = dataclasses.field(default_factory=ObjectId)
 
     @property
     def id(self):
         return self._id
+
+    @property
+    def tags_built(self):
+        tags = []
+        for tag in self.tags:
+            t = dict()
+            t["tag"] = model.tagDao.find_one(tag['tag_id'])
+            t["affinity"] = tag['affinity']
+            tags.append(t)
+        return tags
 
     def __iter__(self):  # This method allows us to add support for dict() on an object
         for field in dataclasses.fields(self):
@@ -67,6 +80,11 @@ class User:
 
         return visited
 
+    def get_user_tags_ordered_by_affinity(self):
+        tags = self.tags_built
+        tags.sort(key=lambda x: x.get("affinity"))
+        return tags
+
 
 def find_one(_id: str | ObjectId):
     """
@@ -93,6 +111,15 @@ def find_user_by_id(_id: str | ObjectId):
     res = mongo.db.users.find_one({"_id": _id})
     if res:
         return User(**res)
+
+
+def find__positive_affinity_user_by_tag_id(_id: str | ObjectId):
+    if isinstance(_id, str):
+        _id = ObjectId(_id)
+    res = mongo.db.users.find(
+        {"tags": {"$elemMatch": {"tag_id": _id, "affinity": {"$gt": 0}}}}
+    )
+    return [User(**r) for r in res]
 
 
 def insert_one(obj: dict | User):

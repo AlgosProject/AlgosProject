@@ -20,6 +20,10 @@ const g3 = ObjectId();
 const g4 = ObjectId();
 const t1 = ObjectId();
 const t2 = ObjectId();
+const t3 = ObjectId();
+const t4 = ObjectId();
+const t5 = ObjectId();
+const t6 = ObjectId();
 
 db.tags.insertMany([{
     _id: t1,
@@ -29,6 +33,22 @@ db.tags.insertMany([{
     _id: t2,
     name: "dogs",
     post_ids: [p2]
+}, {
+    _id: t3,
+    name: "dragons",
+    post_ids: []
+}, {
+    _id: t4,
+    name: "school",
+    post_ids: []
+}, {
+    _id: t5,
+    name: "productivity",
+    post_ids: []
+}, {
+    _id: t6,
+    name: "foxes",
+    post_ids: []
 }])
 
 
@@ -83,7 +103,7 @@ db.users.insertMany([
     },
     {
         _id: u4,
-        username: "Marian",
+        username: "u4",
         password: "$2b$12$HXHNjc6DGlpfAjz23fqmJOZBVrhoSVjxcU2hXifvSauSwg8ocUVJu",
         privacy_control: 7,
         name: "u4",
@@ -95,7 +115,11 @@ db.users.insertMany([
         seen: [],
         tags: [
             {tag_id: t1, affinity: 3},
-            {tag_id: t2, affinity: 2}
+            {tag_id: t2, affinity: 2},
+            {tag_id: t3, affinity: 10},
+            {tag_id: t5, affinity: 4},
+            {tag_id: t4, affinity: -8},
+            {tag_id: t5, affinity: 10}
         ]
     },
     {

@@ -6,7 +6,19 @@
             {% include "side_list.jinja2" %}
         </div>
         <div class="post_window">
-            {% include "post.jinja2" %}
+            {% if posts is defined %}
+                {% for post in posts %}
+                    {% include "post.jinja2" %}
+                {% endfor %}
+            {% else %}
+                <div class="card border-light mb-3" style="max-width: 25rem;">
+                    <div class="card-body">
+                        <p class="card-text">
+                            Once you open a community posts will appear here
+                        </p>
+                    </div>
+                </div>
+            {% endif %}
 
         </div>
         <div class="side_block">

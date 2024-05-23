@@ -1,5 +1,4 @@
 <li class="list-group-item d-flex justify-content-between align-items-start">
-
     <div class="ms-2 me-auto">
         {% if request.path == '/chats' %}
             <a class="fw-bold" href="/chats?id={{ element[0].id }}">
@@ -9,13 +8,22 @@
         {% endif %}
 
         {% if request.path == '/communities_list' %}
-            <a class="fw-bold" href="/#">Community Name</a>
-            <a class="post_date">Number of followers</a>
+            <a class="fw-bold" href="/communities_list?id={{ element["tag"].id }}">{{ element["tag"].name }}</a>
+            <a class="post_date">{{ element["tag"].get_number_of_followers }} Number of followers</a>
         {% endif %}
     </div>
 
     {% if request.path == '/communities_list' %}
-        <button type="button" class="btn btn-warning" onsubmit="unfollowCom()">Unfollow</button>
+        <div class="btn">
+            <form action="/communities_list?id={{ element["tag"].id }}" method="post">
+                <input type="hidden" name="action" value="unfollow_tag">
+                <input type="hidden" name="to_unfollow_community" value="{{ element["tag"].id }}">
+                <button type="button" class="btn btn-warning">
+                    Unfollow
+                </button>
+            </form>
+        </div>
+
     {% endif %}
 
     {% if request.path == '/chats' %}
@@ -30,8 +38,3 @@
         </div>
     {% endif %}
 </li>
-<script>
-    function unfollowCom() {
-        //script to unfollow a community
-    }
-</script>
