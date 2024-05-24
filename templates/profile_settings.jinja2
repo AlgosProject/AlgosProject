@@ -39,13 +39,19 @@
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="New username" id="username"
                            aria-label="New username" aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Confirm Change</button>
+                    <button class="btn btn-outline-secondary" type="button" id="edit_user_btn">Confirm Change</button>
                 </div>
                 <a> Change Password: </a>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="New password" id="password"
                            aria-label="New password" aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Confirm Change</button>
+                    <button class="btn btn-outline-secondary" type="button" id="edit_pass_btn">Confirm Change</button>
+                </div>
+                <a> Change Name: </a>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="New password" id="name"
+                           aria-label="New password" aria-describedby="button-addon2">
+                    <button class="btn btn-outline-secondary" type="button" id="edit_name_btn">Confirm Change</button>
                 </div>
             </div>
             <a class="section_title">Profile</a>
@@ -53,6 +59,7 @@
                 <div class="form-group" style="border-top:none">
                     <label for="profile_picture">Profile Picture:</label>
                     <input type="text" class="form-control" id="profile_picture">
+                    <button class="btn btn-outline-secondary" type="button" id="edit_profile_btn">Confirm Change</button>
                 </div>
             </div>
             <button type="button" class="btn btn-danger" style="margin-top:auto; align-self: center;" onsubmit="deleteProfile()">Delete Profile</button>
