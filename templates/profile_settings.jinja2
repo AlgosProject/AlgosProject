@@ -10,8 +10,8 @@
             <div class="grid_container">
                 <a>Privacy Level: </a>
                 <div class="input-group mb-3">
-                    <label class="input-group-text" for="inputGroupSelect02">Options</label>
-                    <select class="form-select" id="inputGroupSelect02" >
+                    <label class="input-group-text" for="privacy_control">Options</label>
+                    <select class="form-select" id="privacy_control">
                         <option selected>Choose...</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -22,7 +22,10 @@
                     </select>
                 </div>
                 <ul class="list-group list-group-flush">
-                     <svg xmlns="http://www.w3.org/2000/svg" height="1rem" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="1rem" viewBox="0 0 512 512">
+                        <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                        <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/>
+                    </svg>
                     <li class="list-group-item">Level 1: Friends</li>
                     <li class="list-group-item">Level 2: Friends of friends</li>
                     <li class="list-group-item">Level 3: Friends of friends of friends</li>
@@ -34,13 +37,29 @@
             <div class="grid_container" style="grid-template-columns: repeat(2, 1fr);">
                 <a> Change Username: </a>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="New username" aria-label="New username" aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Confirm Change</button>
+                    <input type="text" class="form-control" placeholder="New username" id="username"
+                           aria-label="New username" aria-describedby="button-addon2">
+                    <button class="btn btn-outline-secondary" type="button" id="edit_user_btn">Confirm Change</button>
                 </div>
                 <a> Change Password: </a>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="New password" aria-label="New password" aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Confirm Change</button>
+                    <input type="text" class="form-control" placeholder="New password" id="password"
+                           aria-label="New password" aria-describedby="button-addon2">
+                    <button class="btn btn-outline-secondary" type="button" id="edit_pass_btn">Confirm Change</button>
+                </div>
+                <a> Change Name: </a>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="New password" id="name"
+                           aria-label="New password" aria-describedby="button-addon2">
+                    <button class="btn btn-outline-secondary" type="button" id="edit_name_btn">Confirm Change</button>
+                </div>
+            </div>
+            <a class="section_title">Profile</a>
+            <div class="grid_container">
+                <div class="form-group" style="border-top:none">
+                    <label for="profile_picture">Profile Picture:</label>
+                    <input type="text" class="form-control" id="profile_picture">
+                    <button class="btn btn-outline-secondary" type="button" id="edit_profile_btn">Confirm Change</button>
                 </div>
             </div>
             <button type="button" class="btn btn-danger" style="margin-top:auto; align-self: center;" onsubmit="deleteProfile()">Delete Profile</button>

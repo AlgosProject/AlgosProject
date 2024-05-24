@@ -8,7 +8,7 @@
         <div class="post_window" style="overflow:hidden">
             <div class="profile_header">
                 <img src="" alt="pic">
-                <a style="margin:0 1rem;">Username</a>
+                <a style="margin:0 1rem;">Name</a>
                 {% if request.path != '/profile_posts' %}
                     <a class="post_date" style="margin:0 1rem;">[mutual friends]</a>
                 {% endif %}
@@ -39,10 +39,7 @@
                 </div>
             </div>
             <div class="profile_post_window">
-                {% include "posts.jinja2" %}
-                {% include "posts.jinja2" %}
-                {% include "posts.jinja2" %}
-                {% include "posts.jinja2" %}
+                {% include "post.jinja2" %}
             </div>
         </div>
         <div class="side_block">

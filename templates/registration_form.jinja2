@@ -8,26 +8,61 @@
     <title>Login</title>
 </head>
 <body>
-    <div class="login_window">
-        <div class="login_box">
-            <img src="../static/img/affinity_logo.png" alt="logo" height="200vh">
-            <form>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Username:</label>
-                    <input type="email" class="form-control" id="createUsername" aria-describedby="emailHelp">
+<div class="login_window">
+    <div class="login_box">
+        <img src="../static/img/affinity_logo.png" alt="logo" height="200vh">
+        <form>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name">
+            </div>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" class="form-control" id="username">
+            </div>
+            <div class="form-group">
+                <label for="password1">Password:</label>
+                <input type="password" class="form-control" id="password1">
+            </div>
+            <div class="form-group">
+                <label for="password2">Confirm Password:</label>
+                <input type="password" class="form-control" id="password2">
+            </div>
+            <div class="grid_container">
+                <a style="color:black;">Privacy Level: </a>
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="privacy_control">Options</label>
+                    <select class="form-select" id="privacy_control">
+                        <option selected>Choose...</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                    </select>
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Password:</label>
-                    <input type="password" class="form-control" id="createPassword">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Confirm Password:</label>
-                    <input type="password" class="form-control" id="confirmPassword">
-                </div>
-                <button type="submit" class="btn btn-primary">Create Account</button>
-            </form>
-        </div>
+                <ul class="list-group list-group-flush">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="1rem" viewBox="0 0 512 512">
+                        <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                        <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/>
+                    </svg>
+                    <li class="list-group-item">Level 1: Friends</li>
+                    <li class="list-group-item">Level 2: Friends of friends</li>
+                    <li class="list-group-item">Level 3: Friends of friends of friends</li>
+                    <li class="list-group-item">...</li>
+                    <li class="list-group-item">Level 6: Fully public</li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <label for="profile_picture">Profile Picture:</label>
+                <input type="text" class="form-control" id="profile_picture">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Create Account</button>
+        </form>
     </div>
+</div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
