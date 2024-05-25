@@ -85,6 +85,12 @@ class User:
         tags.sort(key=lambda x: x.get("affinity"))
         return tags
 
+    def leave_tag(self, _id):
+        for t in self.tags:
+            if t["tag_id"] == ObjectId(_id):
+                t["affinity"] = -5
+                update_one(self.id, self)
+
 
 def find_one(_id: str | ObjectId):
     """

@@ -16,10 +16,10 @@
     {% if request.path == '/communities_list' %}
         <div class="btn">
             <form action="/communities_list?id={{ element["tag"].id }}" method="post">
-                <input type="hidden" name="action" value="unfollow_tag">
-                <input type="hidden" name="to_unfollow_community" value="{{ element["tag"].id }}">
-                <button type="button" class="btn btn-warning">
-                    Unfollow
+                <input type="hidden" name="action" value="leave_community">
+                <input type="hidden" name="to_leave_community" value="{{ element["tag"].id }}">
+                <button type="submit" class="btn btn-warning">
+                    Leave
                 </button>
             </form>
         </div>

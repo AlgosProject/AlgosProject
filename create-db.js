@@ -119,7 +119,7 @@ db.users.insertMany([
             {tag_id: t3, affinity: 10},
             {tag_id: t5, affinity: 4},
             {tag_id: t4, affinity: -8},
-            {tag_id: t5, affinity: 10}
+            {tag_id: t6, affinity: 10}
         ]
     },
     {
