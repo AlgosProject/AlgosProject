@@ -91,6 +91,19 @@ class User:
                 t["affinity"] = -5
                 update_one(self.id, self)
 
+    def joint_tag(self, tag_id):
+        t = dict()
+        if tag_id not in [u_tag["tag_id"] for u_tag in self.tags]:
+            t["tag_id"] = ObjectId(tag_id)
+            t["affinity"] = 1
+            self.tags.append(t)
+        else:
+            for t in self.tags:
+                if t["tag_id"] == ObjectId(tag_id):
+                    t["affinity"] = 1
+
+        update_one(self.id, self)
+
 
 def find_one(_id: str | ObjectId):
     """

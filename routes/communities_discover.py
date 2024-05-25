@@ -27,5 +27,5 @@ def communities_discover():
 
     if request.method == "POST":
         if request.form["action"] == "join_community":
-            pass
+            user.joint_tag(request.form["to_join_community"])
         return redirect(url_for("communities_discover.communities_discover"))
