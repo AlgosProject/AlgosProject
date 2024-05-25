@@ -33,13 +33,18 @@ def chat():  # put application's code here
                 side_items=chats_dest,
                 messages=curr_messages,
                 current_uid=user.id,
-                current_recipient=current_recipient
+                current_recipient=current_recipient,
+                seen=user.seen
             )
 
     if request.method == "POST":
         if request.form["action"] == "send":
-            messageDao.insert_one(
+            m_id = messageDao.insert_one(
                 {"user_id": user.id, "group_id": ObjectId(chat_id), "text": request.form["message_text"]})
+            user.seen.add(m_id)
+            userDao.update_one(user.id, user)
+            session["user"] = dict(user)
+
             return redirect(url_for("chats.chat", id=chat_id))
 
         elif request.form["action"] == "delete_chat":
