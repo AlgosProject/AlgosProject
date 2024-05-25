@@ -6,7 +6,11 @@
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="../static/styles/stylesheet.css"/>
     <link href='https://fonts.googleapis.com/css?family=Amaranth' rel='stylesheet'>
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}z{% endblock %}</title>
+<script
+  src="https://code.jquery.com/jquery-3.7.1.js"
+  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+  crossorigin="anonymous"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light ">
@@ -72,6 +76,10 @@
                     <span class="badge text-bg-secondary">#</span>
                     <a class="nav-link" href="/chats">Chats</a>
                 </li>
+                <li class="nav-item text-bg-secondary">
+                    <span class="badge">+</span>
+                    <a class="nav-link" href="/new-post">New Post</a>
+                </li>
             </ul>
             <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -82,9 +90,6 @@
 </nav>
 {% block content %}
 {% endblock %}
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
