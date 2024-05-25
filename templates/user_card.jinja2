@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% if friend is defined and common_friends is defined %}
+{% if request.path == '/friends_list' or request.path == '/communities_discover' %}
     <div class="card">
 
         {% if request.path == '/friends_list' or request.path == '/friends_discover' %}
@@ -12,9 +12,10 @@
                 <h5 class="card-title">{{ friend.name }}</h5>
                 <p class="card-text">{{ common_friends.get(friend.id) }} # mutual friends.</p>
             {% endif %}
+
             {% if request.path == '/communities_discover' %}
-                <h5 class="card-title">Community Name</h5>
-                <p class="card-text">Number of followers.</p>
+                <h5 class="card-title">{{ tag.name }}</h5>
+                <p class="card-text">Number of followers: {{ tag.follower_number }}</p>
             {% endif %}
         </div>
 
@@ -46,7 +47,16 @@
         {% endif %}
 
         {% if request.path == '/communities_discover' %}
-            <button type="button" class="btn btn-success" onsubmit="followCom()">Follow</button>
+
+            <div class="btn">
+                <form method="post" action="/communities_discover?id={{ tag.id }}">
+                    <input type="hidden" name="id" value="{{ tag.id }}">
+                    <input type="hidden" name="action" value="join_community">
+                    <button type="submit" class="btn btn-success">
+                        Join
+                    </button>
+                </form>
+            </div>
         {% endif %}
 
         <!-- if user is sending friend request
