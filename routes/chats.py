@@ -14,9 +14,10 @@ def chat():  # put application's code here
 
     if request.method == "GET":
         if chat_id is None:
-            return render_template(
-                "chats.jinja2"
-            )
+            if len(chats) == 0:
+                return render_template("chats.jinja2")
+            else:
+                return redirect(url_for("chats.chat", id=chats.pop().id))
         else:
             curr_messages = messageDao.find_all_messages_from_group(chat_id)
             chats_dest = []

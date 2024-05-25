@@ -25,6 +25,16 @@ class Tag:
     def get_number_of_followers(self):
         return len(model.userDao.find__positive_affinity_user_by_tag_id(self.id))
 
+    @property
+    def follower_number(self):
+        users = model.userDao.get_all()
+        count = 0
+        for u in users:
+            for t in u.tags:
+                if t["tag_id"] == self.id:
+                    count += 1
+        return count
+
 
 def find_one(_id: str | ObjectId):
     """
