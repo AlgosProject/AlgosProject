@@ -108,6 +108,12 @@ class User:
 
         update_one(self.id, self)
 
+    def see_message(self, _id):
+        print(type(self.seen))
+        self.seen.add(_id)
+        update_one(self.id, self)
+        return self
+
 
 def find_one(_id: str | ObjectId):
     """
@@ -161,14 +167,16 @@ def update_one(_id: str | ObjectId, obj: User):
     :param obj:
     :return:
     """
+    new_obj = {k: v for (k, v) in zip(dict(obj).keys(), dict(obj).values())}
+
     if isinstance(_id, str):
         _id = ObjectId(_id)
 
-    if isinstance(obj.seen, set):
-        obj.seen = list(obj.seen)
+    if isinstance(new_obj["seen"], set):
+        new_obj["seen"] = list(new_obj["seen"])
 
     return mongo.db.users.update_one({"_id": _id},
-                                     {"$set": dict(obj)})
+                                     {"$set": dict(new_obj)})
 
 
 def delete_one(_id: str | ObjectId):
