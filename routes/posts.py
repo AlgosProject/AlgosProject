@@ -1,5 +1,5 @@
 from bson import ObjectId
-from flask import Blueprint, render_template, session, request, redirect, url_for
+from flask import Blueprint, render_template, session, request, redirect, url_for, flash
 
 from model import userDao, postDao, tagDao
 
@@ -46,4 +46,5 @@ def new_post():  # put application's code here
                 tagobj = tagobj.id
             tagObjList.append(tagobj)
         postDao.insert_one({"likes":[], "photo_url": post_img_url, "text": caption, "user_id": user.id, "comments": [], "tags": tagObjList})
+        flash("New post has been successfully uploaded!", "success")
         return redirect(url_for("home_page.home"))
