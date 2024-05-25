@@ -35,6 +35,18 @@ class Tag:
                     count += 1
         return count
 
+    def add_post(self, _id: str | ObjectId):
+        """
+        Adds a post to the tag object
+        :param post _id:
+        :return:
+        """
+        if isinstance(_id, str):
+            _id = ObjectId(_id)
+        return mongo.db.tags.update_one({"_id": self.id},
+                                        {"$push": {"post_ids": _id}})
+
+
 
 def find_one(_id: str | ObjectId):
     """
