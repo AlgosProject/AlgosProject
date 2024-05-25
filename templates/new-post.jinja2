@@ -1,0 +1,113 @@
+{% extends "base.jinja2" %}
+{% block title %} Create New Post {% endblock %}
+{% block content %}
+    <style>
+    .tag-container {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.tag{
+  pointer-events: none;
+  background-color: #242424;
+  color: white;
+  padding: 6px;
+  margin: 5px;
+}
+
+.tag::before {
+  pointer-events: all;
+  display: inline-block;
+  content: 'x';
+  height: 20px;
+  width: 20px;
+  margin-right: 6px;
+  text-align: center;
+  color: #ccc;
+  background-color: #111;
+  cursor: pointer;
+}
+
+    </style>
+    <div class="body_row">
+
+        <div class="side_block_list">
+            {% include "side_list.jinja2" %}
+        </div>
+        <div class="form-group" style="width: 85%; padding: 0.5rem; margin: auto;">
+            <h1>Create a New Post</h1>
+                    <form method="post" action="/new-post" enctype="multipart/form-data">
+                        <label for="hashtags">
+                            Topics:
+                        </label>
+                        <input class="form-control" type="text" id="hashtags" autocomplete="off">
+                        <div class="tag-container"></div>
+                        <label for="post-img">Choose a picture:</label>
+                        <input class="form-control" type="file" id="post-img" name="post-img" accept="image/*"/>
+                        <label for="caption">
+                            Caption:
+                        </label>
+                        <textarea class="form-control" id="caption" name="post_caption" rows="5"></textarea>
+                        <input type="hidden" name="action" value="send">
+                        <input type="hidden" name="taglist" id="taglist-values">
+                        <button type="submit" class="btn btn-info" style="align-self: flex-end; margin-top: .5rem ">
+                            Upload
+                        </button>
+                    </form>
+        </div>
+
+
+        <div class="side_block">
+            <img src="../static/img/affinity_logo.png" alt="logo">
+        </div>
+    </div>
+    <script>
+    let input, hashtagArray, container, t;
+
+input = document.querySelector('#hashtags');
+container = document.querySelector('.tag-container');
+hashStorage = $("#taglist-values");
+hashtagArray = new Set();
+
+function updateValues(){
+    let hashtagString ='';
+      hashtagArray.forEach(strval => {
+          let sep = ",";
+          if(hashtagString == '')
+              sep = '';
+          hashtagString += sep+ strval;
+      });
+    hashStorage.val(hashtagString);
+}
+
+input.addEventListener('keyup', () => {
+    if (event.which == 13 && input.value.length > 0) {
+        let tagtext = input.value.toLowerCase()
+        if(hashtagArray.has(tagtext)) return;
+      var text = document.createTextNode(tagtext);
+      var p = document.createElement('p');
+      container.appendChild(p);
+      p.appendChild(text);
+      p.classList.add('tag');
+      hashtagArray.add(tagtext);
+      updateValues()
+        input.value = '';
+      $('.tag').on("click", function() {
+          hashtagArray.delete($(this).text())
+          $(this).remove();
+          updateValues()
+      })
+
+    }
+});
+
+$(document).ready(function() {
+  $(window).keydown(function(event){
+    if(event.keyCode == 13) {
+      event.preventDefault();
+      return false;
+    }
+  });
+});
+    </script>
+{% endblock %}

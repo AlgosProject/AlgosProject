@@ -38,6 +38,18 @@ def find_one(_id: str | ObjectId):
     if res:
         return Tag(**res)
 
+def find_by_name(name: str):
+    """
+        Returns a tag object from db
+        :param name:
+        :return:
+    """
+    res = mongo.db.tags.find_one({"name": name})
+    if res:
+        return Tag(**res)
+    else:
+        return None
+
 
 def insert_one(obj: dict | Tag):
     """

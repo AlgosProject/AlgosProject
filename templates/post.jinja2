@@ -2,8 +2,9 @@
 {% if post is defined %}
     <div class="card border-light mb-3" style="max-width: 25rem;">
         <div class="card-header"><a href="">{{ post.user.name }}</a></div>
-        {# TODO: Add picture #}
-        <img src="..." class="card-img-top" alt="photo">
+        {% if post.photo_url|length > 0 %}
+            <img src="{{ post.photo_url }}" class="card-img-top" alt="photo">
+        {% endif %}
         <div class="card-body">
             <p class="card-text">
                 {{ post.text }}
@@ -30,7 +31,6 @@
         {% if request.path == '/home_page' %}
             <a href="/media?post_id={{ post.id }}"> View comments</a>
         {% endif %}
-        <a class="post_date">date</a>
     </div>
 
 {% else %}

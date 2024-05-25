@@ -4,3 +4,5 @@ Flask-PyMongo
 Flask-Bcrypt
 Flask-Session
 cachelib~=0.13.0
+cloudinary
+python-dotenv
