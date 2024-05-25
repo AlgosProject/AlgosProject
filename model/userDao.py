@@ -2,7 +2,7 @@ import dataclasses
 from math import log
 from collections import deque
 from dataclasses import dataclass
-from typing import Optional, List, Dict,Set
+from typing import Optional, List, Dict, Set
 from flask import current_app
 from flask_bcrypt import Bcrypt
 
@@ -20,6 +20,7 @@ class User:
     password: str
     tags: List[Dict[str, int]]
     seen: Set[ObjectId]
+    photo_url: Optional[str] = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
     _id: Optional[ObjectId] = dataclasses.field(default_factory=ObjectId)
 
     def __post_init__(self):

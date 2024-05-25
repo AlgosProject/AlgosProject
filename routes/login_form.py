@@ -8,6 +8,7 @@ login_form_blueprint = Blueprint('login_form', __name__,
 @login_form_blueprint.route("/", methods=["GET", "POST"])
 def login_form():
     if request.method == "POST":
+        session.clear()
         user = request.form["user"]
         psw = request.form["password"]
 

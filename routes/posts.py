@@ -3,6 +3,8 @@ from flask import Blueprint, render_template, session, request, redirect, url_fo
 
 from model import userDao, postDao, tagDao
 
+from utils import cloudinary_upload
+
 new_post_blueprint = Blueprint("new_post", __name__, template_folder="templates")
 
 
@@ -18,19 +20,8 @@ def new_post():  # put application's code here
             )
 
     if request.method == "POST":
-        from dotenv import load_dotenv
-        load_dotenv()
-
-        import cloudinary
-        from cloudinary import CloudinaryImage
-        import cloudinary.uploader
-        import cloudinary.api
-
-        file_to_upload = request.files['post-img']
-        post_img_url = ""
-        if file_to_upload:
-            upload_result = cloudinary.uploader.upload(file_to_upload)
-            post_img_url = upload_result["url"]
+        image = request.files["post-img"]
+        post_img_url = cloudinary_upload.upload(image)
         caption = request.form.get("post_caption")
         tags = request.form.get("taglist")
         taglist = tags.split(",")
