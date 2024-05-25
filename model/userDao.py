@@ -2,7 +2,7 @@ import dataclasses
 from math import log
 from collections import deque
 from dataclasses import dataclass
-from typing import Optional, List, Dict
+from typing import Optional, List, Dict,Set
 from flask import current_app
 from flask_bcrypt import Bcrypt
 
@@ -19,8 +19,11 @@ class User:
     username: str
     password: str
     tags: List[Dict[str, int]]
-    seen: List[ObjectId]
+    seen: Set[ObjectId]
     _id: Optional[ObjectId] = dataclasses.field(default_factory=ObjectId)
+
+    def __post_init__(self):
+        self.seen = set(self.seen)
 
     @property
     def id(self):
@@ -159,6 +162,10 @@ def update_one(_id: str | ObjectId, obj: User):
     """
     if isinstance(_id, str):
         _id = ObjectId(_id)
+
+    if isinstance(obj.seen, set):
+        obj.seen = list(obj.seen)
+
     return mongo.db.users.update_one({"_id": _id},
                                      {"$set": dict(obj)})
 
