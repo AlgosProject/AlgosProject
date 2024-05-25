@@ -20,17 +20,26 @@ def chat():  # put application's code here
                 return redirect(url_for("chats.chat", id=chats.pop().id))
         else:
             curr_messages = messageDao.find_all_messages_from_group(chat_id)
-            chats_dest = []
+
+            for m in curr_messages:  # See all messages in current chat
+                session["user"] = dict(user.see_message(m.id))
+
+            chats_dest_seen = []
             for c in chats:
                 dest = c.users_built
                 dest.remove(user)
-                chats_dest.append((c, dest.pop()))
+                seen = True
+                messages = messageDao.find_all_messages_from_group(c.id)
+                for m in messages:
+                    if m.id not in user.seen:
+                        seen = False
+                chats_dest_seen.append((c, dest.pop(), seen))
 
-            current_recipient = [c[1] for c in chats_dest if str(c[0].id) == chat_id].pop()
+            current_recipient = [c[1] for c in chats_dest_seen if str(c[0].id) == chat_id].pop()
 
             return render_template(
                 "chats.jinja2",
-                side_items=chats_dest,
+                side_items=chats_dest_seen,
                 messages=curr_messages,
                 current_uid=user.id,
                 current_recipient=current_recipient,

@@ -2,7 +2,9 @@
     <div class="ms-2 me-auto">
         {% if request.path == '/chats' %}
             <a class="fw-bold" href="/chats?id={{ element[0].id }}">
-                <span class="badge text-bg-secondary">#</span>
+                {% if not element[2] %}
+                    <span class="badge text-bg-secondary">#</span>
+                {% endif %}
                 {{ element[1].name }}
             </a>
         {% endif %}

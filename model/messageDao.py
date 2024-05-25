@@ -40,6 +40,14 @@ def find_one(_id: str | ObjectId):
         return Message(**res)
 
 
+def find_messages_id(ls_ids: list, group_id):
+    """
+    :return: - A list of Notification objects
+    """
+    res = mongo.db.messages.find({"_id": {"$in": ls_ids}, "group_id": group_id})
+    return [Message(**r) for r in res]
+
+
 def find_all_messages_from_group(_id):
     if isinstance(_id, str):
         _id = ObjectId(_id)
