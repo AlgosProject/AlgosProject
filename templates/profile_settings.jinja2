@@ -9,10 +9,11 @@
             <a class="section_title">Security</a>
             <div class="grid_container">
                 <a>Privacy Level: </a>
-                <div class="input-group mb-3">
+                <div class="input-group mb-3 d-flex">
+                    <form class="w-100" action="/profile_settings" method="POST" id="change-privacy-form">
                     <label class="input-group-text" for="privacy_control">Options</label>
-                    <select class="form-select" id="privacy_control">
-                        <option selected>Choose...</option>
+                    <select class="form-select" name="privacy_control" id="privacy_control">
+                        <option selected disabled>Choose...</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -20,6 +21,9 @@
                         <option value="5">5</option>
                         <option value="6">6</option>
                     </select>
+                        <input type="hidden" name="update" value="privacy_control"/>
+                        <button class="btn btn-outline-secondary w-100" type="submit" id="edit_name_btn">Confirm Change</button>
+                    </form>
                 </div>
                 <ul class="list-group list-group-flush bg-light border rounded">
                     <svg xmlns="http://www.w3.org/2000/svg" height="1rem" viewBox="0 0 512 512">

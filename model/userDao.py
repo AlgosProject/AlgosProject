@@ -180,6 +180,11 @@ class User:
         update_one(self.id, self)
         return self
 
+    def set_privacy_control(self, privacy_control):
+        self.privacy_control = privacy_control
+        update_one(self.id, self)
+        return self
+
     def get_common_friends(self, other_id):
         my_friends = set()
         their_friends = set()
