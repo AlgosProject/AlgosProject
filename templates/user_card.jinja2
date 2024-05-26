@@ -35,17 +35,16 @@
 
                 {#TODO Make the remove friend button work #}
                 <div class="btn">
-                    <form>
-                        <button type="submit" class="btn btn-danger">
+                        <button type="submit" class="btn btn-danger" onclick="addFriend('{{ friend.id }}', 'delete'); this.disabled=true;">
                             Remove Friend
                         </button>
-                    </form>
                 </div>
             </div>
         {% endif %}
 
+
         {% if (request.path == '/search_page' and friend is defined) %}
-            <button type="button" class="btn btn-success" onsubmit="addFriend()">Add Friend</button>
+            <button type="button" class="btn btn-success" onclick="addFriend('{{ friend.id }}', 'add'); this.disabled=true;">Add Friend</button>
         {% endif %}
 
         {% if request.path == '/friends_discover' %}
@@ -132,12 +131,6 @@
         </script>
 
         <script>
-            function addFriend() {
-                //script to add a friend
-            }
-        </script>
-
-        <script>
             function acceptFriend() {
                 //script to add a friend
             }
@@ -180,12 +173,12 @@
             {#TODO Make the buttons work #}
             <span>
             <button type="button" class="btn btn-primary" onsubmit="openChat()">Chat</button>
-            <button type="button" class="btn btn-danger" onsubmit="deleteFriend()">Remove Friend</button>
+            <button type="button" class="btn btn-danger" onclick="addFriend('{{ friend.id }}', 'delete'); this.disabled=true;">Remove Friend</button>
         </span>
         {% endif %}
 
         {% if request.path == '/friends_discover' %}
-            <button type="button" class="btn btn-success" onsubmit="addFriend()">Add Friend</button>
+            <button type="button" class="btn btn-success"  onclick="addFriend('{{ friend.id }}', 'add'); this.disabled=true;">Add Friend</button>
         {% endif %}
 
         {% if request.path == '/communities_discover' %}
@@ -204,12 +197,6 @@
         <script>
             function deleteFriend() {
                 //script to delete a friend
-            }
-        </script>
-
-        <script>
-            function addFriend() {
-                //script to add a friend
             }
         </script>
 

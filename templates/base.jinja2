@@ -22,6 +22,16 @@
             crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
+        function addFriend(friendId, type) {
+                  console.log(friendId, type)
+                $.post("/add_friend_to_user", {
+                    "friendId": friendId,
+                    "type": type,
+                }).then(function (data) {
+                    $('#alert-div').append(`<div class='alert alert-info alert-dismissible fade show' role='alert'> ${data.message}<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button> </div>`)
+                });
+                }
+
         $(document).ready(
             () => {
                 function update_navbar_notifs() {
@@ -143,7 +153,7 @@
         </div>
     </div>
 </nav>
-<div>
+<div id="alert-div">
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}
