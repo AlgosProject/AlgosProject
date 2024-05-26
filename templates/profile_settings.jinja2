@@ -21,7 +21,7 @@
                         <option value="6">6</option>
                     </select>
                 </div>
-                <ul class="list-group list-group-flush">
+                <ul class="list-group list-group-flush bg-light border rounded">
                     <svg xmlns="http://www.w3.org/2000/svg" height="1rem" viewBox="0 0 512 512">
                         <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                         <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/>
@@ -37,29 +37,44 @@
             <div class="grid_container" style="grid-template-columns: repeat(2, 1fr);">
                 <a> Change Username: </a>
                 <div class="input-group mb-3">
+                    <form action="/profile_settings" method="POST" id="change-username-form">
                     <input type="text" class="form-control" placeholder="New username" id="username"
-                           aria-label="New username" aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary" type="button" id="edit_user_btn">Confirm Change</button>
+                           aria-label="New username" aria-describedby="button-addon2" name="username">
+                        <input type="hidden" name="update" value="username"/>
+                    </form>
+                    <button class="btn btn-outline-secondary" form="change-username-form" type="button" id="edit_user_btn">Confirm Change</button>
                 </div>
                 <a> Change Password: </a>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="New password" id="password"
+                     <form action="/profile_settings" method="POST" id="change-pwd-form">
+                    <input type="text" class="form-control" placeholder="New password" id="password" name="password"
                            aria-label="New password" aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary" type="button" id="edit_pass_btn">Confirm Change</button>
+                         <input type="hidden" name="update" value="password"/>
+                     </form>
+                    <button class="btn btn-outline-secondary" form="change-pwd-form" type="button" id="edit_pass_btn">Confirm Change</button>
                 </div>
                 <a> Change Name: </a>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="New password" id="name"
+                    <form action="/profile_settings" method="POST" id="change-name-form">
+                    <input type="text" class="form-control" placeholder="New Name" name="name" id="name"
                            aria-label="New password" aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary" type="button" id="edit_name_btn">Confirm Change</button>
+                        <input type="hidden" name="update" value="name"/>
+                    </form>
+                    <button class="btn btn-outline-secondary" form="change-name-form" type="button" id="edit_name_btn">Confirm Change</button>
                 </div>
             </div>
             <a class="section_title">Profile</a>
-            <div class="grid_container">
+            <div class="grid_container d-flex m-auto">
+                    <div>
+                        <img style="height: 20em" src="{{ session["user"]["photo_url"] }}" alt="profile picture"/>
+                    </div>
                 <div class="form-group" style="border-top:none">
-                    <label for="profile_picture">Profile Picture:</label>
-                    <input type="text" class="form-control" id="profile_picture">
-                    <button class="btn btn-outline-secondary" type="button" id="edit_profile_btn">Confirm Change</button>
+                    <form action="/profile_settings" enctype="multipart/form-data" method="POST">
+                        <label for="profile_picture">Profile Picture:</label>
+                        <input type="file" accept="image/*" name="profile_picture" class="form-control" id="profile_picture">
+                        <input type="hidden" name="update" value="picture"/>
+                        <button class="btn btn-outline-secondary w-100" type="submit" id="edit_profile_btn">Confirm Change</button>
+                    </form>
                 </div>
             </div>
             <button type="button" class="btn btn-danger" style="margin-top:auto; align-self: center;" onsubmit="deleteProfile()">Delete Profile</button>
