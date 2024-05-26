@@ -56,9 +56,6 @@ class User:
         Gets all the visible user ids of this user given its privacy setting
         :return:
         """
-        if self.privacy_control >= 6:  # since 6 means anyone can see
-            users = get_all()
-            return [user.id for user in users]
         current_lvl = deque()  # Current level
         current_lvl.append(self.id)
         next_lvl = deque()  # Next level
@@ -86,6 +83,12 @@ class User:
             current_lvl = next_lvl
             next_lvl = deque()
 
+        if self.privacy_control >= 6:  # since 6 means anyone can see, shows detached users
+            users = get_all()
+            freeusers = [user.id for user in users if (user.privacy_control >= 6)]
+            for user in freeusers:
+                if user not in visited:
+                    visited.append(user)
         return visited
 
     def get_user_tags_ordered_by_affinity(self):
