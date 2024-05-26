@@ -17,6 +17,7 @@ from routes.registration_form import registration_form_blueprint
 from routes.posts import new_post_blueprint
 from routes.logout import logout_blueprint
 from routes.notification import notification_blueprint
+from routes.search_page import search_page_blueprint
 
 from utils.mongo_store_broker import mongo
 from flask_bcrypt import Bcrypt
@@ -54,6 +55,7 @@ app.register_blueprint(profilePosts_blueprint)
 app.register_blueprint(registration_form_blueprint)
 app.register_blueprint(new_post_blueprint)
 app.register_blueprint(logout_blueprint)
+app.register_blueprint(search_page_blueprint)
 app.register_blueprint(notification_blueprint)
 
 if __name__ == "__main__":
