@@ -12,6 +12,12 @@
 
         <div class="login_box">
             <img src="../static/img/affinity_logo.png" alt="logo" height="200vh">
+            {% if error %}
+               <div class="alert alert-danger" role="alert"><strong>Error:</strong> {{ error }}</div>
+            {% endif %}
+            {% if session['success'] %}
+               <div class="alert alert-success" role="alert"><strong>Notice:</strong> {{ session['success'] }}</div>
+            {% endif %}
             <form action="/" method="post">
                 <div class="form-group">
                     <label for="InputUsername">Username:</label>

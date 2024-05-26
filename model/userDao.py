@@ -2,7 +2,7 @@ import dataclasses
 from math import log
 from collections import deque
 from dataclasses import dataclass
-from typing import Optional, List, Dict
+from typing import Optional, List, Dict, Set
 from flask import current_app
 from flask_bcrypt import Bcrypt
 
@@ -19,8 +19,12 @@ class User:
     username: str
     password: str
     tags: List[Dict[str, int]]
-    seen: List[ObjectId]
+    seen: Set[ObjectId]
+    photo_url: Optional[str] = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
     _id: Optional[ObjectId] = dataclasses.field(default_factory=ObjectId)
+
+    def __post_init__(self):
+        self.seen = set(self.seen)
 
     @property
     def id(self):
@@ -85,6 +89,31 @@ class User:
         tags.sort(key=lambda x: x.get("affinity"))
         return tags
 
+    def leave_tag(self, _id):
+        for t in self.tags:
+            if t["tag_id"] == ObjectId(_id):
+                t["affinity"] = -5
+                update_one(self.id, self)
+
+    def joint_tag(self, tag_id):
+        t = dict()
+        if tag_id not in [u_tag["tag_id"] for u_tag in self.tags]:
+            t["tag_id"] = ObjectId(tag_id)
+            t["affinity"] = 1
+            self.tags.append(t)
+        else:
+            for t in self.tags:
+                if t["tag_id"] == ObjectId(tag_id):
+                    t["affinity"] = 1
+
+        update_one(self.id, self)
+
+    def see_message(self, _id):
+        print(type(self.seen))
+        self.seen.add(_id)
+        update_one(self.id, self)
+        return self
+
 
 def find_one(_id: str | ObjectId):
     """
@@ -138,10 +167,16 @@ def update_one(_id: str | ObjectId, obj: User):
     :param obj:
     :return:
     """
+    new_obj = {k: v for (k, v) in zip(dict(obj).keys(), dict(obj).values())}
+
     if isinstance(_id, str):
         _id = ObjectId(_id)
+
+    if isinstance(new_obj["seen"], set):
+        new_obj["seen"] = list(new_obj["seen"])
+
     return mongo.db.users.update_one({"_id": _id},
-                                     {"$set": dict(obj)})
+                                     {"$set": dict(new_obj)})
 
 
 def delete_one(_id: str | ObjectId):

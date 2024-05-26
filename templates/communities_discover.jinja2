@@ -8,7 +8,9 @@
         <div class="post_window">
             <a class="section_title">Suggestions</a>
             <div class="grid_container">
-                {% include "user_card.jinja2" %}
+                {% for tag in tags %}
+                    {% include "user_card.jinja2" %}
+                {% endfor %}
             </div>
         </div>
         <div class="side_block">

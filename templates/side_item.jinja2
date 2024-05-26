@@ -2,24 +2,26 @@
     <div class="ms-2 me-auto">
         {% if request.path == '/chats' %}
             <a class="fw-bold" href="/chats?id={{ element[0].id }}">
-                <span class="badge text-bg-secondary">#</span>
+                {% if not element[2] %}
+                    <span class="badge text-bg-secondary">#</span>
+                {% endif %}
                 {{ element[1].name }}
             </a>
         {% endif %}
 
         {% if request.path == '/communities_list' %}
             <a class="fw-bold" href="/communities_list?id={{ element["tag"].id }}">{{ element["tag"].name }}</a>
-            <a class="post_date">{{ element["tag"].get_number_of_followers }} Number of followers</a>
+            <a class="post_date">{{ element["tag"].get_number_of_followers }} followers</a>
         {% endif %}
     </div>
 
     {% if request.path == '/communities_list' %}
         <div class="btn">
             <form action="/communities_list?id={{ element["tag"].id }}" method="post">
-                <input type="hidden" name="action" value="unfollow_tag">
-                <input type="hidden" name="to_unfollow_community" value="{{ element["tag"].id }}">
-                <button type="button" class="btn btn-warning">
-                    Unfollow
+                <input type="hidden" name="action" value="leave_community">
+                <input type="hidden" name="to_leave_community" value="{{ element["tag"].id }}">
+                <button type="submit" class="btn btn-warning">
+                    Leave
                 </button>
             </form>
         </div>

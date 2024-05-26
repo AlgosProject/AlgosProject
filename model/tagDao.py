@@ -25,6 +25,28 @@ class Tag:
     def get_number_of_followers(self):
         return len(model.userDao.find__positive_affinity_user_by_tag_id(self.id))
 
+    @property
+    def follower_number(self):
+        users = model.userDao.get_all()
+        count = 0
+        for u in users:
+            for t in u.tags:
+                if t["tag_id"] == self.id:
+                    count += 1
+        return count
+
+    def add_post(self, _id: str | ObjectId):
+        """
+        Adds a post to the tag object
+        :param post _id:
+        :return:
+        """
+        if isinstance(_id, str):
+            _id = ObjectId(_id)
+        return mongo.db.tags.update_one({"_id": self.id},
+                                        {"$push": {"post_ids": _id}})
+
+
 
 def find_one(_id: str | ObjectId):
     """
@@ -37,6 +59,18 @@ def find_one(_id: str | ObjectId):
     res = mongo.db.tags.find_one({"_id": _id})
     if res:
         return Tag(**res)
+
+def find_by_name(name: str):
+    """
+        Returns a tag object from db
+        :param name:
+        :return:
+    """
+    res = mongo.db.tags.find_one({"name": name})
+    if res:
+        return Tag(**res)
+    else:
+        return None
 
 
 def insert_one(obj: dict | Tag):
