@@ -160,6 +160,31 @@ class User:
         update_one(self.id, self)
         return self
 
+    def set_name(self, name):
+        self.name = name
+        update_one(self.id, self)
+        return self
+
+    def set_username(self, username):
+        self.username = username
+        update_one(self.id, self)
+        return self
+
+    def set_password(self, password):
+        self.password = password
+        update_one(self.id, self)
+        return self
+
+    def set_photo_url(self, photo_url):
+        self.photo_url = photo_url
+        update_one(self.id, self)
+        return self
+
+    def set_privacy_control(self, privacy_control):
+        self.privacy_control = privacy_control
+        update_one(self.id, self)
+        return self
+
     def get_common_friends(self, other_id):
         my_friends = set()
         their_friends = set()
