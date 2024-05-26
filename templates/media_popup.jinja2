@@ -7,14 +7,16 @@
             <img src="../static/img/affinity_logo.png" alt="logo">
         </div>
         <div class="post_window">
-            <button type="button" class="btn btn-light" onclick="returnHome()">X</button>
+            <button type="button" class="btn btn-light" onclick="history.back()">X</button>
             {% include "post.jinja2" %}
             <div class="comment_container">
                 {% for comment in comments %}
-                    <div class="media">
-                        {#                        <img src="..." class="mr-3" alt="...">#}
+                    <div class="media bg-light my-1 rounded">
                         <div class="media-body">
-                            <h5 class="mt-0">{{ comment.author.name }}</h5>
+                            <div class="d-flex" style="height: 2em">
+                            <img src="{{ comment.author.photo_url }}" style="height:100%" alt="profile picture for {{ comment.author.name }}">
+                            <h5 class="m-1">{{ comment.author.name }}</h5>
+                            </div>
                             {{ comment.text }}
                         </div>
                     </div>

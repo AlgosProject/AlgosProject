@@ -1,6 +1,7 @@
 import dataclasses
 from dataclasses import dataclass
 from typing import Optional
+import re
 
 import model.userDao
 from utils.mongo_store_broker import mongo
@@ -112,3 +113,15 @@ def get_all():
     """
     res = mongo.db.tags.find({})
     return [Tag(**r) for r in res]
+
+
+def get_all_like(pattern: str):
+    """
+    :param pattern:
+    :return: - A list of tag objects with name like pattern
+    """
+    regx = re.compile(".*"+pattern+".*", re.IGNORECASE)
+    res = mongo.db.tags.find({"name": regx})
+    return [Tag(**r) for r in res]
+
+

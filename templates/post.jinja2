@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 {% if post is defined %}
     <div class="card border-light mb-3" style="max-width: 25rem;">
-        <div class="card-header"><a href="{{ url_for('profile_posts.profile_posts', profile_id = post.user.id)}}">{{ post.user.name }}</a></div>
+        <div class="card-header">
+            <div class="d-flex" style="height: 2em">
+                <a href="{{ url_for('profile_posts.profile_posts', profile_id = post.user.id)}}">
+                <img class="mx-1" src="{{ post.user.photo_url }}" style="height:100%" alt="profile picture for {{ post.user.name }}">
+            {{ post.user.name }}</a>
+            </div>
+        </div>
         {% if post.photo_url|length > 0 %}
             <img src="{{ post.photo_url }}" class="card-img-top" alt="photo">
         {% endif %}
@@ -28,7 +34,7 @@
                 </svg>
             </button>
         </div>
-        {% if request.path == '/home_page' %}
+        {% if request.path == '/home_page' or request.path == '/search_page'%}
             <a href="/media?post_id={{ post.id }}"> View comments</a>
         {% endif %}
     </div>

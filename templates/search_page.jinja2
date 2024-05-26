@@ -1,0 +1,99 @@
+{% extends "base.jinja2" %}
+{% block title %} Home Page {% endblock %}
+{% block content %}
+    <div class="body_row">
+        <div class="side_block">
+            <img src="../static/img/affinity_logo.png" alt="logo">
+        </div>
+        <div class="post_window">
+            <form method="POST" class="w-100 mx-auto bg-light py-2" role="search" action="/search_page">
+            <div class="input-group w-75 mx-auto m-1">
+                <span class="input-group-text" id="basic-addon1">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"></path>
+                  </svg>
+                </span>
+                <input type="text" class="form-control" placeholder="Input group example" name="query" aria-label="Input group example" value="{{ query }}" aria-describedby="basic-addon1">
+                <span class="input-group-btn">
+            <button class="btn btn-success mx-2" type="submit">
+                Search
+            </button>
+  </span>
+            </div>
+            </form>
+            <nav class="nav nav-pills nav-fill w-100 my-2">
+                    <a class="nav-link active search-pill" href="#home">Follow</a>
+                    <a class="nav-link search-pill" href="#one">Posts</a>
+            </nav>
+            <main>
+                <section class="page" id="one" aria-labelledby="section1Heading">
+                    <h3 class="text-start" id="section1Heading">Posts:</h3>
+                    <hr>
+                    {% if posts is defined and posts|length > 0 %}
+                    {% include "post_list_grid.jinja2" %}
+                    {% else %}
+                    <p> Nothing to show right now</p>
+                    {% endif %}
+                </section>
+
+                <section class="initial" id="home" aria-labelledby="homeHeading">
+                    <h3 class="text-start" id="homeHeading">Add a Friend:</h3>
+                    <hr>
+                    {% if friends_ls is defined and friends_ls|length > 0 %}
+                    {% include "friends_list_container.jinja2" %}
+                    {% else %}
+                    <p> Nothing to show right now</p>
+                    {% endif %}
+                    <h3 class="text-start" id="homeHeading">Find a Community:</h3>
+                    <hr>
+                    {% if tags is defined and tags|length > 0 %}
+                    {% include "communities_list_grid.jinja2" %}
+                    {% else %}
+                    <p> Nothing to show right now</p>
+                    {% endif %}
+                </section>
+            </main>
+        </div>
+        <div class="side_block">
+        </div>
+
+    </div>
+    <style>
+    ul {
+  list-style-type: none;
+}
+
+.page{
+   display: none;
+}
+
+.page:target {
+  display: initial;
+}
+
+.page:target ~ .initial  {
+  display: none;
+}
+
+.search-pill{
+    color:black!important;
+}
+
+.search-pill.active{
+    background: #FFBD59!important;
+    border: #633c00 1px solid;
+    border-bottom: none;
+}
+
+a[class="nav-link search-pill"]{
+    border-bottom: #633c00 1px solid;
+}
+
+    </style>
+    <script>
+    $(".search-pill").on("click", function(){
+        $(".search-pill").toggleClass("active", false)
+        $(this).toggleClass("active", true)
+    })
+    </script>
+{% endblock %}

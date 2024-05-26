@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from typing import Optional, List, Dict, Set
 from flask import current_app
 from flask_bcrypt import Bcrypt
+import re
 
 import model.tagDao
 from utils.mongo_store_broker import mongo
@@ -55,6 +56,9 @@ class User:
         Gets all the visible user ids of this user given its privacy setting
         :return:
         """
+        if self.privacy_control >= 6:  # since 6 means anyone can see
+            users = get_all()
+            return [user.id for user in users]
         current_lvl = deque()  # Current level
         current_lvl.append(self.id)
         next_lvl = deque()  # Next level
@@ -195,6 +199,21 @@ def get_all():
     :return: - A list of user objects
     """
     res = mongo.db.users.find({})
+    return [User(**r) for r in res]
+
+
+def get_user_like_name(pattern: str):
+    """
+        :return: - A list of user objects with names or usernames matching the pattern
+    """
+    regx = re.compile(".*"+pattern+".*", re.IGNORECASE)
+    search = {
+        "$or": [
+            {"username": regx},
+            {"name": regx},
+        ]
+    }
+    res = mongo.db.users.find(search)
     return [User(**r) for r in res]
 
 

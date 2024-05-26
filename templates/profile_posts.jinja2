@@ -7,8 +7,10 @@
         </div>
         <div class="post_window" style="overflow:hidden">
             <div class="profile_header">
-                <img src="" alt="pic">
+                <div class="d-flex" style="height: 2em">
+                <img src="{{ profile.photo_url }}" alt="pic">
                 <a style="margin:0 1rem;">{{ profile.name }}</a>
+                </div>
                 {% if not curr_user %}
                     <a class="post_date" style="margin:0 1rem;">[{{ common_friends.get(profile.id) }} mutual friends.]</a>
                 {% endif %}
