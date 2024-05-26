@@ -226,9 +226,9 @@ db.comments.insertMany([
 
 db.notifications.insertMany([
     {
-        user_id: u1,
-        author_id: u3, //** User if of Origin
-        origin_id: g4, //** In case of chat id
+        user_id: u1,  //** Owner of Notif
+        author_id: u3, //** Who created it
+        origin_id: g4, //** Where is it from
         type: "chat"
     },
     {

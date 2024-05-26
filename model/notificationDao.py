@@ -62,6 +62,21 @@ def find_one(_id: str | ObjectId):
         return Notification(**res)
 
 
+def find_one_by_origin_id_author_id(origin_id: str | ObjectId, author_id: str | ObjectId):
+    """
+    Returns a notification object from db
+    :param author_id:
+    :param origin_id:
+    :return:
+    """
+    if isinstance(origin_id, str):
+        origin_id = ObjectId(origin_id)
+    if isinstance(author_id, str):
+        author_id = ObjectId(author_id)
+    res = mongo.db.notifications.find({"origin_id": origin_id, "author_id": author_id})
+    return [Notification(**r) for r in res]
+
+
 def find_by_user_id(_id: str | ObjectId):
     """
     :return: - A list of Notification objects

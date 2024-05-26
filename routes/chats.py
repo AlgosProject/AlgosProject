@@ -31,6 +31,11 @@ def chat():  # put application's code here
 
             current_recipient = [c[1] for c in chats_dest_seen if str(c[0].id) == chat_id].pop()
 
+            curr_chat_notifs = notificationDao.find_one_by_origin_id_author_id(chat_id, current_recipient.id)
+
+            for notif in curr_chat_notifs:
+                notificationDao.delete_one(notif.id)
+
             return render_template(
                 "chats.jinja2",
                 side_items=chats_dest_seen,
@@ -42,9 +47,22 @@ def chat():  # put application's code here
 
     if request.method == "POST":
         if request.form["action"] == "send":
-            m_id = messageDao.insert_one(
+            messageDao.insert_one(
                 {"user_id": user.id, "group_id": ObjectId(chat_id), "text": request.form["message_text"]})
             session["user"] = dict(user)
+
+            dest_users = groupDao.find_one(ObjectId(chat_id)).users
+            for u in dest_users:
+                if u != user.id:
+                    print(u, user.id, chat_id)
+                    notificationDao.insert_one(
+                        {
+                            "user_id": u,
+                            "origin_id": ObjectId(chat_id),
+                            "type": "chat",
+                            "author_id": ObjectId(user.id),
+                        }
+                    )
 
             return redirect(url_for("chats.chat", id=chat_id))
 
