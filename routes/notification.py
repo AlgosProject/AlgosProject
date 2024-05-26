@@ -13,7 +13,17 @@ def notification():
 
     if request.method == "GET":
         notifs = user.notifications
-        return render_template('notification.jinja2', notifs=notifs)
+        if request.args.get("json"):
+            return dict({
+                "total": len(notifs),
+                "fr_amount": len([n for n in notifs if n.is_friend_request]),
+                "chats_amount": len([n for n in notifs if n.is_chat])
+            })
+
+        if notifs:
+            return render_template('notification.jinja2', notifs=notifs)
+        else:
+            return render_template('notification.jinja2', empty=True)
 
     if request.method == "POST":
         notificationDao.delete_one(request.form["notif_id"])
