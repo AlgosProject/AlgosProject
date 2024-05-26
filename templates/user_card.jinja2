@@ -9,8 +9,8 @@
         <div class="card-body">
 
             {% if request.path == '/friends_list' or request.path == '/friends_discover' %}
-                <h5 class="card-title">{{ friend.name }}</h5>
-                <p class="card-text">{{ common_friends.get(friend.id) }} # mutual friends.</p>
+                <h5 class="card-title"><a href="{{ url_for('profile_posts.profile_posts', profile_id = friend.id)}}"> {{ friend.name }} </a></h5>
+                <p class="card-text">{{ common_friends.get(friend.id) }} mutual friends.</p>
             {% endif %}
 
             {% if request.path == '/communities_discover' %}

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {% if post is defined %}
     <div class="card border-light mb-3" style="max-width: 25rem;">
-        <div class="card-header"><a href="">{{ post.user.name }}</a></div>
+        <div class="card-header"><a href="{{ url_for('profile_posts.profile_posts', profile_id = post.user.id)}}">{{ post.user.name }}</a></div>
         {% if post.photo_url|length > 0 %}
             <img src="{{ post.photo_url }}" class="card-img-top" alt="photo">
         {% endif %}
