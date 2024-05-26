@@ -39,7 +39,7 @@ def new_post():  # put application's code here
                 tagobj = tagobj
             tagObjList.append(tagobj)
         tagidlist = [x.id for x in tagObjList]
-        post_id = postDao.insert_one({"likes": [], "photo_url": post_img_url,
+        post_id = postDao.insert_one({"likes": [], "dislikes": [], "photo_url": post_img_url,
                                       "text": caption, "user_id": user.id,
                                       "comments": [], "tags": tagidlist})
         for tag in tagObjList:

@@ -9,12 +9,12 @@ profilePosts_blueprint = Blueprint("profile_posts", __name__, template_folder="t
 @profilePosts_blueprint.route("/profile_posts", defaults={'profile_id': None}, methods=['GET', 'POST'])
 def profile_posts(profile_id=None):
     curr_user = True
-    current_user = session.get('user')
-    current_user_id = current_user.get('_id')
+    user = session.get('user')
+    current_user_id = user.get('_id')
     profile = userDao.find_one(current_user_id)
 
-    current_user = userDao.User(**current_user)
-    friends_dict = current_user.get_friends_dict()
+    user = userDao.User(**user)
+    friends_dict = user.get_friends_dict()
 
     friends_ls = [userDao.find_one(id) for id in friends_dict.keys()]
     common_friends = dict()
@@ -34,4 +34,4 @@ def profile_posts(profile_id=None):
         posts.append(p)
 
     return render_template("profile_posts.jinja2", profile=profile, posts=posts, curr_user=curr_user,
-                           common_friends=common_friends)
+                           common_friends=common_friends, user=user)
