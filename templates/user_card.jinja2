@@ -3,7 +3,7 @@
     <div class="card">
 
         {% if request.path == '/friends_list' or request.path == '/friends_discover' %}
-            <img src="..." class="card-img-top" alt="...">
+            <img src="{{ friend.photo_url }}" class="card-img-top" alt="profile picture">
         {% endif %}
 
         <div class="card-body">
