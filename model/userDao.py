@@ -160,6 +160,32 @@ class User:
         update_one(self.id, self)
         return self
 
+    def get_common_friends(self, other_id):
+        my_friends = set()
+        their_friends = set()
+
+        for f_af in self.friends:
+            my_friends.add(f_af["friend_id"])
+
+        other = find_one(other_id)
+        for other_f_af in other.friends:
+            their_friends.add(other_f_af["friend_id"])
+
+        return my_friends.intersection(their_friends)
+
+    def compare_affinity(self, other_id):
+        self_affinity = dict()
+        other_affinity = dict()
+
+        for t in self.tags_built:
+            self_affinity[t["tag"].name] = t["affinity"]
+
+        other = find_one(other_id)
+        for t in other.tags_built:
+            other_affinity[t["tag"].name] = t["affinity"]
+        comp_affinity = {k: abs(self_affinity[k] - self_affinity[k]) for k in self_affinity.keys()}
+        return sum(v for v in comp_affinity.values())
+
 
 def find_one(_id: str | ObjectId):
     """
@@ -248,7 +274,7 @@ def get_user_like_name(pattern: str):
     """
         :return: - A list of user objects with names or usernames matching the pattern
     """
-    regx = re.compile(".*"+pattern+".*", re.IGNORECASE)
+    regx = re.compile(".*" + pattern + ".*", re.IGNORECASE)
     search = {
         "$or": [
             {"username": regx},

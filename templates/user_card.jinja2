@@ -1,19 +1,21 @@
 <!DOCTYPE html>
-{% if request.path == '/friends_list' or request.path == '/communities_discover' or request.path == '/search_page' %}
+{% if request.path == '/friends_list' or request.path == '/communities_discover' or request.path == '/search_page'or request.path == '/friends_discover' %}
     <div class="card">
 
-        {% if request.path == '/friends_list' or request.path == '/friends_discover' or (request.path == '/search_page' and friend is defined)%}
+        {% if request.path == '/friends_list' or request.path == '/friends_discover' or (request.path == '/search_page' and friend is defined) %}
             <img src="{{ friend.photo_url }}" class="card-img-top" alt="profile picture">
         {% endif %}
 
         <div class="card-body">
 
-            {% if request.path == '/friends_list' or request.path == '/friends_discover' or (request.path == '/search_page' and friend is defined)%}
-                <h5 class="card-title"><a href="{{ url_for('profile_posts.profile_posts', profile_id = friend.id)}}"> {{ friend.name }} </a></h5>
+            {% if request.path == '/friends_list' or request.path == '/friends_discover' or (request.path == '/search_page' and friend is defined) %}
+                <h5 class="card-title"><a
+                        href="{{ url_for('profile_posts.profile_posts', profile_id = friend.id) }}"> {{ friend.name }} </a>
+                </h5>
                 <p class="card-text">{{ common_friends.get(friend.id) }} mutual friends.</p>
             {% endif %}
 
-            {% if request.path == '/communities_discover' or (request.path == '/search_page' and tag is defined)%}
+            {% if request.path == '/communities_discover' or (request.path == '/search_page' and tag is defined) %}
                 <h5 class="card-title">{{ tag.name }}</h5>
                 <p class="card-text">Number of followers: {{ tag.follower_number }}</p>
             {% endif %}
@@ -40,11 +42,59 @@
             </div>
         {% endif %}
 
-        {% if request.path == '/friends_discover' or (request.path == '/search_page' and friend is defined)%}
+
+        {% if (request.path == '/search_page' and friend is defined) %}
             <button type="button" class="btn btn-success" onclick="addFriend('{{ friend.id }}', 'add'); this.disabled=true;">Add Friend</button>
         {% endif %}
 
-        {% if request.path == '/communities_discover' or (request.path == '/search_page' and tag is defined)%}
+        {% if request.path == '/friends_discover' %}
+            {% if is_sug is not defined %}
+                <div>
+                    <div class="card_buttons_container">
+                        <form method="post" action="/notification">
+                            <input type="hidden" name="notif_id" value="{{ notifs[friend.id] }}">
+                            <input type="hidden" name="friend_id" value="{{ friend.id }}">
+                            <input type="hidden" name="action" value="accept_request">
+                            <button type="submit" class="btn btn-success">
+                                Accept
+                            </button>
+                        </form>
+                        <form method="post" action="/notification">
+                            <input type="hidden" name="notif_id" value="{{ notifs[friend.id] }}">
+                            <input type="hidden" name="friend_id" value="{{ friend.id }}">
+                            <input type="hidden" name="action" value="decline_request">
+                            <button type="submit" class="btn btn-danger">
+                                Decline
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            {% else %}
+                {% if friend.id in sent_fr %}
+                    <div class="card_buttons_container">
+                        <form method="post" action="/friends_discover">
+                            <input type="hidden" name="friend_id" value="{{ friend.id }}">
+                            <input type="hidden" name="action" value="friend_request">
+                            <button type="submit" class="btn btn-success disabled">
+                                Friend Request Pending
+                            </button>
+                        </form>
+                    </div>
+                {% else %}
+                    <div class="card_buttons_container">
+                        <form method="post" action="/friends_discover">
+                            <input type="hidden" name="friend_id" value="{{ friend.id }}">
+                            <input type="hidden" name="action" value="friend_request">
+                            <button type="submit" class="btn btn-success">
+                                Add friend
+                            </button>
+                        </form>
+                    </div>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+
+        {% if request.path == '/communities_discover' or (request.path == '/search_page' and tag is defined) %}
 
             <div class="btn">
                 <form method="post" action="/communities_discover?id={{ tag.id }}">

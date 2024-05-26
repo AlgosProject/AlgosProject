@@ -77,6 +77,29 @@ def find_one_by_origin_id_author_id(origin_id: str | ObjectId, author_id: str | 
     return [Notification(**r) for r in res]
 
 
+def find_by_user_id_and_author_id(_id: str | ObjectId, author_id: str | ObjectId):
+    """
+    :return: - A list of Notification objects
+    """
+    if isinstance(_id, str):
+        _id = ObjectId(_id)
+    if isinstance(author_id, str):
+        author_id = ObjectId(author_id)
+    res = mongo.db.notifications.find({"user_id": _id, "author_id": author_id})
+    return [Notification(**r) for r in res]
+
+
+def find_fr_by_author_id(author_id: str | ObjectId):
+    """
+    :return: - A list of Notification objects
+    """
+
+    if isinstance(author_id, str):
+        author_id = ObjectId(author_id)
+    res = mongo.db.notifications.find({"type": "friend_request", "author_id": author_id})
+    return [Notification(**r) for r in res]
+
+
 def find_by_user_id(_id: str | ObjectId):
     """
     :return: - A list of Notification objects
