@@ -36,6 +36,14 @@ class User:
         return model.notificationDao.find_by_user_id(self._id)
 
     @property
+    def chat_notifications(self):
+        return model.notificationDao.find_by_user_id_type(self._id, "chat")
+
+    @property
+    def fr_notifications(self):
+        return model.notificationDao.find_by_user_id_type(self._id, "friend_request")
+
+    @property
     def tags_built(self):
         tags = []
         for tag in self.tags:

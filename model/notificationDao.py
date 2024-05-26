@@ -72,6 +72,16 @@ def find_by_user_id(_id: str | ObjectId):
     return [Notification(**r) for r in res]
 
 
+def find_by_user_id_type(_id, type_):
+    """
+    :return: - A list of Notification objects
+    """
+    if isinstance(_id, str):
+        _id = ObjectId(_id)
+    res = mongo.db.notifications.find({"user_id": _id, "type": type_})
+    return [Notification(**r) for r in res]
+
+
 def insert_one(obj: dict | Notification):
     """
     Inserts one notification object into the db
