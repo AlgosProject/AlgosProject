@@ -13,7 +13,10 @@ def notification():
 
     if request.method == "GET":
         notifs = user.notifications
-        return render_template('notification.jinja2', notifs=notifs)
+        if notifs:
+            return render_template('notification.jinja2', notifs=notifs)
+        else:
+            return render_template('notification.jinja2', empty=True)
 
     if request.method == "POST":
         notificationDao.delete_one(request.form["notif_id"])
