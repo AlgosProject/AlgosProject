@@ -19,6 +19,8 @@
         <div class="card_buttons_container">
             <form method="post" action="">
                 <input type="hidden" name="post_id" value="{{ post.id }}">
+                <input type="hidden" name="id" value="{{ request.args.get('id') }}">
+                <input type="hidden" name="profile_id" value="{{ post.user.id}}">
                 <input type="hidden" name="action" value="like_post">
                 <button type="submit" id="likeButton" class="{{'btn btn-primary active' if user.id in post.likes else 'btn btn-primary' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -33,6 +35,8 @@
 
             <form method="post" action="">
                 <input type="hidden" name="post_id" value="{{ post.id }}">
+                <input type="hidden" name="id" value="{{ request.args.get('id') }}">
+                <input type="hidden" name="profile_id" value="{{ post.user.id}}">
                 <input type="hidden" name="action" value="dislike_post">
                 <button type="submit" id="dislikeButton" class="{{'btn btn-primary active' if user.id in post.dislikes else 'btn btn-primary' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

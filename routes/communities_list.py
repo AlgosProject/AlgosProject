@@ -22,8 +22,38 @@ def communities_list():  # put application's code here
             return render_template("communities_list.jinja2", side_items=tags, user=user)
 
     if request.method == "POST":
-        if request.form["action"] == "leave_community":
+        user = userDao.User(**session.get("user"))
+        post_id = request.form.get("post_id")
+        action = request.form.get("action")
+        id_parameter = request.form.get("id")
+        post = postDao.find_one(post_id)
+        likes = post.likes
+        dislikes = post.dislikes
+
+        if action == "like_post" and post.user.id != user.id:
+            if user.id not in likes:
+                likes.append(user.id)
+                if user.id in dislikes:
+                    dislikes.remove(user.id)
+                postDao.update_one(post_id, post)
+            elif user.id in likes:
+                likes.remove(user.id)
+                postDao.update_one(post_id, post)
+            return redirect(url_for("communities_list.communities_list", id=id_parameter))
+
+        elif action == "dislike_post" and post.user.id != user.id:
+            if user.id not in dislikes:
+                dislikes.append(user.id)
+                if user.id in likes:
+                    likes.remove(user.id)
+                postDao.update_one(post_id, post)
+            elif user.id in dislikes:
+                dislikes.remove(user.id)
+                postDao.update_one(post_id, post)
+            return redirect(url_for("communities_list.communities_list", id=id_parameter))
+
+        if action == "leave_community":
             user.leave_tag(request.form["to_leave_community"])
             session["user"] = dict(user)
 
-        return redirect(url_for("communities_list.communities_list"))
+            return redirect(url_for("communities_list.communities_list"))
