@@ -16,6 +16,36 @@ def popup():
         return render_template("media_popup.jinja2", post=post, comments=comments, user=user)
 
     if request.method == "POST":
+
+        user = userDao.User(**session.get("user"))
+        post_id = request.form.get("post_id")
+        action = request.form.get("action")
+        post = postDao.find_one(post_id)
+        likes = post.likes
+        dislikes = post.dislikes
+
+        if action == "like_post" and post.user.id != user.id:
+            if user.id not in likes:
+                likes.append(user.id)
+                if user.id in dislikes:
+                    dislikes.remove(user.id)
+                postDao.update_one(post_id, post)
+            elif user.id in likes:
+                likes.remove(user.id)
+                postDao.update_one(post_id, post)
+            return redirect(url_for("media_popup.popup", post_id=post_id))
+
+        elif action == "dislike_post" and post.user.id != user.id:
+            if user.id not in dislikes:
+                dislikes.append(user.id)
+                if user.id in likes:
+                    likes.remove(user.id)
+                postDao.update_one(post_id, post)
+            elif user.id in dislikes:
+                dislikes.remove(user.id)
+                postDao.update_one(post_id, post)
+            return redirect(url_for("media_popup.popup", post_id=post_id))
+
         if request.form["action"] == "post_comment":
             post_id = ObjectId(request.form["post_id"])
 
