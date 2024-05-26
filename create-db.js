@@ -226,10 +226,16 @@ db.comments.insertMany([
 
 db.notifications.insertMany([
     {
-        user_id: u3,
-        author_id: u1, //** User if of Origin
+        user_id: u1,
+        author_id: u3, //** User if of Origin
         origin_id: g4, //** In case of chat id
         type: "chat"
+    },
+    {
+        user_id: u1,
+        author_id: u8, //** User if of Origin
+        origin_id: null,
+        type: "friend_request"
     }
 ])
 
