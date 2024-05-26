@@ -19,7 +19,8 @@
                     {% if curr_user %}
                             <button type="button" class="btn btn-primary" onsubmit="logout()">Logout</button>
                     {% endif %}
-                    {% if not curr_user %} {# TODO add and friends #}
+                    {% if not curr_user %}
+                        {% if profile.id in curr_user.friends %}
                         <div class="btn">
                             <form method="post" action="/chats">
                                 <input type="hidden" name="friend_id" value="{{ profile.id }}">
@@ -29,15 +30,18 @@
                                 </button>
                             </form>
                         </div>
-
-                        {#TODO Make the remove friend button work #}
                         <div class="btn">
-                            <form>
-                                <button type="submit" class="btn btn-danger">
+                                <button type="submit" class="btn btn-danger" onclick="addFriend('{{ profile.id }}', 'delete'); this.disabled=true;">
                                 Remove Friend
                             </button>
-                            </form>
                         </div>
+                            {% else %}
+                            <div class="btn">
+                                <button type="submit" class="btn btn-success" onclick="addFriend('{{ profile.id }}', 'add'); this.disabled=true; this.value='Sent.'">
+                                Add Friend +
+                            </button>
+                        </div>
+                            {% endif %}
                     {% endif %}
 
                     <!-- add if conditions if user is being sent friend request
@@ -63,42 +67,5 @@
         <div class="side_block">
         </div>
     </div>
-
-    <script>
-    function deleteFriend() {
-        //script to delete a friend
-    }
-    </script>
-
-    <script>
-    function addFriend() {
-        //script to add a friend
-    }
-    </script>
-
-    <script>
-    function acceptFriend() {
-        //script to add a friend
-    }
-    </script>
-
-    <script>
-    function declineFriend() {
-        //script to add a friend
-    }
-    </script>
-
-    <script>
-    function openChat() {
-        //script to open chat with a friend or create a chat if not already exists
-    }
-    </script>
-
-    <script>
-    function logout() {
-        //script for logging out
-    }
-    </script>
-
 {% endblock %}
 

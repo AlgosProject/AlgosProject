@@ -18,6 +18,7 @@ from routes.posts import new_post_blueprint
 from routes.logout import logout_blueprint
 from routes.notification import notification_blueprint
 from routes.search_page import search_page_blueprint
+from routes.add_friend import add_friend_blueprint
 
 from utils.mongo_store_broker import mongo
 from flask_bcrypt import Bcrypt
@@ -57,6 +58,7 @@ app.register_blueprint(new_post_blueprint)
 app.register_blueprint(logout_blueprint)
 app.register_blueprint(search_page_blueprint)
 app.register_blueprint(notification_blueprint)
+app.register_blueprint(add_friend_blueprint)
 
 if __name__ == "__main__":
     app.run()

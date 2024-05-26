@@ -141,6 +141,18 @@ class User:
         update_one(self.id, self)
         return self
 
+    def delete_friend(self, friend_id):
+        if isinstance(friend_id, str):
+            friend_id = ObjectId(friend_id)
+        for friend in self.friends:
+            if friend["friend_id"] == friend_id:
+                friend_id = friend
+        if friend_id in self.friends:
+            self.friends.remove(friend_id)
+        print(self.friends)
+        update_one(self.id, self)
+        return self
+
     def remove_friend(self, friend_id):
         if isinstance(friend_id, str):
             friend_id = ObjectId(friend_id)
