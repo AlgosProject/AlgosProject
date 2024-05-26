@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, session, url_for, redirect
 
 import model.postDao
-from model import userDao
+from model import userDao, postDao
 
 communitiesList_blueprint = Blueprint("communities_list", __name__, template_folder="templates")
 
@@ -17,9 +17,9 @@ def communities_list():  # put application's code here
 
         if tag_id:
             posts = model.postDao.find_posts_by_tag(tag_id)
-            return render_template("communities_list.jinja2", side_items=tags, posts=posts)
+            return render_template("communities_list.jinja2", side_items=tags, posts=posts, user=user)
         else:
-            return render_template("communities_list.jinja2", side_items=tags)
+            return render_template("communities_list.jinja2", side_items=tags, user=user)
 
     if request.method == "POST":
         if request.form["action"] == "leave_community":

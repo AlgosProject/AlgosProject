@@ -60,6 +60,12 @@
     background-color: #6CA8F8;
 }
 
+.btn.btn-primary.active {
+    color: black;
+    background-color: #FFBD59;
+    border-color: #FFBD59;
+}
+
 .body_row {
     display: flex;
     height: 100%;

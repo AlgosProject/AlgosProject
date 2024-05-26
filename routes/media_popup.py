@@ -13,7 +13,7 @@ def popup():
         post = postDao.find_one(request.args.get("post_id"))
         comments = commentDao.find_comments_by_post_id(post.id)
 
-        return render_template("media_popup.jinja2", post=post, comments=comments)
+        return render_template("media_popup.jinja2", post=post, comments=comments, user=user)
 
     if request.method == "POST":
         if request.form["action"] == "post_comment":
