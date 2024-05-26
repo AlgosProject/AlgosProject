@@ -8,21 +8,35 @@
         <div class="post_window" style="overflow:hidden">
             <div class="profile_header">
                 <img src="" alt="pic">
-                <a style="margin:0 1rem;">Name</a>
-                {% if request.path != '/profile_posts' %}
-                    <a class="post_date" style="margin:0 1rem;">[mutual friends]</a>
+                <a style="margin:0 1rem;">{{ profile.name }}</a>
+                {% if not curr_user %}
+                    <a class="post_date" style="margin:0 1rem;">[{{ common_friends.get(profile.id) }} mutual friends.]</a>
                 {% endif %}
-                <div style="margin-left: auto;">
-                    {% if request.path == '/profile_posts' %}
+
+                <span style="margin-left: auto;">
+                    {% if curr_user %}
                             <button type="button" class="btn btn-primary" onsubmit="logout()">Logout</button>
                     {% endif %}
+                    {% if not curr_user %} {# TODO add and friends #}
+                        <div class="btn">
+                            <form method="post" action="/chats">
+                                <input type="hidden" name="friend_id" value="{{ profile.id }}">
+                                <input type="hidden" name="action" value="open_chat">
+                                <button type="submit" class="btn btn-primary">
+                                Chat
+                                </button>
+                            </form>
+                        </div>
 
-                    <!-- add if condition if users are friends
-                    <span>
-                        <button type="button" class="btn btn-primary" onsubmit="openChat()">Chat</button>
-                        <button type="button" class="btn btn-danger" onsubmit="deleteFriend()">Remove Friend</button>
-                    </span>
-                    -->
+                        {#TODO Make the remove friend button work #}
+                        <div class="btn">
+                            <form>
+                                <button type="submit" class="btn btn-danger">
+                                Remove Friend
+                            </button>
+                            </form>
+                        </div>
+                    {% endif %}
 
                     <!-- add if conditions if user is being sent friend request
                     <span>
@@ -36,10 +50,12 @@
                         <a style="color: darkorange;"> Friend Request Already Sent. </a>
                     </span>
                     -->
-                </div>
+                </span>
             </div>
             <div class="profile_post_window">
-                {% include "post.jinja2" %}
+                {% for post in posts %}
+                    {% include "post.jinja2" %}
+                {% endfor %}
             </div>
         </div>
         <div class="side_block">
