@@ -18,7 +18,11 @@
             </div>
             <a class="section_title">Suggestions</a>
             <div class="grid_container">
-                {#                {% include "user_card.jinja2" %}#}
+                {% with is_sug=True %}
+                {% for friend in suggestions %}
+                    {% include "user_card.jinja2" %}
+                {% endfor %}
+                {% endwith %}
             </div>
         </div>
         <div class="side_block">

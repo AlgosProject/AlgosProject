@@ -49,28 +49,50 @@
         {% endif %}
 
         {% if request.path == '/friends_discover' %}
-            <div>
-                <div class="btn">
-                    <form method="post" action="/notification">
-                        <input type="hidden" name="notif_id" value="{{ notifs[friend.id] }}">
-                        <input type="hidden" name="friend_id" value="{{ friend.id }}">
-                        <input type="hidden" name="action" value="accept_request">
-                        <button type="submit" class="btn btn-success">
-                            Accept
-                        </button>
-                    </form>
+            {% if is_sug is not defined %}
+                <div>
+                    <div class="card_buttons_container">
+                        <form method="post" action="/notification">
+                            <input type="hidden" name="notif_id" value="{{ notifs[friend.id] }}">
+                            <input type="hidden" name="friend_id" value="{{ friend.id }}">
+                            <input type="hidden" name="action" value="accept_request">
+                            <button type="submit" class="btn btn-success">
+                                Accept
+                            </button>
+                        </form>
+                        <form method="post" action="/notification">
+                            <input type="hidden" name="notif_id" value="{{ notifs[friend.id] }}">
+                            <input type="hidden" name="friend_id" value="{{ friend.id }}">
+                            <input type="hidden" name="action" value="decline_request">
+                            <button type="submit" class="btn btn-danger">
+                                Decline
+                            </button>
+                        </form>
+                    </div>
                 </div>
-                <div class="btn">
-                    <form method="post" action="/notification">
-                        <input type="hidden" name="notif_id" value="{{ notifs[friend.id] }}">
-                        <input type="hidden" name="friend_id" value="{{ friend.id }}">
-                        <input type="hidden" name="action" value="decline_request">
-                        <button type="submit" class="btn btn-danger">
-                            Decline
-                        </button>
-                    </form>
-                </div>
-            </div>
+            {% else %}
+                {% if friend.id in sent_fr %}
+                    <div class="card_buttons_container">
+                        <form method="post" action="/friends_discover">
+                            <input type="hidden" name="friend_id" value="{{ friend.id }}">
+                            <input type="hidden" name="action" value="friend_request">
+                            <button type="submit" class="btn btn-success disabled">
+                                Friend Request Pending
+                            </button>
+                        </form>
+                    </div>
+                {% else %}
+                    <div class="card_buttons_container">
+                        <form method="post" action="/friends_discover">
+                            <input type="hidden" name="friend_id" value="{{ friend.id }}">
+                            <input type="hidden" name="action" value="friend_request">
+                            <button type="submit" class="btn btn-success">
+                                Add friend
+                            </button>
+                        </form>
+                    </div>
+                {% endif %}
+            {% endif %}
         {% endif %}
 
         {% if request.path == '/communities_discover' or (request.path == '/search_page' and tag is defined) %}
