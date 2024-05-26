@@ -226,8 +226,16 @@ db.comments.insertMany([
 
 db.notifications.insertMany([
     {
-        user_id: u3,
-        text: "Change your password silly"
+        user_id: u1,  //** Owner of Notif
+        author_id: u3, //** Who created it
+        origin_id: g4, //** Where is it from
+        type: "chat"
+    },
+    {
+        user_id: u1,
+        author_id: u8, //** User if of Origin
+        origin_id: null,
+        type: "friend_request"
     }
 ])
 

@@ -1,7 +1,7 @@
 from bson import ObjectId
 from flask import Blueprint, render_template, session, request, redirect, url_for
 
-from model import groupDao, userDao, messageDao
+from model import groupDao, userDao, messageDao, notificationDao
 
 chats_blueprint = Blueprint("chats", __name__, template_folder="templates")
 
@@ -11,6 +11,7 @@ def chat():  # put application's code here
     user = userDao.User(**session.get("user"))
     chats = groupDao.find_all_chats_by_user(user.id)
     chat_id = request.args.get("id")
+    notifs = notificationDao.find_by_user_id_type(user.id, "chat")
 
     if request.method == "GET":
         if chat_id is None:
@@ -21,21 +22,19 @@ def chat():  # put application's code here
         else:
             curr_messages = messageDao.find_all_messages_from_group(chat_id)
 
-            for m in curr_messages:  # See all messages in current chat
-                session["user"] = dict(user.see_message(m.id))
-
             chats_dest_seen = []
             for c in chats:
                 dest = c.users_built
                 dest.remove(user)
-                seen = True
-                messages = messageDao.find_all_messages_from_group(c.id)
-                for m in messages:
-                    if m.id not in user.seen:
-                        seen = False
+                seen = c.id not in [n.origin_id for n in notifs]
                 chats_dest_seen.append((c, dest.pop(), seen))
 
             current_recipient = [c[1] for c in chats_dest_seen if str(c[0].id) == chat_id].pop()
+
+            curr_chat_notifs = notificationDao.find_one_by_origin_id_author_id(chat_id, current_recipient.id)
+
+            for notif in curr_chat_notifs:
+                notificationDao.delete_one(notif.id)
 
             return render_template(
                 "chats.jinja2",
@@ -48,11 +47,22 @@ def chat():  # put application's code here
 
     if request.method == "POST":
         if request.form["action"] == "send":
-            m_id = messageDao.insert_one(
+            messageDao.insert_one(
                 {"user_id": user.id, "group_id": ObjectId(chat_id), "text": request.form["message_text"]})
-            user.seen.add(m_id)
-            userDao.update_one(user.id, user)
             session["user"] = dict(user)
+
+            dest_users = groupDao.find_one(ObjectId(chat_id)).users
+            for u in dest_users:
+                if u != user.id:
+                    print(u, user.id, chat_id)
+                    notificationDao.insert_one(
+                        {
+                            "user_id": u,
+                            "origin_id": ObjectId(chat_id),
+                            "type": "chat",
+                            "author_id": ObjectId(user.id),
+                        }
+                    )
 
             return redirect(url_for("chats.chat", id=chat_id))
 
