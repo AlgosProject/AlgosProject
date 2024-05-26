@@ -1,3 +1,4 @@
+from bson import ObjectId
 from flask import Blueprint, jsonify, request, session, flash
 
 from model import userDao, notificationDao
@@ -14,8 +15,9 @@ def add_friend():  # put application's code here
     if action == "add":
         notificationDao.insert_one(
             {
-                "user_id": friendid,
+                "user_id": ObjectId(friendid),
                 "type": "friend_request",
+                "origin_id": None,
                 "author_id": user.id,
             }
         )
