@@ -2,22 +2,60 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-         rel="stylesheet"
-         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-         crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+          crossorigin="anonymous">
     <link rel="stylesheet" href="../static/styles/stylesheet.css"/>
     <link href='https://fonts.googleapis.com/css?family=Amaranth' rel='stylesheet'>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
 
     <title>{% block title %}{% endblock %}</title>
-<script
-  src="https://code.jquery.com/jquery-3.7.1.js"
-  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-  crossorigin="anonymous"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(
+            () => {
+                function update_navbar_notifs() {
+                    $.ajax({
+                        url: "{{ url_for("notification.notification", json=true)  }}",
+                        success: function (res) {
+                            $("#all_notifs")
+                                .text(() => {
+                                    return "# " + res.total
+                                })
+
+                            $("#chats_notif")
+                                .text(() => {
+                                    return "# " + res.chats_amount
+                                })
+
+                            $("#fr_notifs1")
+                                .text(() => {
+                                    return "# " + res.fr_amount
+                                })
+                            $("#fr_notifs2")
+                                .text(() => {
+                                    return "# " + res.fr_amount
+                                })
+                        }
+                    });
+
+                    setTimeout(update_navbar_notifs, 5000)
+                }
+
+                update_navbar_notifs()
+
+            });
+    </script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light ">
@@ -46,14 +84,14 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item"  href="/logout">Logout</a></li>
+                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
                     </ul>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="/home_page">Home</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <span class="badge">#</span>
+                    <span class="badge fr_notif" id="fr_notifs1">#</span>
                     <a class="nav-link dropdown-toggle" href="/friends_list" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">
                         Friends
@@ -66,7 +104,7 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li><a class="dropdown-item" href="/friends_discover">Discover <span
-                                class="badge">#</span></a></li>
+                                class="badge" id="fr_notifs2">#</span></a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -84,7 +122,8 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <span class="badge">#</span>
+                    <span class="badge" id="chats_notif">
+                    </span>
                     <a class="nav-link" href="/chats">Chats</a>
                 </li>
                 <li class="nav-item">
@@ -92,29 +131,29 @@
                     <a class="nav-link" href="/new-post">New Post</a>
                 </li>
                 <li class="nav-item">
-                    <span class="badge">#</span>
+                    <span class="badge" id="all_notifs">#</span>
                     <a class="nav-link" href="/notification">Notifications</a>
                 </li>
-                </ul>
-                    <form class="d-flex mx-1" role="search" action="/search_page" method="POST">
-                        <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
+            </ul>
+            <form class="d-flex mx-1" role="search" action="/search_page" method="POST">
+                <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
 
         </div>
     </div>
 </nav>
 <div>
     {% with messages = get_flashed_messages() %}
-  {% if messages %}
-    {% for message in messages %}
-      <div class="alert alert-info alert-dismissible fade show" role="alert">
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    {% endfor %}
-  {% endif %}
-{% endwith %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
 </div>
 {% block content %}
 {% endblock %}</body>
