@@ -8,11 +8,17 @@
         <div class="post_window">
             <a class="section_title">Pending Requests</a>
             <div class="grid_container">
-                {% include "user_card.jinja2" %}
+                {% if empty_fr %}
+                    No pending friend requests
+                {% else %}
+                    {% for friend in pending_fr %}
+                        {% include "user_card.jinja2" %}
+                    {% endfor %}
+                {% endif %}
             </div>
             <a class="section_title">Suggestions</a>
             <div class="grid_container">
-                {% include "user_card.jinja2" %}
+                {#                {% include "user_card.jinja2" %}#}
             </div>
         </div>
         <div class="side_block">
