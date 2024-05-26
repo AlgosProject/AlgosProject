@@ -31,5 +31,8 @@ def profile_settings():  # put application's code here
             picture = request.files["profile_picture"]
             picture_url = cloudinary_upload.upload(picture)
             session["user"] = dict(user.set_photo_url(picture_url))
+        elif calltype == "privacy_control":
+            privacy_control = int(request.form.get("privacy_control"))
+            session['user'] = dict(user.set_privacy_control(privacy_control))
         flash("Updated " + calltype + " successfully")
         return render_template("profile_settings.jinja2")
