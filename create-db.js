@@ -227,7 +227,9 @@ db.comments.insertMany([
 db.notifications.insertMany([
     {
         user_id: u3,
-        text: "Change your password silly"
+        author_id: u1, //** User if of Origin
+        origin_id: g4, //** In case of chat id
+        type: "chat"
     }
 ])
 
