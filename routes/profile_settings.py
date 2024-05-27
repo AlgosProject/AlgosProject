@@ -7,7 +7,8 @@ profileSettings_blueprint = Blueprint("profile_settings", __name__, template_fol
 @profileSettings_blueprint.route("/profile_settings", methods=["GET", "POST"])
 def profile_settings():  # put application's code here
     if request.method == "GET":
-        return render_template("profile_settings.jinja2")
+        user = userDao.User(**session.get("user"))
+        return render_template("profile_settings.jinja2", user=user)
 
     if request.method == "POST":
         user = userDao.User(**session.get("user"))
