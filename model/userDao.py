@@ -228,6 +228,24 @@ class User:
             comp_affinity[k] = compare_vals(self_affinity, other_affinity, k)
         return sum(v for v in comp_affinity.values())
 
+    def change_tag_affinity(self, list_tag_ids, amount):
+        for tag_id in list_tag_ids:
+            tag = next(filter(lambda x: x["tag_id"] == tag_id, self.tags))
+            if tag is not None:
+                for t in self.tags:
+                    if t["tag_id"] == tag["tag_id"]:
+                        t["affinity"] += amount
+                        if t["affinity"] < 0:
+                            t["affinity"] = 0
+
+            if tag is None:
+                db_tag = model.tagDao.find_one(tag_id)
+                if db_tag is not None:
+                    self.tags.append({"tag_id": db_tag.id, "affinity": amount})
+
+        update_one(self.id, self)
+        return self
+
 
 def find_one(_id: str | ObjectId):
     """
