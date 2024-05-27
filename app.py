@@ -1,4 +1,5 @@
 import os
+import certifi
 
 from flask import Flask
 from flask_session import Session
@@ -39,7 +40,7 @@ mongo_url = os.environ.get("MONGO_URL")
 if not mongo_url:
     mongo_url = "mongodb://localhost:27017"
 
-mongo.init_app(app, uri=mongo_url)
+mongo.init_app(app, uri=mongo_url, tlsCAFile=certifi.where())
 
 app.bcrypt = Bcrypt(app)
 

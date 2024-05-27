@@ -34,7 +34,10 @@ def notification():
         if request.form["action"] == "open_chat":
             return redirect(url_for("chats.chat", id=request.form["chat_id"]))
         if request.form["action"] == "accept_request":
-            session["user"] = dict(user.add_friend(request.form["friend_id"]))
+            friend_id = request.form["friend_id"]
+            session["user"] = dict(user.add_friend(friend_id))
+            friend = userDao.User(**userDao.find_one(friend_id))
+            friend.add_friend(user.id)
             return redirect(url_for("notification.notification"))
         if request.form["action"] == "decline_request":
             return redirect(url_for("notification.notification"))
