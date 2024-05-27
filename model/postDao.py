@@ -38,6 +38,47 @@ class Post:
     def user(self):
         return model.userDao.find_one(self.user_id)
 
+    @property
+    def like_weight(self):
+        return 1
+
+    @property
+    def dislike_weight(self):
+        return -3
+
+    def like_post(self, user: model.userDao.User):
+        if user.id not in self.likes:
+            self.likes.append(user.id)
+
+            user = user.change_tag_affinity(self.tags, self.like_weight)
+
+            if user.id in self.dislikes:
+                self.dislikes.remove(user.id)
+                user = user.change_tag_affinity(self.tags, -self.dislike_weight)
+
+        elif user.id in self.likes:
+            self.likes.remove(user.id)
+            user = user.change_tag_affinity(self.tags, -self.like_weight)
+
+        update_one(self.id, self)
+        return user
+
+    def dislike_post(self, user: model.userDao):
+        if user.id not in self.dislikes:
+            self.dislikes.append(user.id)
+            user = user.change_tag_affinity(self.tags, self.dislike_weight)
+
+            if user.id in self.likes:
+                self.likes.remove(user.id)
+                user = user.change_tag_affinity(self.tags, -self.like_weight)
+
+        elif user.id in self.dislikes:
+            self.dislikes.remove(user.id)
+            user = user.change_tag_affinity(self.tags, -self.dislike_weight)
+
+        update_one(self.id, self)
+        return user
+
 
 def find_one(_id: str | ObjectId):
     """
@@ -131,4 +172,3 @@ def get_all_like(pattern: str):
             posts.append(post)
             object_id_set.add(post.id)
     return posts
-

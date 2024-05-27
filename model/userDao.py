@@ -84,8 +84,8 @@ class User:
                     # Filtering criteria
                     # If node within reach of your privacy control
                     distance_within_privacy = distance <= self.privacy_control
-                    # If other node has a higher privacy than self
-                    ns_privacy_control = find_one(n).privacy_control >= self.privacy_control
+                    # If other node has a higher privacy than distance
+                    ns_privacy_control = distance <= find_one(n).privacy_control
 
                     # Visit node
                     if n not in visited and distance_within_privacy and ns_privacy_control:
@@ -208,8 +208,43 @@ class User:
         other = find_one(other_id)
         for t in other.tags_built:
             other_affinity[t["tag"].name] = t["affinity"]
-        comp_affinity = {k: abs(self_affinity[k] - self_affinity[k]) for k in self_affinity.keys()}
+
+        def compare_vals(dict1, dict2, k):
+            val1, val2 = None, None
+            if k in dict1.keys():
+                val1 = dict1[k]
+            if k in dict2.keys():
+                val2 = dict2[k]
+
+            if val1 is not None and val2 is not None:
+                return abs(max(val1, val2) - min(val1, val2))
+            elif val1 is not None:
+                return abs(val1)
+            elif val2 is not None:
+                return abs(val2)
+
+        comp_affinity = {k: compare_vals(self_affinity, other_affinity, k) for k in self_affinity.keys()}
+        for k in other_affinity.keys():
+            comp_affinity[k] = compare_vals(self_affinity, other_affinity, k)
         return sum(v for v in comp_affinity.values())
+
+    def change_tag_affinity(self, list_tag_ids, amount):
+        for tag_id in list_tag_ids:
+            tag = next(filter(lambda x: x["tag_id"] == tag_id, self.tags))
+            if tag is not None:
+                for t in self.tags:
+                    if t["tag_id"] == tag["tag_id"]:
+                        t["affinity"] += amount
+                        if t["affinity"] < 0:
+                            t["affinity"] = 0
+
+            if tag is None:
+                db_tag = model.tagDao.find_one(tag_id)
+                if db_tag is not None:
+                    self.tags.append({"tag_id": db_tag.id, "affinity": amount})
+
+        update_one(self.id, self)
+        return self
 
 
 def find_one(_id: str | ObjectId):
