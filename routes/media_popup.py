@@ -16,7 +16,7 @@ def popup():
         return render_template("media_popup.jinja2", post=post, comments=comments, user=user)
 
     if request.method == "POST":
-
+        # TODO: Connect and user tags
         user = userDao.User(**session.get("user"))
         post_id = request.form.get("post_id")
         action = request.form.get("action")

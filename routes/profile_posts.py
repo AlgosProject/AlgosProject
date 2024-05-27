@@ -39,6 +39,7 @@ def profile_posts(profile_id=None):
                                curr_user=curr_user, common_friends=common_friends, user=user)
 
     if request.method == "POST":
+        # TODO: Connect and user tags
         user = userDao.User(**session.get("user"))
         post_id = request.form.get("post_id")
         action = request.form.get("action")

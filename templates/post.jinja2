@@ -17,6 +17,7 @@
             </p>
         </div>
         <div class="card_buttons_container">
+            {# TODO: Connect and user tags #}
             <form method="post" action="">
                 <input type="hidden" name="post_id" value="{{ post.id }}">
                 <input type="hidden" name="id" value="{{ request.args.get('id') }}">
@@ -34,6 +35,7 @@
             <a>{{ post.likes_amount }} likes</a>
 
             <form method="post" action="">
+                {# TODO: Connect and user tags #}
                 <input type="hidden" name="post_id" value="{{ post.id }}">
                 <input type="hidden" name="id" value="{{ request.args.get('id') }}">
                 <input type="hidden" name="profile_id" value="{{ post.user.id}}">

@@ -22,6 +22,7 @@ def communities_list():  # put application's code here
             return render_template("communities_list.jinja2", side_items=tags, user=user)
 
     if request.method == "POST":
+        # TODO: Connect and user tags
         user = userDao.User(**session.get("user"))
         post_id = request.form.get("post_id")
         action = request.form.get("action")
