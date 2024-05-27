@@ -1,12 +1,16 @@
 from flask import Blueprint, render_template, session, request, redirect, url_for
 
 from model import userDao
+from utils import check_logged_in
 
 communitiesDiscover_blueprint = Blueprint("communities_discover", __name__, template_folder="templates")
 
 
 @communitiesDiscover_blueprint.route("/communities_discover", methods=["GET", "POST"])
 def communities_discover():
+    status = check_logged_in.check_session()
+    if status:
+        return status
     user = userDao.User(**session["user"])
 
     if request.method == "GET":

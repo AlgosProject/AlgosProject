@@ -1,12 +1,16 @@
 from flask import Blueprint, render_template, session
 
 from model import userDao
+from utils import check_logged_in
 
 friendsList_blueprint = Blueprint("friends_list", __name__, template_folder="templates")
 
 
 @friendsList_blueprint.route("/friends_list")
 def friends_list():  # put application's code here
+    status = check_logged_in.check_session()
+    if status:
+        return status
     user = session.get("user")
     user = userDao.User(**user)
     friends_dict = user.get_friends_dict()

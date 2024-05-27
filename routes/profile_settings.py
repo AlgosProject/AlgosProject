@@ -1,11 +1,15 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from model import userDao
+from utils import check_logged_in
 
 profileSettings_blueprint = Blueprint("profile_settings", __name__, template_folder="templates")
 
 
 @profileSettings_blueprint.route("/profile_settings", methods=["GET", "POST"])
 def profile_settings():  # put application's code here
+    status = check_logged_in.check_session()
+    if status:
+        return status
     if request.method == "GET":
         return render_template("profile_settings.jinja2")
 
