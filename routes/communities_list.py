@@ -2,12 +2,16 @@ from flask import Blueprint, render_template, request, session, url_for, redirec
 
 import model.postDao
 from model import userDao, postDao
+from utils import check_logged_in
 
 communitiesList_blueprint = Blueprint("communities_list", __name__, template_folder="templates")
 
 
 @communitiesList_blueprint.route("/communities_list", methods=["GET", "POST"])
 def communities_list():  # put application's code here
+    status = check_logged_in.check_session()
+    if status:
+        return status
     user = userDao.User(**session.get("user"))
     tag_id = request.args.get("id")
 

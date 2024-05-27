@@ -16,6 +16,7 @@ def login_form():
         if log_user:
             flash("You are now logged in!", "success")
             session['user'] = dict(log_user)
+            session['logged_in'] = True
             return redirect(url_for("home_page.home"))
         else:
             return render_template("login_form.jinja2", error="Invalid Credentials")

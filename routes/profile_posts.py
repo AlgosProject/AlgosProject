@@ -2,6 +2,7 @@ from bson import ObjectId
 from flask import Blueprint, render_template, session, request, redirect, url_for
 
 from model import userDao, postDao
+from utils import check_logged_in
 
 profilePosts_blueprint = Blueprint("profile_posts", __name__, template_folder="templates")
 
@@ -9,6 +10,9 @@ profilePosts_blueprint = Blueprint("profile_posts", __name__, template_folder="t
 @profilePosts_blueprint.route("/profile_posts/<profile_id>", methods=['GET', 'POST'])
 @profilePosts_blueprint.route("/profile_posts", defaults={'profile_id': None}, methods=['GET', 'POST'])
 def profile_posts(profile_id=None):
+    status = check_logged_in.check_session()
+    if status:
+        return status
     if request.method == "GET":
         curr_user = True
         user = session.get('user')

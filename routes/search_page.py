@@ -1,6 +1,7 @@
 from flask import Blueprint, request, render_template, redirect, url_for, session, flash
 from model import userDao, postDao
 from model import tagDao
+from utils import check_logged_in
 
 search_page_blueprint = Blueprint('search_page', __name__,
                                  template_folder='templates')
@@ -8,6 +9,9 @@ search_page_blueprint = Blueprint('search_page', __name__,
 
 @search_page_blueprint.route("/search_page", methods=["GET", "POST"])
 def login_form():
+    status = check_logged_in.check_session()
+    if status:
+        return status
     if request.method == "POST":
         user = session.get("user")
         user = userDao.User(**user)

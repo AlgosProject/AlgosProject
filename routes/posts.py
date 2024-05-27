@@ -3,13 +3,16 @@ from flask import Blueprint, render_template, session, request, redirect, url_fo
 
 from model import userDao, postDao, tagDao
 
-from utils import cloudinary_upload
+from utils import cloudinary_upload, check_logged_in
 
 new_post_blueprint = Blueprint("new_post", __name__, template_folder="templates")
 
 
 @new_post_blueprint.route("/new-post", methods=["GET", "POST"])
 def new_post():  # put application's code here
+    status = check_logged_in.check_session()
+    if status:
+        return status
     user = userDao.User(**session.get("user"))
 
     if request.method == "GET":

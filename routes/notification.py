@@ -3,12 +3,16 @@ from flask import Blueprint, render_template, session, request, redirect, url_fo
 from model import userDao
 
 from model import notificationDao
+from utils import check_logged_in
 
 notification_blueprint = Blueprint("notification", __name__, template_folder="templates")
 
 
 @notification_blueprint.route("/notification", methods=["GET", "POST"])
 def notification():
+    status = check_logged_in.check_session()
+    if status:
+        return status
     user = userDao.User(**session["user"])
 
     if request.method == "GET":

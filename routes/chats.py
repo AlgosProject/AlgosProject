@@ -2,12 +2,16 @@ from bson import ObjectId
 from flask import Blueprint, render_template, session, request, redirect, url_for
 
 from model import groupDao, userDao, messageDao, notificationDao
+from utils import check_logged_in
 
 chats_blueprint = Blueprint("chats", __name__, template_folder="templates")
 
 
 @chats_blueprint.route("/chats", methods=["GET", "POST"])
 def chat():  # put application's code here
+    status = check_logged_in.check_session()
+    if status:
+        return status
     user = userDao.User(**session.get("user"))
     chats = groupDao.find_all_chats_by_user(user.id)
     chat_id = request.args.get("id")

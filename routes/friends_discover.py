@@ -2,12 +2,16 @@ from bson import ObjectId
 from flask import Blueprint, render_template, session, request, redirect, url_for
 
 from model import notificationDao, userDao
+from utils import check_logged_in
 
 friendsDiscover_blueprint = Blueprint("friends_discover", __name__, template_folder="templates")
 
 
 @friendsDiscover_blueprint.route("/friends_discover", methods=["GET", "POST"])
 def friends_discover():
+    status = check_logged_in.check_session()
+    if status:
+        return status
     user = userDao.User(**session["user"])
     received_friend_requests = [f.author for f in user.fr_notifications if f.author_id != user.id]
     sent_friend_requests = [f.user_id for f in notificationDao.find_fr_by_author_id(user.id)]

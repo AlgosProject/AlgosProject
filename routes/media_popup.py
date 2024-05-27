@@ -2,12 +2,16 @@ from bson import ObjectId
 from flask import Blueprint, render_template, session, request, redirect, url_for
 
 from model import userDao, postDao, commentDao
+from utils import check_logged_in
 
 popup_blueprint = Blueprint("media_popup", __name__, template_folder="templates")
 
 
 @popup_blueprint.route("/media", methods=["GET", "POST"])
 def popup():
+    status = check_logged_in.check_session()
+    if status:
+        return status
     user = userDao.User(**session.get("user"))
     if request.method == "GET":
         post = postDao.find_one(request.args.get("post_id"))
