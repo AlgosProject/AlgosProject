@@ -81,5 +81,9 @@ def chat():  # put application's code here
             if len(found_chats) != 0:
                 return redirect(url_for("chats.chat", id=found_chats[0].id))
             else:
-                chat_id = groupDao.insert_one({"users": [user.id, request.form["friend_id"]], "type": "chat"})
+                other_id = request.form["friend_id"]
+                if isinstance(other_id, str):
+                    other_id = ObjectId(other_id)
+
+                chat_id = groupDao.insert_one({"users": [user.id, other_id], "type": "chat"})
                 return redirect(url_for("chats.chat", id=chat_id))
