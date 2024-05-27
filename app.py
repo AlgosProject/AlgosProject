@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask
 from flask_session import Session
 from routes.login_form import login_form_blueprint
@@ -22,6 +24,9 @@ from routes.add_friend import add_friend_blueprint
 
 from utils.mongo_store_broker import mongo
 from flask_bcrypt import Bcrypt
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -30,7 +35,11 @@ DB_USER = "mongo"
 DB_URL = "localhost"
 DB_PORT = "27017"
 
-mongo.init_app(app, uri=f"mongodb://{DB_USER}:{DB_PASSWORD}@{DB_URL}:{DB_PORT}/algos_project?authSource=admin")
+mongo_url = os.environ.get("MONGO_URL")
+if not mongo_url:
+    mongo_url = "mongodb://localhost:27017"
+
+mongo.init_app(app, uri=mongo_url)
 
 app.bcrypt = Bcrypt(app)
 
