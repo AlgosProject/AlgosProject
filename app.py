@@ -37,10 +37,12 @@ DB_URL = "localhost"
 DB_PORT = "27017"
 
 mongo_url = os.environ.get("MONGO_URL")
-if not mongo_url:
-    mongo_url = "mongodb://localhost:27017"
 
-mongo.init_app(app, uri=mongo_url, tlsCAFile=certifi.where())
+if not mongo_url:
+    mongo_url = f"mongodb://{DB_USER}:{DB_PASSWORD}@{DB_URL}:{DB_PORT}/algos_project?authSource=admin"
+    mongo.init_app(app, uri=mongo_url)
+else:
+    mongo.init_app(app, uri=mongo_url, tlsCAFile=certifi.where())
 
 app.bcrypt = Bcrypt(app)
 

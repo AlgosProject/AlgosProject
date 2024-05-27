@@ -13,6 +13,8 @@ def friends_list():  # put application's code here
         return status
     user = session.get("user")
     user = userDao.User(**user)
+    user = userDao.find_user_by_id(user.id)
+    session["user"] = dict(user)
     friends_dict = user.get_friends_dict()
 
     friends_ls = [userDao.find_one(id) for id in friends_dict.keys()]

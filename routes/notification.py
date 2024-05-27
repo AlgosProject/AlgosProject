@@ -14,6 +14,8 @@ def notification():
     if status:
         return status
     user = userDao.User(**session["user"])
+    user = userDao.find_user_by_id(user.id)
+    session["user"] = dict(user)
 
     if request.method == "GET":
         notifs = user.notifications
