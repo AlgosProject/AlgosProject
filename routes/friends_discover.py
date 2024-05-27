@@ -33,7 +33,8 @@ def friends_discover():
             if u_id not in common_friends.keys():
                 common_friends[u_id] = len(user.get_common_friends(u_id))
 
-        suggestions = [userDao.find_one(u) for u in visible_user if u != user.id]
+        suggestions = [userDao.find_one(u) for u in visible_user
+                       if u != user.id and u not in [u["friend_id"] for u in user.friends]]
 
         return render_template("friends_discover.jinja2",
                                pending_fr=received_friend_requests,
