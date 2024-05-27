@@ -84,8 +84,8 @@ class User:
                     # Filtering criteria
                     # If node within reach of your privacy control
                     distance_within_privacy = distance <= self.privacy_control
-                    # If other node has a higher privacy than self
-                    ns_privacy_control = find_one(n).privacy_control >= self.privacy_control
+                    # If other node has a higher privacy than distance
+                    ns_privacy_control = distance <= find_one(n).privacy_control
 
                     # Visit node
                     if n not in visited and distance_within_privacy and ns_privacy_control:
