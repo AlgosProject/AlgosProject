@@ -1,12 +1,16 @@
 from flask import Blueprint, render_template, session, request, redirect, url_for
 
 from model import userDao, postDao
+from utils import check_logged_in
 
 home_blueprint = Blueprint("home_page", __name__, template_folder="templates")
 
 
 @home_blueprint.route("/home_page", methods=["GET", "POST"])
 def home():
+    status = check_logged_in.check_session()
+    if status:
+        return status
     if request.method == "GET":
         # Get the user from session
         user = userDao.User(**session.get("user"))
