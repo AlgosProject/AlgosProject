@@ -36,7 +36,7 @@ def notification():
         if request.form["action"] == "accept_request":
             friend_id = request.form["friend_id"]
             session["user"] = dict(user.add_friend(friend_id))
-            friend = userDao.User(**userDao.find_one(friend_id))
+            friend = userDao.find_one(friend_id)
             friend.add_friend(user.id)
             return redirect(url_for("notification.notification"))
         if request.form["action"] == "decline_request":
