@@ -208,7 +208,24 @@ class User:
         other = find_one(other_id)
         for t in other.tags_built:
             other_affinity[t["tag"].name] = t["affinity"]
-        comp_affinity = {k: abs(self_affinity[k] - self_affinity[k]) for k in self_affinity.keys()}
+
+        def compare_vals(dict1, dict2, k):
+            val1, val2 = None, None
+            if k in dict1.keys():
+                val1 = dict1[k]
+            if k in dict2.keys():
+                val2 = dict2[k]
+
+            if val1 is not None and val2 is not None:
+                return abs(max(val1, val2) - min(val1, val2))
+            elif val1 is not None:
+                return abs(val1)
+            elif val2 is not None:
+                return abs(val2)
+
+        comp_affinity = {k: compare_vals(self_affinity, other_affinity, k) for k in self_affinity.keys()}
+        for k in other_affinity.keys():
+            comp_affinity[k] = compare_vals(self_affinity, other_affinity, k)
         return sum(v for v in comp_affinity.values())
 
 

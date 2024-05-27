@@ -23,7 +23,7 @@ def friends_discover():
             notifs[n.author_id] = n.id
 
         visible_user = user.bfs_get_visible_user_ids()
-        visible_user.sort(key=lambda other_id: -user.compare_affinity(other_id))
+        visible_user.sort(key=lambda other_id: user.compare_affinity(other_id))
 
         for u_id in visible_user:
             if u_id not in common_friends.keys():
