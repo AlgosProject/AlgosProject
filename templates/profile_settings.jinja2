@@ -11,9 +11,9 @@
                 <a>Privacy Level: </a>
                 <div class="input-group mb-3 d-flex">
                     <form class="w-100" action="/profile_settings" method="POST" id="change-privacy-form">
-                    <label class="input-group-text" for="privacy_control">Options</label>
+                    <label class="input-group-text" for="privacy_control">Options:</label>
                     <select class="form-select" name="privacy_control" id="privacy_control">
-                        <option selected disabled>Choose...</option>
+                        <option selected disabled>{{ user.privacy_control }}</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -42,7 +42,7 @@
                 <a> Change Username: </a>
                 <div class="input-group mb-3">
                     <form action="/profile_settings" method="POST" id="change-username-form">
-                    <input type="text" class="form-control" placeholder="New username" id="username"
+                    <input type="text" class="form-control" placeholder={{ user.username }} id="username"
                            aria-label="New username" aria-describedby="button-addon2" name="username">
                         <input type="hidden" name="update" value="username"/>
                     </form>
@@ -60,7 +60,7 @@
                 <a> Change Name: </a>
                 <div class="input-group mb-3">
                     <form action="/profile_settings" method="POST" id="change-name-form">
-                    <input type="text" class="form-control" placeholder="New Name" name="name" id="name"
+                    <input type="text" class="form-control" placeholder={{ user.name }} name="name" id="name"
                            aria-label="New password" aria-describedby="button-addon2">
                         <input type="hidden" name="update" value="name"/>
                     </form>
@@ -81,10 +81,13 @@
                     </form>
                 </div>
             </div>
-            <button type="button" class="btn btn-danger" style="margin-top:auto; align-self: center;" onsubmit="deleteProfile()">Delete Profile</button>
+            <!--
+            <form action="/profile_settings" method="POST">
+                <button  class="btn btn-danger" type="submit" id="delete_profile_btn">Delete Profile</button>
+            </form>
+            -->
         </div>
         <div class="side_block">
-            <a href="" style="margin-top:auto; align-self: center;"> Logout </a>
         </div>
     </div>
 

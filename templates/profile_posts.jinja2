@@ -16,9 +16,6 @@
                 {% endif %}
 
                 <span style="margin-left: auto;">
-                    {% if curr_user %}
-                            <button type="button" class="btn btn-primary" onsubmit="logout()">Logout</button>
-                    {% endif %}
                     {% if not curr_user %}
                         {% if profile.id in curr_user.friends %}
                         <div class="btn">
