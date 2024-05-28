@@ -230,15 +230,20 @@ class User:
 
     def change_tag_affinity(self, list_tag_ids, amount):
         for tag_id in list_tag_ids:
-            tag = next(filter(lambda x: x["tag_id"] == tag_id, self.tags))
-            if tag is not None:
+            tag = [t for t in self.tags if t["tag_id"] == tag_id]
+            if len(tag) == 0:
+                tag = None
+            else:
+                tag = tag[0]
+
+            if tag:
                 for t in self.tags:
                     if t["tag_id"] == tag["tag_id"]:
                         t["affinity"] += amount
                         if t["affinity"] < 0:
                             t["affinity"] = 0
 
-            if tag is None:
+            if not tag:
                 db_tag = model.tagDao.find_one(tag_id)
                 if db_tag is not None:
                     self.tags.append({"tag_id": db_tag.id, "affinity": amount})
