@@ -154,7 +154,10 @@ class User:
         if friend_id in self.friends:
             self.friends.remove(friend_id)
         print(self.friends)
+        friend = find_one(friend_id)
+        friend.delete_friend(self.id)
         update_one(self.id, self)
+        update_one(friend_id, friend)
         return self
 
     def remove_friend(self, friend_id):
