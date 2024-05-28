@@ -42,7 +42,8 @@ def friends_discover():
                                notifs=notifs,
                                empty_fr=not bool(len(received_friend_requests)),
                                suggestions=suggestions,
-                               sent_fr=sent_friend_requests
+                               sent_fr=sent_friend_requests,
+                               user=user
                                )
 
     if request.method == "POST":
