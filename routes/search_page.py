@@ -30,7 +30,7 @@ def login_form():
             if post.user_id in visitable_ids:
                 filterposts.append(post)
         return render_template("search_page.jinja2", query=query, tags=tags, friends_ls=friends_ls,
-                               common_friends=common_friends, posts=filterposts)
+                               common_friends=common_friends, posts=filterposts, user=user)
 
     elif request.method == "GET":
         return render_template("search_page.jinja2")

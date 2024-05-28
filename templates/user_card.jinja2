@@ -33,16 +33,21 @@
                     </form>
                 </div>
                 <div class="btn">
-                        <button type="submit" class="btn btn-danger" onclick="addFriend('{{ friend.id }}', 'delete'); this.disabled=true;">
-                            Remove Friend
-                        </button>
+                    <button type="submit" class="btn btn-danger"
+                            onclick="addFriend('{{ friend.id }}', 'delete'); this.disabled=true;">
+                        Remove Friend
+                    </button>
                 </div>
             </div>
         {% endif %}
 
 
         {% if (request.path == '/search_page' and friend is defined) %}
-            <button type="button" class="btn btn-success" onclick="addFriend('{{ friend.id }}', 'add'); this.disabled=true;">Add Friend</button>
+            {% if friend.id not in user.friend_ids %}
+                <button type="button" class="btn btn-success"
+                        onclick="addFriend('{{ friend.id }}', 'add'); this.disabled=true;">Add Friend
+                </button>
+            {% endif %}
         {% endif %}
 
         {% if request.path == '/friends_discover' %}
@@ -80,13 +85,15 @@
                     </div>
                 {% else %}
                     <div class="card_buttons_container">
-                        <form method="post" action="/friends_discover">
-                            <input type="hidden" name="friend_id" value="{{ friend.id }}">
-                            <input type="hidden" name="action" value="friend_request">
-                            <button type="submit" class="btn btn-success">
-                                Add friend
-                            </button>
-                        </form>
+                        {% if friend.id not in user.friend_ids %}
+                            <form method="post" action="/friends_discover">
+                                <input type="hidden" name="friend_id" value="{{ friend.id }}">
+                                <input type="hidden" name="action" value="friend_request">
+                                <button type="submit" class="btn btn-success">
+                                    Add friend
+                                </button>
+                            </form>
+                        {% endif %}
                     </div>
                 {% endif %}
             {% endif %}
@@ -171,12 +178,15 @@
             {#TODO Make the buttons work #}
             <span>
             <button type="button" class="btn btn-primary" onsubmit="openChat()">Chat</button>
-            <button type="button" class="btn btn-danger" onclick="addFriend('{{ friend.id }}', 'delete'); this.disabled=true;">Remove Friend</button>
+            <button type="button" class="btn btn-danger"
+                    onclick="addFriend('{{ friend.id }}', 'delete'); this.disabled=true;">Remove Friend</button>
         </span>
         {% endif %}
 
         {% if request.path == '/friends_discover' %}
-            <button type="button" class="btn btn-success"  onclick="addFriend('{{ friend.id }}', 'add'); this.disabled=true;">Add Friend</button>
+            <button type="button" class="btn btn-success"
+                    onclick="addFriend('{{ friend.id }}', 'add'); this.disabled=true;">Add Friend
+            </button>
         {% endif %}
 
         {% if request.path == '/communities_discover' %}
