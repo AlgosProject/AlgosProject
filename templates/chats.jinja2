@@ -15,9 +15,6 @@
                     Chat with {{ current_recipient.name }}
                 </a>
                 <div class="chat_window">
-                    {% for message in messages %}
-                        {% include "chat_item.jinja2" %}
-                    {% endfor %}
                 </div>
 
                 <div class="form-group" style="width: 95%; padding: 0.5rem; margin-top: auto;">
@@ -46,5 +43,23 @@
         <div class="side_block">
             <img src="../static/img/affinity_logo.png" alt="logo">
         </div>
+
+    <script>
+        let searchParams = new URLSearchParams(window.location.search)
+        if(searchParams.has('id')){
+            var chat_id = searchParams.get('id')
+            var chat_id_data = {"data" : `${chat_id}`};
+        }
+        function poll_chat_data() {
+            $.ajax({
+                url: "/load_chats", type: "POST", data: JSON.stringify(chat_id_data),
+                contentType: "application/json; charset=utf-8", success: function (data) {
+                    $(".chat_window").html(data);
+                }
+            })
+            setTimeout(poll_chat_data, 5000);
+        }
+        poll_chat_data();
+    </script>
     </div>
 {% endblock %}
