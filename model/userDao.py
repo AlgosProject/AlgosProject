@@ -54,6 +54,10 @@ class User:
             tags.append(t)
         return tags
 
+    @property
+    def friend_ids(self):
+        return [f["friend_id"] for f in self.friends]
+
     def __iter__(self):  # This method allows us to add support for dict() on an object
         for field in dataclasses.fields(self):
             yield field.name, getattr(self, field.name)

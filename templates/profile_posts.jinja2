@@ -17,7 +17,7 @@
 
                 <span style="margin-left: auto;">
                     {% if not curr_user %}
-                        {% if profile.id in curr_user.friends %}
+                        {% if profile.id in user.friend_ids %}
                         <div class="btn">
                             <form method="post" action="/chats">
                                 <input type="hidden" name="friend_id" value="{{ profile.id }}">
