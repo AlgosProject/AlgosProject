@@ -40,4 +40,4 @@ def profile_settings():  # put application's code here
             privacy_control = int(request.form.get("privacy_control"))
             session['user'] = dict(user.set_privacy_control(privacy_control))
         flash("Updated " + calltype + " successfully")
-        return render_template("profile_settings.jinja2")
+        return render_template("profile_settings.jinja2", user=user)
