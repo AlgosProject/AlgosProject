@@ -16,7 +16,6 @@ def chat():  # put application's code here
     chats = groupDao.find_all_chats_by_user(user.id)
     chat_id = request.json['data']
     notifs = notificationDao.find_by_user_id_type(user.id, "chat")
-    print(chat_id)
     if chat_id is None:
         if len(chats) == 0:
             return render_template("chats.jinja2")

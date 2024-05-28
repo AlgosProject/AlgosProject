@@ -23,7 +23,8 @@ def notification():
             return dict({
                 "total": len(notifs),
                 "fr_amount": len([n for n in notifs if n.is_friend_request]),
-                "chats_amount": len([n for n in notifs if n.is_chat])
+                "chats_amount": len([n for n in notifs if n.is_chat]),
+                "all_messages": [n.type for n in notifs]
             })
 
         if notifs:

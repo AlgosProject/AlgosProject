@@ -22,6 +22,18 @@
             crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
+        var testText;
+        if(sessionStorage.getItem("testText")){
+          testText = sessionStorage.getItem("testText");
+        }
+        else{
+            setNotifSession();
+        }
+
+        function setNotifSession(){
+            sessionStorage.setItem("testText", testText)
+        }
+
         function addFriend(friendId, type) {
                   console.log(friendId, type)
                 $.post("/add_friend_to_user", {
@@ -56,6 +68,23 @@
                                 .text(() => {
                                     return "# " + res.fr_amount
                                 })
+                            if(res.all_messages.length > 0){
+                                text = "";
+                                if(res.all_messages.length == 1)
+                                    text = `${res.all_messages.length} new notification`
+                                else
+                                    text = `${res.all_messages.length} new notifications`
+                                $("#toast-nums").text(text)
+                                if(text !== testText) {
+                                    testText = text;
+                                    setNotifSession()
+                                    $(".toast").toast("show")
+                                }
+                            }
+                            else {
+                                testText = ''
+                                setNotifSession()
+                            }
                         }
                     });
 
@@ -164,6 +193,16 @@
             {% endfor %}
         {% endif %}
     {% endwith %}
+</div>
+<div class="toast-containers" style="position: relative">
+<div class="toast" role="alert" aria-live="assertive" style="position: absolute; top: 0; right: 0;" aria-atomic="true">
+  <div class="toast-header">
+    <strong class="mr-auto">Notification</strong>
+  </div>
+  <div class="toast-body">
+    You have <span id="toast-nums"> new notification</span>!
+  </div>
+</div>
 </div>
 {% block content %}
 {% endblock %}</body>
