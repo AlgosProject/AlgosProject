@@ -22,6 +22,7 @@ from routes.logout import logout_blueprint
 from routes.notification import notification_blueprint
 from routes.search_page import search_page_blueprint
 from routes.add_friend import add_friend_blueprint
+from routes.load_chat_window import load_chats_blueprint
 
 from utils.mongo_store_broker import mongo
 from flask_bcrypt import Bcrypt
@@ -71,6 +72,7 @@ app.register_blueprint(logout_blueprint)
 app.register_blueprint(search_page_blueprint)
 app.register_blueprint(notification_blueprint)
 app.register_blueprint(add_friend_blueprint)
+app.register_blueprint(load_chats_blueprint)
 
 if __name__ == "__main__":
     app.run()
